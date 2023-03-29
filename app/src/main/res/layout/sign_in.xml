@@ -32,7 +32,8 @@
         android:hint="Username"
         android:padding="15dp"
         android:textColorHint="@color/white"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:inputType="text"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -49,7 +50,8 @@
         android:hint="Password"
         android:padding="15dp"
         android:textColorHint="@color/white"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:inputType="textPassword"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/loginbtn"
