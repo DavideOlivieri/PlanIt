@@ -90,19 +90,21 @@
         android:inputType="textPassword"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginbtn"
-        android:layout_width="120dp"
+        android:id="@+id/signupbtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/confermapassword"
+        android:layout_below="@+id/confermapassword"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        app:backgroundTint="@color/teal_200"
-        app:cornerRadius="70dp"
-        android:text="LOGIN"
-        android:textStyle="bold" />
+        android:text="SIGN UP"
+        android:textColor="@color/black"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="70dp" />
 
     <TextView
         android:id="@+id/textView4"
