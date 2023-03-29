@@ -53,7 +53,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/loginbtn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
@@ -61,9 +61,12 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
+        app:backgroundTint="@color/teal_200"
+        app:cornerRadius="70dp"
         android:text="LOGIN"
         android:textStyle="bold"
-        app:backgroundTint="@color/teal_200" />
+
+         />
 
 
 
