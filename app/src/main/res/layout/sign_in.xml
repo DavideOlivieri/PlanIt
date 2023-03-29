@@ -55,12 +55,8 @@
         android:id="@+id/loginbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:text="LOGIN"
-        app:backgroundTint="@color/teal_200" />
-        //prova
+        android:layout_below="@id/password"/>
+
 
 
 
