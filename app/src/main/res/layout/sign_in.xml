@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="match_parent"
@@ -51,12 +51,15 @@
         android:textColorHint="@color/white"
         android:textSize="20dp"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loginbtn"
-            android:layout_below="@id/password"/>
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="LOGIN"
+        app:backgroundTint="@color/teal_200" />
 
 
 
