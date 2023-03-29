@@ -37,6 +37,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/password"
         android:layout_below="@id/username"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
@@ -49,5 +50,14 @@
         android:padding="15dp"
         android:textColorHint="@color/white"
         android:textSize="20dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginbtn"
+            android:layout_below="@id/password"/>
+
+
+
 
 </RelativeLayout>
