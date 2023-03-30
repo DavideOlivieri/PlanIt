@@ -106,15 +106,32 @@
         app:backgroundTint="@color/white"
         app:cornerRadius="70dp" />
 
-    <TextView
-        android:id="@+id/textView4"
+    <LinearLayout
+        android:id="@+id/layout_bottone_accedi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="Hai un account? Accedi"
-        android:textSize="18dp"/>
+        android:layout_marginBottom="70dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hai_un_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hai un account?"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/loginview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Accedi"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>
