@@ -11,5 +11,6 @@
     <color name="green">#10F61B</color>
     <color name="red">#C11818</color>
     <color name="orange">#FF5722</color>
+    <color name="actionBar">#B511EC</color>
 
 </resources>
