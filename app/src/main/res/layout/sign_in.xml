@@ -63,13 +63,12 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        app:backgroundTint="@color/white"
-        android:textColor="@color/black"
-        app:cornerRadius="70dp"
-        android:textSize="19dp"
         android:text="LOGIN"
+        android:textColor="@color/black"
+        android:textSize="19dp"
         android:textStyle="bold"
-         />
+        app:backgroundTint="@color/white"
+        app:cornerRadius="70dp" />
 
 
     <LinearLayout
