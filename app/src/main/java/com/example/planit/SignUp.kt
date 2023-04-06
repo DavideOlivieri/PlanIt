@@ -12,6 +12,8 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        // passaggio alla schermata di logIn
         val siAccount = findViewById<TextView>(R.id.login_view)
 
         siAccount.setOnClickListener{
@@ -19,12 +21,15 @@ class SignUp : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // inizializzazione variabili
         val email = findViewById<EditText>(R.id.email)
         val user = findViewById<EditText>(R.id.username)
         val pass = findViewById<EditText>(R.id.password)
         val cnfpass = findViewById<EditText>(R.id.confermapassword)
         val btnSignUp = findViewById<Button>(R.id.signupbtn)
 
+
+        // controllo dei valori inseriti
         btnSignUp.setOnClickListener {
             val strUser: String = user.text.toString()
             val strPass: String = pass.text.toString()
@@ -33,8 +38,8 @@ class SignUp : AppCompatActivity() {
             if(strPass.equals(strcnfPass)) {
                 if(stremail.contains('@') && stremail.contains('.')){
                     if (!strUser.contains('@') && !strPass.contains(' ') && strPass.isNotEmpty() && strUser.isNotEmpty()) {
-                        val intentLogin = Intent(this, ActivityMain::class.java)
-                        startActivity(intentLogin)
+                        val intentDone = Intent(this, SignUpDone::class.java)
+                        startActivity(intentDone)
                     } else {
                         Toast.makeText(this, "I valori inseriti non sono corretti!", Toast.LENGTH_SHORT)
                             .show()
