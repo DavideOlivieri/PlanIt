@@ -88,7 +88,9 @@
             android:layout_height="wrap_content"
             android:text="Non hai un account?"
             android:textSize="18dp"
-            android:textColorHint="@color/black"/>
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"/>
+
 
         <TextView
             android:id="@+id/sign_up_view"
@@ -97,7 +99,8 @@
             android:text=" Registrati"
             android:textSize="18dp"
             android:textColorHint="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
