@@ -35,22 +35,58 @@ class SignUp : AppCompatActivity() {
             val strPass: String = pass.text.toString()
             val strcnfPass: String = cnfpass.text.toString()
             val stremail: String = email.text.toString()
-            if(strPass.equals(strcnfPass)) {
-                if(stremail.contains('@') && stremail.contains('.')){
-                    if (!strUser.contains('@') && !strPass.contains(' ') && strPass.isNotEmpty() && strUser.isNotEmpty()) {
-                        val intentDone = Intent(this, SignUpDone::class.java)
-                        startActivity(intentDone)
-                    } else {
-                        Toast.makeText(this, "I valori inseriti non sono corretti!", Toast.LENGTH_SHORT)
+            if (stremail.isNotEmpty()) {
+                if (strPass.isNotEmpty()) {
+                    if (strUser.isNotEmpty()) {
+                        if (strcnfPass.isNotEmpty()) {
+                            if (strPass == strcnfPass) {
+                                if (strPass.contains('1') || strPass.contains('2') || strPass.contains('3') || strPass.contains('4') || strPass.contains('5') || strPass.contains('6') || strPass.contains('7') || strPass.contains('8') || strPass.contains('9') || strPass.contains('0')) {
+                                    if (stremail.contains('@') && (stremail.contains(".com") || stremail.contains(".it"))) {
+                                        if (strUser.length < 15 && stremail.length < 25) {
+                                            val intentDone = Intent(this, SignUpDone::class.java)
+                                            startActivity(intentDone)
+                                        } else {
+                                            Toast.makeText(
+                                                this,
+                                                "I valori inseriti non sono corretti!",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                    } else {
+                                        Toast.makeText(
+                                            this,
+                                            "Inserisci un indirizzo email valido!",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                    }
+                                }else{
+                                    Toast.makeText(this, "Inserisci una Password adeguata (deve contenere almeno un numero)", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "La password confermata non è corretta!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }else{
+                            Toast.makeText(this, "Confermara la password!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }else{
+                        Toast.makeText(this, "Inserisci un nome Utente!", Toast.LENGTH_SHORT)
                             .show()
                     }
-                } else {
-                    Toast.makeText(this, "L'email non è ammissibile!", Toast.LENGTH_SHORT)
+                }else{
+                    Toast.makeText(this, "Inserisci una Password!", Toast.LENGTH_SHORT)
                         .show()
                 }
-
-            } else{
-                Toast.makeText(this, "La password confermata non è corretta!", Toast.LENGTH_SHORT)
+            }else{
+                Toast.makeText(this, "Inserisci un indirizzo email!", Toast.LENGTH_SHORT)
                     .show()
             }
         }

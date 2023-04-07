@@ -29,12 +29,19 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val strUser: String = user.text.toString()
             val strPass: String = pass.text.toString()
-            if (!strUser.contains('@') && !strPass.contains(' ') && strPass.isNotEmpty() && strUser.isNotEmpty()) {
-                val intentLogin = Intent(this, ActivityMain::class.java)
-                startActivity(intentLogin)
-            }
-            else{
-                Toast.makeText(this,"I valori inseriti non sono corretti!", Toast.LENGTH_SHORT).show()
+            if (strPass.isNotEmpty()) {
+                if (strUser.isNotEmpty()) {
+                        if (strUser.length < 15) {
+                            val intentLogin = Intent(this, ActivityMain::class.java)
+                            startActivity(intentLogin)
+                        } else {
+                            Toast.makeText(this,"I valori inseriti non sono corretti!", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    Toast.makeText(this,"Inserire lo User!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this,"Inserire la Password!", Toast.LENGTH_SHORT).show()
             }
 
         }

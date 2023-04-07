@@ -7,6 +7,6 @@ class ActivityMain : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_calendario)
+        setContentView(R.layout.activity_main)
     }
 }
