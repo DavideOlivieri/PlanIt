@@ -1,0 +1,138 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "androidx.room",
+    "module": "room-ktx",
+    "version": "2.5.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.room",
+          "module": "room-common",
+          "version": {
+            "requires": "2.5.1"
+          }
+        },
+        {
+          "group": "androidx.room",
+          "module": "room-runtime",
+          "version": {
+            "requires": "2.5.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.7.20"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.6.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "room-ktx-2.5.1.aar",
+          "url": "room-ktx-2.5.1.aar",
+          "size": 32212,
+          "sha512": "cdc6fafd8e208ba09d1913271383cf67c376442038331a6a9fdd7cb6a651aec314bfcdce0345368e6bdbe901bc592a9f30229f1f9ab6cfa5759b9c7113a9cada",
+          "sha256": "3f31ac0c3102a74d31f3a55444ebbfc5ad100a574c0e3971953682568cb08f63",
+          "sha1": "240ed65250c05042f5c645e14929aecc4e56187f",
+          "md5": "214addbfecb55db9dbb2ac501a495932"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.room",
+          "module": "room-common",
+          "version": {
+            "requires": "2.5.1"
+          }
+        },
+        {
+          "group": "androidx.room",
+          "module": "room-runtime",
+          "version": {
+            "requires": "2.5.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.7.20"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.6.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "room-ktx-2.5.1.aar",
+          "url": "room-ktx-2.5.1.aar",
+          "size": 32212,
+          "sha512": "cdc6fafd8e208ba09d1913271383cf67c376442038331a6a9fdd7cb6a651aec314bfcdce0345368e6bdbe901bc592a9f30229f1f9ab6cfa5759b9c7113a9cada",
+          "sha256": "3f31ac0c3102a74d31f3a55444ebbfc5ad100a574c0e3971953682568cb08f63",
+          "sha1": "240ed65250c05042f5c645e14929aecc4e56187f",
+          "md5": "214addbfecb55db9dbb2ac501a495932"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "room-ktx-2.5.1-sources.jar",
+          "url": "room-ktx-2.5.1-sources.jar",
+          "size": 6099,
+          "sha512": "7f63f3a35847477b351b662dc954eb9a05645a56c888db67832185e6ca5f95c04efac285d3fc469c408e093b5575a7b863dae12d9c28557337bc878823357324",
+          "sha256": "cd5aa1225bd0d063e6cb09a9256adad1b0b710a66b7c10f4768b7904a2df8e62",
+          "sha1": "4f97d6d673bf28afbab26640145677da1febcfdf",
+          "md5": "37f566507a47fb14352efbe6aefafcf2"
+        }
+      ]
+    }
+  ]
+}
