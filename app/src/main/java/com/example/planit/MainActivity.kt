@@ -35,17 +35,23 @@ class MainActivity : AppCompatActivity() {
             val strPass: String = pass.text.toString()
             if (strPass.isNotEmpty()) {
                 if (strUser.isNotEmpty()) {
-                        if (strUser.length < 15) {
+                    if (strUser.length < 15) {
+                        // Condizione essenziale per evitare un java.lang.NullPointerException generato dal fatto che non sono presenti Utenti nel Database con lo stesso username
+                        if(userDao.checkPass(strUser) != null){
                             if(strUser == userDao.checkPass(strUser).user && strPass == userDao.checkPass(strUser).password){
                                 val intentLogin = Intent(this, ActivityMain::class.java)
                                 startActivity(intentLogin)
                             } else {
-                                Toast.makeText(this, "Lo Username o la Password non sono corretti!", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(this, "Lo Username o la Password non sono corretti!", Toast.LENGTH_SHORT).show()
                             }
-                        } else {
-                            Toast.makeText(this,"I valori inseriti non sono corretti!", Toast.LENGTH_SHORT).show()
-                        }
+                        } else{
+                            Toast.makeText(this, "Non sei registrato!", Toast.LENGTH_SHORT).show()
+                            val intentLogin = Intent(this, SignUp::class.java)
+                            startActivity(intentLogin)
+                            }
+                    } else {
+                        Toast.makeText(this,"I valori inseriti non sono corretti!", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(this,"Inserire lo User!", Toast.LENGTH_SHORT).show()
                 }
