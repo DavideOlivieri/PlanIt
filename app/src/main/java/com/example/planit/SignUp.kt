@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import roomData.User
+import roomData.UserDatabase
 
 class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,10 @@ class SignUp : AppCompatActivity() {
         val cnfpass = findViewById<EditText>(R.id.confermapassword)
         val btnSignUp = findViewById<Button>(R.id.signupbtn)
 
+        var newUser: User
+        val userDao = UserDatabase.getInstance(application).dao()
+
+
 
         // controllo dei valori inseriti
         btnSignUp.setOnClickListener {
@@ -43,22 +49,22 @@ class SignUp : AppCompatActivity() {
                                 if (strPass.contains('1') || strPass.contains('2') || strPass.contains('3') || strPass.contains('4') || strPass.contains('5') || strPass.contains('6') || strPass.contains('7') || strPass.contains('8') || strPass.contains('9') || strPass.contains('0')) {
                                     if (stremail.contains('@') && (stremail.contains(".com") || stremail.contains(".it"))) {
                                         if (strUser.length < 15 && stremail.length < 25) {
-                                            val intentDone = Intent(this, SignUpDone::class.java)
-                                            startActivity(intentDone)
+                                            if(strUser == userDao.checkUser(strUser)){
+                                                Toast.makeText(this, "Esiste già un Utente con lo stesso Username :(", Toast.LENGTH_SHORT)
+                                                    .show()
+                                            } else {
+
+                                                newUser = User(strPass, stremail, strUser)
+                                                userDao.insertUser(newUser)
+                                                val intentDone = Intent(this, SignUpDone::class.java)
+                                                startActivity(intentDone)
+                                            }
                                         } else {
-                                            Toast.makeText(
-                                                this,
-                                                "I valori inseriti non sono corretti!",
-                                                Toast.LENGTH_SHORT
-                                            )
+                                            Toast.makeText(this, "I valori inseriti non sono corretti!", Toast.LENGTH_SHORT)
                                                 .show()
                                         }
                                     } else {
-                                        Toast.makeText(
-                                            this,
-                                            "Inserisci un indirizzo email valido!",
-                                            Toast.LENGTH_SHORT
-                                        )
+                                        Toast.makeText(this, "Inserisci un indirizzo email valido!", Toast.LENGTH_SHORT)
                                             .show()
                                     }
                                 }else{
@@ -66,11 +72,7 @@ class SignUp : AppCompatActivity() {
                                         .show()
                                 }
                             } else {
-                                Toast.makeText(
-                                    this,
-                                    "La password confermata non è corretta!",
-                                    Toast.LENGTH_SHORT
-                                )
+                                Toast.makeText(this, "La password confermata non è corretta!", Toast.LENGTH_SHORT)
                                     .show()
                             }
                         }else{

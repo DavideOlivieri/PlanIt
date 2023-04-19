@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import roomData.User
+import roomData.UserDatabase
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btn_login)
         val user = findViewById<EditText>(R.id.username)
         val pass = findViewById<EditText>(R.id.password)
+
+        val userDao = UserDatabase.getInstance(application).dao()
 
         // passaggio alla schermata di signUp
         noAccount.setOnClickListener {
@@ -32,8 +36,13 @@ class MainActivity : AppCompatActivity() {
             if (strPass.isNotEmpty()) {
                 if (strUser.isNotEmpty()) {
                         if (strUser.length < 15) {
-                            val intentLogin = Intent(this, ActivityMain::class.java)
-                            startActivity(intentLogin)
+                            if(strUser == userDao.checkPass(strUser).user && strPass == userDao.checkPass(strUser).password){
+                                val intentLogin = Intent(this, ActivityMain::class.java)
+                                startActivity(intentLogin)
+                            } else {
+                                Toast.makeText(this, "Lo Username o la Password non sono corretti!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         } else {
                             Toast.makeText(this,"I valori inseriti non sono corretti!", Toast.LENGTH_SHORT).show()
                         }
