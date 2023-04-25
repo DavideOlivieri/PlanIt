@@ -20,7 +20,7 @@ interface UserDao {
 
     @Query("SELECT user FROM User WHERE User.user = :checkuser")
     fun checkUser(checkuser: String): String
-
+/*
     @Query("Update User SET User.password = password, User.email = email WHERE User.user = :checkuser")
-    fun modUser(checkuser: Bundle, password: String, email: String): String
+    fun modUser(checkuser: Bundle, password: String, email: String): String*/
 }

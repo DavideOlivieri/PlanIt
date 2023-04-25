@@ -14,7 +14,13 @@
             android:name=".SignUp"
             android:exported="false" />
         <activity
-            android:name=".ActivityMain"
+            android:name=".AddCalendar"
+            android:exported="false" />
+        <activity
+            android:name=".Calendar"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
             android:exported="false" />
         <activity
             android:name=".SignUpDone"
