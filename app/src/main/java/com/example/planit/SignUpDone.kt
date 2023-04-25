@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.calendario.R
 
 class SignUpDone : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
