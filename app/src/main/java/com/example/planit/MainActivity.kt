@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                         if(userDao.checkPass(strUser) != null){
                             if(strUser == userDao.checkPass(strUser).user && strPass == userDao.checkPass(strUser).password){
                                 val intentLogin = Intent(this, Home::class.java)
-                                intent.putExtra("Username", strUser)
+                                intentLogin.putExtra("Username", strUser)
                                 startActivity(intentLogin)
                             } else {
                                 Toast.makeText(this, "Lo Username o la Password non sono corretti!", Toast.LENGTH_SHORT).show()

@@ -15,7 +15,7 @@ class Home : AppCompatActivity() {
         //inizializzazione variabili
         val account = findViewById<ImageView>(R.id.Account)
         val btnAdd = findViewById<Button>(R.id.Aggiungi_Calendario)
-        val username = intent.extras
+        val username = intent.getStringExtra("Username")
 
         // passaggio alla schermata di ModAccount
         account.setOnClickListener {
@@ -25,8 +25,9 @@ class Home : AppCompatActivity() {
         }
 
         // Aggiungi un nuovo Calendario
-        account.setOnClickListener {
+        btnAdd.setOnClickListener {
             val intent = Intent(this, AddCalendar::class.java)
+            intent.putExtra("Username", username)
             startActivity(intent)
         }
     }

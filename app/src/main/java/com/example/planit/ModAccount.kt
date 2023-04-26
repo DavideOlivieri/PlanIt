@@ -20,7 +20,7 @@ class ModAccount : AppCompatActivity() {
         val pass = findViewById<EditText>(R.id.password)
         val cnfpass = findViewById<EditText>(R.id.confermapassword)
         val btnConferma = findViewById<Button>(R.id.confermabtn)
-        val username = intent.extras
+        val username = intent.getStringExtra("Username")
 
         val userDao = UserDatabase.getInstance(application).dao()
 
@@ -39,6 +39,7 @@ class ModAccount : AppCompatActivity() {
                                         //userDao.modUser(username, strPass, stremail)
                                     }
                                     val intentDone = Intent(this, Home::class.java)
+                                    intentDone.putExtra("Username", username)
                                     startActivity(intentDone)
                                 } else {
                                     Toast.makeText(this, "Inserisci un indirizzo email valido!", Toast.LENGTH_SHORT)
