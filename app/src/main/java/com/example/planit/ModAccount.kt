@@ -36,7 +36,9 @@ class ModAccount : AppCompatActivity() {
                             if (strPass.contains('1') || strPass.contains('2') || strPass.contains('3') || strPass.contains('4') || strPass.contains('5') || strPass.contains('6') || strPass.contains('7') || strPass.contains('8') || strPass.contains('9') || strPass.contains('0')) {
                                 if (stremail.contains('@') && (stremail.contains(".com") || stremail.contains(".it"))) {
                                     if (username != null) {
-                                        //userDao.modUser(username, strPass, stremail)
+                                        userDao.modUser(username, strPass, stremail)
+                                        Toast.makeText(this, "Modifica effettuata!", Toast.LENGTH_SHORT)
+                                            .show()
                                     }
                                     val intentDone = Intent(this, Home::class.java)
                                     intentDone.putExtra("Username", username)
