@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
                         // Condizione essenziale per evitare un java.lang.NullPointerException generato dal fatto che non sono presenti Utenti nel Database con lo stesso username
                         if(userDao.checkPass(strUser) != null){
                             if(strUser == userDao.checkPass(strUser).user && strPass == userDao.checkPass(strUser).password){
-                                val intentLogin = Intent(this, ActivityMain::class.java)
+                                val intentLogin = Intent(this, Home::class.java)
+                                intentLogin.putExtra("Username", strUser)
                                 startActivity(intentLogin)
                             } else {
                                 Toast.makeText(this, "Lo Username o la Password non sono corretti!", Toast.LENGTH_SHORT).show()

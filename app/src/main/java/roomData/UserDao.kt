@@ -19,4 +19,7 @@ interface UserDao {
 
     @Query("SELECT user FROM User WHERE User.user = :checkuser")
     fun checkUser(checkuser: String): String
+
+    @Query("UPDATE User SET password = :password, email = :email WHERE User.user = :checkuser")
+    fun modUser(checkuser: String?, password: String, email: String)
 }

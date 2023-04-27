@@ -11,13 +11,22 @@
         android:theme="@style/Theme.PlanIt"
         tools:targetApi="31">
         <activity
-            android:name="com.example.planit.SignUp"
-            android:exported="false" />
-        <activity
-            android:name="com.example.planit.ActivityMain"
-            android:exported="false" />
-        <activity
             android:name="com.example.planit.SignUpDone"
+            android:exported="false" />
+        <activity
+            android:name="com.example.planit.AddCalendar"
+            android:exported="false" />
+        <activity
+            android:name="com.example.planit.Calendar"
+            android:exported="false" />
+        <activity
+            android:name="com.example.planit.Home"
+            android:exported="false" />
+        <activity
+            android:name="com.example.planit.ModAccount"
+            android:exported="false" />
+        <activity
+            android:name="com.example.planit.SignUp"
             android:exported="false" />
         <activity
             android:name="com.example.planit.MainActivity"
