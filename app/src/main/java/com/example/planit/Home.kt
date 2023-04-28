@@ -30,7 +30,7 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Aggiungi un nuovo Calendario
+        // Aggiungi un nuovo Calendario (schermata scelta dati calendario)
         btnAdd.setOnClickListener {
             val intent = Intent(this, AddCalendar::class.java)
             intent.putExtra("Username", username)
