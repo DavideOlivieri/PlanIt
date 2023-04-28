@@ -6,6 +6,8 @@
     <solid android:color="@color/purple_500" />
     <corners
         android:background="#30ffffff"
-        android:radius="500dp"/>
+        android:radius="500dp"
+        />
+
 
 </shape>
