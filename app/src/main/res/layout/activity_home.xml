@@ -52,4 +52,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="100dp" />
 
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        android:layout_height="640dp"
+        android:layout_width="270dp"
+        android:orientation="vertical" />
 </androidx.constraintlayout.widget.ConstraintLayout>

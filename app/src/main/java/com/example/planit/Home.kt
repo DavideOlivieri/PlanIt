@@ -1,15 +1,17 @@
 package com.example.planit
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import com.example.calendario.R
+
+
 
 class Home : AppCompatActivity() {
 
@@ -37,25 +39,30 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-/*
+        val isOk = intent.getBooleanExtra("isOk",false)
+
         // Aggiungi nuovi calendari
-        btnAdd.setOnClickListener {
-          fun onClick(view: View){
-              addButton()
-          }
+        if (isOk) {
+                addButton()
         }
-*/
-
     }
 
-/*
-    lateinit var button: Button
+
+
+    @SuppressLint("ResourceAsColor")
     fun addButton(){
-        val constraint = findViewById<ConstraintLayout>(R.id.layout1)
+        var button: Button
+        val nome = intent.getStringExtra("Nome calendario")
+        val linear = findViewById<LinearLayout>(R.id.linearlayout)
         button = Button(this)
-        button.setText("Calendario_1")
-        button.
-        constraint.addView(button)
+        button.setTextColor(R.color.black)
+        button.setText(nome)
+        button.setBackgroundColor(R.color.white)  // non funziona colore
+        linear.addView(button)
     }
-*/
-}
+
+    }
+
+
+
+

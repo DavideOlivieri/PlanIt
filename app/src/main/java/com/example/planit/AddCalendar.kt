@@ -22,8 +22,16 @@ class AddCalendar : AppCompatActivity() {
 
         sicalendario.setOnClickListener{
             val edit = findViewById<EditText>(com.example.calendario.R.id.editText)
-            val result = edit.text.toString()
+            val nome = edit.text.toString()
             val intent = Intent(this,Home::class.java)
+            fun isOk():Boolean {
+                if (nome.isNotEmpty()) {
+                    intent.putExtra("Nome calendario", nome)
+                    return true
+                }
+                else return false
+            }
+            intent.putExtra("isOk",isOk())
             startActivity(intent)
         }
 
