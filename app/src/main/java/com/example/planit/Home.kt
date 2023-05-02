@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
@@ -18,6 +20,7 @@ import com.example.calendario.R
 
 class Home : AppCompatActivity() {
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -42,28 +45,56 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val isOk = intent.getBooleanExtra("isOk",false)
+        val isOk = intent.getBooleanExtra("isOk", false)
 
         // Aggiungi nuovi calendari
         if (isOk) {
-                addButton()
+            val button = addButton()
+
+            val button1 = findViewById<Button>(button)
+            button1.setOnClickListener {
+                val intent = Intent(this, Calendar::class.java)
+                // intent.putExtra("Username", username)
+                startActivity(intent)
+
+            }
+
         }
+
+
     }
+        fun addButton(): Int {
+            val linear = findViewById<LinearLayout>(R.id.linearlayout)
+            val inflater = LayoutInflater.from(this)
+            val nome = intent.getStringExtra("Nome calendario")
+            val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
+            val button = buttonLayout.findViewById<Button>(R.id.button)
+            button.setText(nome)
 
-    fun addButton(){
-        val inflater = LayoutInflater.from(this)
-        val nome = intent.getStringExtra("Nome calendario")
-        val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
-        val button = buttonLayout.findViewById<Button>(R.id.button)
-        button.setText(nome)
-        val relative = findViewById<RelativeLayout>(R.id.linearlayout)
-        relative.addView(buttonLayout)
-    }
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+
+          // Imposta i margini tra i bottoni
+            layoutParams.setMargins(0, 30, 0, 0)
+
+          // Imposta i parametri del layout
+            buttonLayout.layoutParams = layoutParams
+
+            button.id = View.generateViewId()
+            var button_id = button.id
+        //     var editText: EditText
+        //     editText = EditText(this)
+        //     editText.setText(button_id.toString())
+
+            linear.addView(buttonLayout,layoutParams)
+        //     linear.addView(editText,layoutParams)
+            return button_id
+        }
 
 
-
-
-/*
+        /*
     @SuppressLint("ResourceAsColor")
     fun addButton(){
         var button: Button
@@ -83,6 +114,7 @@ class Home : AppCompatActivity() {
     }
 */
     }
+
 
 
 
