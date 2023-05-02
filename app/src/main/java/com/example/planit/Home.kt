@@ -48,6 +48,7 @@ class Home : AppCompatActivity() {
         val isOk = intent.getBooleanExtra("isOk", false)
 
         // Aggiungi nuovi calendari
+        //se le informazioni riguardo al calendario soddisfano i requisiti allora aggiungo il bottone
         if (isOk) {
             val button = addButton()
 
@@ -63,6 +64,8 @@ class Home : AppCompatActivity() {
 
 
     }
+
+    //Funzione per aggiungere alla schermata di home il bottone del calendario
         fun addButton(): Int {
             val linear = findViewById<LinearLayout>(R.id.linearlayout)
             val inflater = LayoutInflater.from(this)
