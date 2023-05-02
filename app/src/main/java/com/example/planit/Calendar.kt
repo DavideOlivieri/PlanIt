@@ -2,8 +2,13 @@ package com.example.planit
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CalendarView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.calendario.R
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.DayViewDecorator
+import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import java.text.SimpleDateFormat
@@ -68,6 +73,29 @@ class Calendar : AppCompatActivity() {
 
         val sundayDecorator = SundayDecorator()
         materialCalendarView.addDecorators(sundayDecorator)
+
+        val calendarView = findViewById<MaterialCalendarView>(R.id.calendarView)
+
+        // Imposta il colore di sfondo del giorno selezionato
+        calendarView.setSelectionColor(ContextCompat.getColor(this, R.color.green))
+
+        // Seleziona il giorno corrente
+        calendarView.setCurrentDate(CalendarDay.today())
+
+        val currentDate = CalendarDay.today()
+        materialCalendarView.setCurrentDate(currentDate)
+
+        val currentDayDecorator = object : DayViewDecorator {
+            override fun shouldDecorate(day: CalendarDay): Boolean {
+                return day == currentDate
+            }
+
+            override fun decorate(view: DayViewFacade) {
+                view.setSelectionDrawable(resources.getDrawable(R.drawable.botton_plus))
+            }
+        }
+
+        materialCalendarView.addDecorator(currentDayDecorator)
 
     }
 }
