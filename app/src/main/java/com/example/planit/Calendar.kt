@@ -63,9 +63,11 @@ class Calendar : AppCompatActivity() {
             }
 
 
-
         }
 
+
+        val sundayDecorator = SundayDecorator()
+        materialCalendarView.addDecorators(sundayDecorator)
 
     }
 }
