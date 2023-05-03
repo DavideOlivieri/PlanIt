@@ -2,7 +2,6 @@ package com.example.planit
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.CalendarView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
@@ -14,9 +13,8 @@ import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import java.util.*
 
-class Calendar : AppCompatActivity() {
+class Calendario(nome: String, nothing: String, i: Int) : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_calendario)

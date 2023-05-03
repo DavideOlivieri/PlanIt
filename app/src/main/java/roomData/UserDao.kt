@@ -34,8 +34,10 @@ interface UserDao {
     @Delete
     fun deleteCalendar(calendar: Calendar)
 
-    @Query("SELECT * FROM Calendar WHERE Calendar.id = :checkid")
-    fun selectCalendar(checkid: String): Calendar
+
+
+    @Query("SELECT * FROM Calendar")
+    fun selectAllCalendar(): Array<Calendar>
 
 
 

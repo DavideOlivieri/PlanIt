@@ -17,7 +17,7 @@
             android:name="com.example.planit.AddCalendar"
             android:exported="false" />
         <activity
-            android:name="com.example.planit.Calendar"
+            android:name="com.example.planit.Calendario"
             android:exported="false" />
         <activity
             android:name="com.example.planit.Home"
