@@ -2,6 +2,7 @@ package com.example.planit
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
@@ -14,11 +15,17 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class Calendario(nome: String, nothing: String, i: Int) : AppCompatActivity() {
+class Calendario: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_calendario)
         calendario()
+
+        val id = intent.getStringExtra("id")
+        val data = findViewById<TextView>(R.id.nome_calendario)
+
+        data.text = id
+        data.setText(id)
     }
 
     fun calendario() {

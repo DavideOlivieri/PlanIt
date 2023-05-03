@@ -24,6 +24,7 @@ class Home : AppCompatActivity() {
         val account = findViewById<ImageView>(R.id.Account)
         val btnAdd = findViewById<Button>(R.id.Aggiungi_Calendario)
         val username = intent.getStringExtra("Username")
+        val titolo: String
 
         val userDao = UserDatabase.getInstance(application).dao()
 
@@ -42,7 +43,18 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val isOk = intent.getBooleanExtra("isOk", false)
+        // crea un OnClickListener comune per tutti i bottoni
+        val viewCal = View.OnClickListener {view->
+            val titolo = view.getTag() as String
+            // crea un Intent per l'Activity che vuoi aprire
+            val intent = Intent(this, Calendario::class.java)
+
+            intent.putExtra("id", titolo)
+            // avvia l'Activity
+            startActivity(intent)
+        }
+
+        /*val isOk = intent.getBooleanExtra("isOk", false)
 
         // Aggiungi nuovi calendari
         //se le informazioni riguardo al calendario soddisfano i requisiti allora aggiungo il bottone
@@ -58,15 +70,15 @@ class Home : AppCompatActivity() {
             }
 
         }
-
+        */
 
         val calendars = userDao.selectAllCalendar()
 
         for(i in calendars.indices){
-            addButton(calendars[i].titolo)
+            val button = addButton(calendars[i].titolo)
+            button.setTag(calendars[i].titolo)
+            button.setOnClickListener(viewCal)
         }
-
-
 
 
     }
@@ -105,7 +117,7 @@ class Home : AppCompatActivity() {
 
 
 
-    fun addButton(nome: String): Int{
+    fun addButton(nome: String): Button{
         val linear = findViewById<LinearLayout>(R.id.linearlayout)
         val inflater = LayoutInflater.from(this)
         val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
@@ -131,7 +143,7 @@ class Home : AppCompatActivity() {
 
         linear.addView(buttonLayout,layoutParams)
         //     linear.addView(editText,layoutParams)
-        return button_id
+        return button
     }
 
 

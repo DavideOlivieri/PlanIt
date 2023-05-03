@@ -28,6 +28,7 @@ class AddCalendar : AppCompatActivity() {
             val nome = edit.text.toString()
             var color:String = "Nessun colore"
             val intent = Intent(this,Home::class.java)
+            /*
             fun isOk():Boolean {
                 if (nome.isNotEmpty()) {
                     intent.putExtra("Nome calendario", nome)
@@ -38,6 +39,13 @@ class AddCalendar : AppCompatActivity() {
                 else return false
             }
             intent.putExtra("isOk",isOk())
+            startActivity(intent)
+*/
+            if (nome.isNotEmpty()) {
+                intent.putExtra("Nome calendario", nome)
+            }
+            val newCalendar = Calendar(nome, color)
+            userDao.insertCalendar(newCalendar)
             startActivity(intent)
         }
 
