@@ -82,7 +82,7 @@ class Home : AppCompatActivity() {
 
 
     }
-
+/*
     //Funzione per aggiungere alla schermata di home il bottone del calendario
         fun addButton(): Int {
             val linear = findViewById<LinearLayout>(R.id.linearlayout)
@@ -114,7 +114,7 @@ class Home : AppCompatActivity() {
             return button_id
         }
 
-
+*/
 
 
     fun addButton(nome: String): Button{

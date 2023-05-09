@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import roomData.Calendar
 import roomData.UserDatabase
@@ -41,17 +42,22 @@ class AddCalendar : AppCompatActivity() {
             }
             intent.putExtra("isOk",isOk())
             startActivity(intent)
-*//*
+
             if (nome.isNotEmpty()) {
                 intent.putExtra("Nome calendario", nome)
             }*/
-            val newCalendar = Calendar(nome, color)
-            userDao.insertCalendar(newCalendar)
-            val idCalendar = userDao.getIdFromCalendar(nome)
-            val newAssoc = User_Calendar_id(username, idCalendar)
-            userDao.insertUserCalendarId(newAssoc)
-            intent.putExtra("Username", username)
-            startActivity(intent)
+            if(nome.isNotEmpty()) {
+                val newCalendar = Calendar(nome, color)
+                userDao.insertCalendar(newCalendar)
+                val idCalendar = userDao.getIdFromCalendar(nome)
+                val newAssoc = User_Calendar_id(username, idCalendar)
+                userDao.insertUserCalendarId(newAssoc)
+                intent.putExtra("Username", username)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "Inserisci un nome per il calendario!", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 
     }

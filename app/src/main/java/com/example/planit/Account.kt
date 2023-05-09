@@ -21,6 +21,7 @@ class Account : AppCompatActivity() {
         val imm = findViewById<ImageView>(R.id.imaccount)
         val us = findViewById<TextView>(R.id.username)
         val btnModifica = findViewById<Button>(R.id.modbtn)
+        val btnLogout = findViewById<Button>(R.id.btn_logout)
         val username = intent.getStringExtra("Username")
 
 
@@ -33,6 +34,11 @@ class Account : AppCompatActivity() {
         btnModifica.setOnClickListener {
             val intent = Intent(this, ModAccount::class.java)
             intent.putExtra("Username", username)
+            startActivity(intent)
+        }
+
+        btnLogout.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
