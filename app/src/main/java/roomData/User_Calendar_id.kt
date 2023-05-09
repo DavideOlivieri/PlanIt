@@ -5,11 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class User_Calendar_id (
+data class User_Calendar_id(
 
-    val username: String,
-    val calendar_id: Int,
+    var username: String?,
+    var calendar_id: Long,
 
-    @PrimaryKey
-    val id: Int
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0
 )

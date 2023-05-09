@@ -36,8 +36,13 @@ interface UserDao {
 
 
 
-    @Query("SELECT * FROM Calendar")
-    fun selectAllCalendar(): Array<Calendar>
+    @Query("SELECT * " +
+            "FROM Calendar " +
+            " INNER JOIN User_Calendar_id ON Calendar.id = User_Calendar_id.calendar_id " +
+            " INNER JOIN User ON User_Calendar_id.username = User.user " +
+            "WHERE User.user = :username"
+            )
+    fun selectAllIdCalendarofUser(username: String?): Array<Calendar>
 
 
 
@@ -50,4 +55,12 @@ interface UserDao {
 
     @Query("SELECT * FROM Event WHERE Event.id = :checkid")
     fun selectEvent(checkid: String): Event
+
+
+    @Query("SELECT id FROM Calendar WHERE Calendar.titolo = :nome")
+    fun getIdFromCalendar(nome: String): Long
+
+
+    @Insert
+    fun insertUserCalendarId(user_calendar_id: User_Calendar_id)
 }

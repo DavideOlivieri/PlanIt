@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import roomData.Calendar
 import roomData.UserDatabase
+import roomData.User_Calendar_id
 
 
 //Activity necessaria per aggiungere un nuovo calendario (nome del calendario)
@@ -21,12 +22,12 @@ class AddCalendar : AppCompatActivity() {
         val sicalendario = findViewById<Button>(com.example.calendario.R.id.btn_crea)
 
         val userDao = UserDatabase.getInstance(application).dao()
-
+        val username = intent.getStringExtra("Username")
 
         sicalendario.setOnClickListener{
             val edit = findViewById<EditText>(com.example.calendario.R.id.editText)
             val nome = edit.text.toString()
-            var color:String = "Nessun colore"
+            var color = "Nessun colore"
             val intent = Intent(this,Home::class.java)
             /*
             fun isOk():Boolean {
@@ -40,12 +41,16 @@ class AddCalendar : AppCompatActivity() {
             }
             intent.putExtra("isOk",isOk())
             startActivity(intent)
-*/
+*//*
             if (nome.isNotEmpty()) {
                 intent.putExtra("Nome calendario", nome)
-            }
+            }*/
             val newCalendar = Calendar(nome, color)
             userDao.insertCalendar(newCalendar)
+            val idCalendar = userDao.getIdFromCalendar(nome)
+            val newAssoc = User_Calendar_id(username, idCalendar)
+            userDao.insertUserCalendarId(newAssoc)
+            intent.putExtra("Username", username)
             startActivity(intent)
         }
 
