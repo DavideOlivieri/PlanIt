@@ -30,6 +30,9 @@
             android:exported="false" />
         <activity android:name="com.example.planit.Day"
             android:exported="false" />
+        <activity
+            android:name="com.example.planit.Account"
+            android:exported="false" />
 
         <activity
             android:name="com.example.planit.MainActivity"

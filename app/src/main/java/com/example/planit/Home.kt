@@ -31,7 +31,7 @@ class Home : AppCompatActivity() {
 
         // passaggio alla schermata di ModAccount
         account.setOnClickListener {
-            val intent = Intent(this, ModAccount::class.java)
+            val intent = Intent(this, Account::class.java)
             intent.putExtra("Username", username)
             startActivity(intent)
         }

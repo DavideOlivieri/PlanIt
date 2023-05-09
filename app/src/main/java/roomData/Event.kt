@@ -11,7 +11,7 @@ data class Event (
     val mese: Int,
     val anno: Int,
     val descrizione: String,
-    val calendar_id: Int,
+    val calendar_id: Long,
 
     @PrimaryKey
     val id: Int
