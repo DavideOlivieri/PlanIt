@@ -61,16 +61,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.857" />
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="Logout"
+        android:textColor="@color/black"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/purple_200"
+        app:cornerRadius="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/modbtn"
-        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.169"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.857" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
