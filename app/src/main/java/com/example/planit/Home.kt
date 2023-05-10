@@ -57,27 +57,7 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val rootView = findViewById<ConstraintLayout>(R.id.layout1)
-        var textView = TextView(this)
 
-        val deleteCal = View.OnLongClickListener{view->
-
-            val titolo = view.getTag() as String
-
-            textView.text = "Elimina"
-            textView.setTextColor(Color.WHITE)
-            textView.setBackgroundColor(Color.CYAN)
-            if (textView.parent == null) {
-                rootView.addView(textView)
-            }
-            true
-        }
-
-        textView.setOnClickListener {
-            if (textView.parent != null) {
-                rootView.removeView(textView)
-            }
-        }
 
         /*val isOk = intent.getBooleanExtra("isOk", false)
 
