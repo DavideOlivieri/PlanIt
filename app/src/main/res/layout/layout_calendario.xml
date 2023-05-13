@@ -40,5 +40,11 @@
         android:layout_marginBottom="33dp"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/info_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
 
 </RelativeLayout>

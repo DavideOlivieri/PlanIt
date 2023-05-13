@@ -2,6 +2,7 @@ package com.example.planit
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
+import roomData.UserDatabase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -21,16 +23,29 @@ class Calendario: AppCompatActivity() {
         setContentView(R.layout.layout_calendario)
         calendario()
 
-        val id = intent.getStringExtra("id")
+        val titolo = intent.getStringExtra("titolo")
         val data = findViewById<TextView>(R.id.nome_calendario)
+        val btnInfo = findViewById<Button>(R.id.info_calendar)
 
-        data.text = id
-        data.setText(id)
+        val userDao = UserDatabase.getInstance(application).dao()
+
+        val current_calendar=userDao.selectCalendarbyId(titolo)
+
+
+        data.text = current_calendar.titolo
+        data.setText(current_calendar.titolo)
+
+        btnInfo.setOnClickListener {
+            val intent = Intent(this, Info_Calendar::class.java)
+            intent.putExtra("titolo", titolo)
+            startActivity(intent)
+        }
     }
 
     fun calendario() {
 
         val startTimeCalendar = Calendar.getInstance()
+        val titolo = intent.getStringExtra("titolo")
 
         val materialCalendarView = findViewById<MaterialCalendarView>(R.id.calendarView)
 
@@ -55,6 +70,7 @@ class Calendario: AppCompatActivity() {
 
             // Passa la data selezionata all'intent
             intent.putExtra("data_selezionata", message)
+            intent.putExtra("titolo_cal", titolo)
 
             // Avvia l'attività con l'intent
             startActivity(intent)
@@ -71,6 +87,8 @@ class Calendario: AppCompatActivity() {
 
                 })
             }
+
+
 
 
         }

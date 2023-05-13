@@ -11,6 +11,7 @@ class Day: AppCompatActivity() {
         setContentView(R.layout.activity_day)
 
         val selectedDate = intent.getStringExtra("data_selezionata")
+        val titolo_cal = intent.getStringExtra("titolo_cal")
         val data = findViewById<TextView>(R.id.textView)
         data.text = selectedDate
         data.setText(selectedDate)
