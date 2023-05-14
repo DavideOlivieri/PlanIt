@@ -68,6 +68,6 @@ interface UserDao {
     fun insertUserCalendarId(user_calendar_id: User_Calendar_id)
 
 
-    @Query("SELECT * FROM Calendar WHERE Calendar.id = :id")
+    @Query("SELECT * FROM Calendar WHERE Calendar.titolo = :id")
     fun selectCalendarbyId(id: String?): Calendar
 }
