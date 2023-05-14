@@ -13,7 +13,7 @@ import roomData.UserDatabase
 class Info_Calendar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_info_account)
+        setContentView(R.layout.activity_info_calendario)
 
         // inizializzazione variabili
         val titolo = intent.getStringExtra("titolo")
