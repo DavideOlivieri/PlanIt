@@ -13,4 +13,20 @@
         <item name="android:statusBarColor">@color/actionBar</item>
         <!-- Customize your theme here. -->
     </style>
+    <!--
+    <style name="AppThemeNight.CustomMaterialCalendarView" parent="Widget.MaterialComponents.MaterialCalendar.Day">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:statusBarColor">@color/actionBar</item>
+
+
+    </style>
+    -->
 </resources>

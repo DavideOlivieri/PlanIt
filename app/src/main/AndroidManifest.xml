@@ -18,7 +18,8 @@
             android:exported="false" />
         <activity
             android:name="com.example.planit.Calendario"
-            android:exported="false" />
+            android:exported="false"/>
+            <!-- android:theme="@style/AppThemeNight.CustomMaterialCalendarView"/> -->
         <activity
             android:name="com.example.planit.Home"
             android:exported="false" />
@@ -28,7 +29,8 @@
         <activity
             android:name="com.example.planit.SignUp"
             android:exported="false" />
-        <activity android:name="com.example.planit.Day"
+        <activity
+            android:name="com.example.planit.Day"
             android:exported="false" />
         <activity
             android:name="com.example.planit.Account"
