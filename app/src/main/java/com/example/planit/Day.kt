@@ -2,6 +2,7 @@ package com.example.planit
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calendario.R
@@ -14,16 +15,18 @@ class Day: AppCompatActivity() {
 
         val selectedDate = intent.getStringExtra("data_selezionata")
         val titolo_cal = intent.getStringExtra("titolo_cal")
+        val Btn_agg = findViewById<Button>(R.id.Aggiungi_Calendario)
         val data = findViewById<TextView>(R.id.Data)
-        val calendario = findViewById<TextView>(R.id.nome_calendario)
-        data.text = selectedDate
+        val calendario = findViewById<TextView>(R.id.Nome_calendario)
         data.setText(selectedDate)
-        calendario.text = titolo_cal
         calendario.setText(titolo_cal)
 
-        val fragment = Fragment_evento()
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentContainerView, fragment)
-            .commit()
+        Btn_agg.setOnClickListener {
+            val fragment = Fragment_evento()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, fragment)
+                .commit()
+        }
+
     }
 }

@@ -11,7 +11,7 @@ class Fragment_evento : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Infla il layout del fragment
-        val rootView = inflater.inflate(R.layout.activity_day, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_evento, container, false)
 
         return rootView
     }
