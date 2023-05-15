@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "341924380201",
+    "project_id": "planit-5fba3",
+    "storage_bucket": "planit-5fba3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341924380201:android:a0bad88f594699cec3e638",
+        "android_client_info": {
+          "package_name": "com.example.calendario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "341924380201-eadibnq4cnip297u6mdhsif9e62lshk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANRgGcIluuglcWzmmcUbLZJtk_b_Kq3tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341924380201-eadibnq4cnip297u6mdhsif9e62lshk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
