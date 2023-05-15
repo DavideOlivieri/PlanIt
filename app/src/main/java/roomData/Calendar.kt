@@ -10,6 +10,8 @@ data class Calendar(
 
     val colore: String,
 
+    val codiceIngresso: String,
+
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0
 

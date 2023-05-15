@@ -70,4 +70,7 @@ interface UserDao {
 
     @Query("SELECT * FROM Calendar WHERE Calendar.titolo = :id")
     fun selectCalendarbyId(id: String?): Calendar
+
+    @Query("SELECT Calendar.id FROM Calendar WHERE Calendar.codiceIngresso = :codice")
+    fun selectIdbyCodice(codice: String?): Long
 }
