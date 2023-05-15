@@ -24,7 +24,7 @@ class Day: AppCompatActivity() {
 
         Btn_agg.setOnClickListener {
             val intent = Intent(this, Event::class.java)
-            //intent.putExtra("Date", selectedDate)
+            intent.putExtra("Date", selectedDate)
             startActivity(intent)
         }
 
