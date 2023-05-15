@@ -25,7 +25,9 @@ class Event: AppCompatActivity()  {
         data.text = selectedDate
 
         val Btn_inizio = findViewById<Button>(R.id.Btn_inizio)
+        val Btn_fine = findViewById<Button>(R.id.Btn_fine)
         val ora_inizio = findViewById<TextView>(R.id.ora_inizio)
+        val ora_fine = findViewById<TextView>(R.id.ora_fine)
 
         Btn_inizio.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -35,8 +37,16 @@ class Event: AppCompatActivity()  {
                 ora_inizio.text = SimpleDateFormat("HH:mm").format(cal.time)
             }
             TimePickerDialog(this,timeSetListener,cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true).show()
+        }
 
-
+        Btn_fine.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                ora_fine.text = SimpleDateFormat("HH:mm").format(cal.time)
+            }
+            TimePickerDialog(this,timeSetListener,cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true).show()
         }
 
     }
