@@ -81,7 +81,7 @@ class AddCalendar : AppCompatActivity() {
                         .show()
                 }
             }else{
-                Toast.makeText(this, "Inserisci un nome per il calendario!", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Inserisci il codice del calendario!", Toast.LENGTH_SHORT)
                     .show()
             }
 
