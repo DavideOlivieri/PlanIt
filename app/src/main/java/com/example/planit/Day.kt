@@ -1,6 +1,7 @@
 package com.example.planit
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -22,10 +23,9 @@ class Day: AppCompatActivity() {
         calendario.setText(titolo_cal)
 
         Btn_agg.setOnClickListener {
-            val fragment = Fragment_evento()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, fragment)
-                .commit()
+            val intent = Intent(this, Event::class.java)
+            //intent.putExtra("Date", selectedDate)
+            startActivity(intent)
         }
 
     }
