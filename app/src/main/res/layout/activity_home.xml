@@ -8,10 +8,6 @@
     tools:context="com.example.planit.MainActivity"
     android:background="@color/actionBar">
 
-
-
-
-
     <Button
         android:id="@+id/Aggiungi_Calendario"
         android:layout_width="75dp"
@@ -25,7 +21,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="257dp"
+        android:layout_height="431dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ScrollView
