@@ -39,6 +39,9 @@
             android:name="com.example.planit.Event"
             android:exported="false" />
         <activity
+            android:name="com.example.planit.Info_Calendar"
+            android:exported="false" />
+        <activity
             android:name="com.example.planit.MainActivity"
             android:exported="true">
             <intent-filter>
