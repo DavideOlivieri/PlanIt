@@ -23,13 +23,13 @@ class Calendario: AppCompatActivity() {
         setContentView(R.layout.layout_calendario)
         calendario()
 
-        val titolo = intent.getStringExtra("titolo")
+        val id = intent.getLongExtra("id_calendario", 0)
         val data = findViewById<TextView>(R.id.nome_calendario)
         val btnInfo = findViewById<Button>(R.id.info_calendar)
 
         val userDao = UserDatabase.getInstance(application).dao()
 
-        val current_calendar=userDao.selectCalendarbyId(titolo)
+        val current_calendar=userDao.selectCalendarbyId(id)
 
 
         data.text = current_calendar.titolo
@@ -37,7 +37,7 @@ class Calendario: AppCompatActivity() {
 
         btnInfo.setOnClickListener {
             val intent = Intent(this, Info_Calendar::class.java)
-            intent.putExtra("titolo", titolo)
+            intent.putExtra("id_calendario", id)
             startActivity(intent)
         }
     }
@@ -45,7 +45,7 @@ class Calendario: AppCompatActivity() {
     fun calendario() {
 
         val startTimeCalendar = Calendar.getInstance()
-        val titolo = intent.getStringExtra("titolo")
+        val id = intent.getLongExtra("id_calendario",0)
 
         val materialCalendarView = findViewById<MaterialCalendarView>(R.id.calendarView)
 
@@ -70,7 +70,7 @@ class Calendario: AppCompatActivity() {
 
             // Passa la data selezionata all'intent
             intent.putExtra("data_selezionata", message)
-            intent.putExtra("titolo_cal", titolo)
+            intent.putExtra("id_calendario", id)
 
             // Avvia l'attività con l'intent
             startActivity(intent)

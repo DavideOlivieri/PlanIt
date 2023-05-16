@@ -16,7 +16,7 @@ class Info_Calendar : AppCompatActivity() {
         setContentView(R.layout.activity_info_calendario)
 
         // inizializzazione variabili
-        val titolo = intent.getStringExtra("titolo")
+        val id = intent.getLongExtra("id_calendario", 0)
 
 
         val userDao = UserDatabase.getInstance(application).dao()

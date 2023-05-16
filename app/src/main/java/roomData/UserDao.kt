@@ -68,9 +68,12 @@ interface UserDao {
     fun insertUserCalendarId(user_calendar_id: User_Calendar_id)
 
 
-    @Query("SELECT * FROM Calendar WHERE Calendar.titolo = :id")
-    fun selectCalendarbyId(id: String?): Calendar
+    @Query("SELECT * FROM Calendar WHERE Calendar.id = :id")
+    fun selectCalendarbyId(id: Long): Calendar
 
     @Query("SELECT Calendar.id FROM Calendar WHERE Calendar.codiceIngresso = :codice")
     fun selectIdbyCodice(codice: String?): Long
+
+    @Query("SELECT Calendar.id FROM Calendar INNER JOIN User_Calendar_id ON Calendar.id = User_Calendar_id.calendar_id INNER JOIN User ON User_Calendar_id.username = User.user WHERE Calendar.titolo = :titolo AND User.user = :username")
+    fun getIdFromTitoloandUser(titolo: String?, username: String?): Long
 }

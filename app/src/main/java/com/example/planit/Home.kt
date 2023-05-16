@@ -27,7 +27,6 @@ class Home : AppCompatActivity() {
         val account = findViewById<ImageView>(R.id.Account)
         val btnAdd = findViewById<Button>(R.id.Aggiungi_Calendario)
         val username = intent.getStringExtra("Username")
-        val titolo: String
 
         val userDao = UserDatabase.getInstance(application).dao()
 
@@ -49,10 +48,11 @@ class Home : AppCompatActivity() {
         // crea un OnClickListener comune per tutti i bottoni
         val viewCal = View.OnClickListener {view->
             val titolo = view.getTag() as String
+            val id = userDao.getIdFromTitoloandUser(titolo,username)
             // crea un Intent per l'Activity che vuoi aprire
             val intent = Intent(this, Calendario::class.java)
 
-            intent.putExtra("titolo", titolo)
+            intent.putExtra("id_calendario", id)
             // avvia l'Activity
             startActivity(intent)
         }
