@@ -76,4 +76,7 @@ interface UserDao {
 
     @Query("SELECT Calendar.id FROM Calendar INNER JOIN User_Calendar_id ON Calendar.id = User_Calendar_id.calendar_id INNER JOIN User ON User_Calendar_id.username = User.user WHERE Calendar.titolo = :titolo AND User.user = :username")
     fun getIdFromTitoloandUser(titolo: String?, username: String?): Long
+
+    @Query("SELECT username FROM User_Calendar_id WHERE User_Calendar_id.calendar_id = :id")
+    fun selectAllUserbyId(id: Long?): Array<String>
 }
