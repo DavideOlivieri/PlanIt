@@ -17,9 +17,16 @@ class Info_Calendar : AppCompatActivity() {
 
         // inizializzazione variabili
         val id = intent.getLongExtra("id_calendario", 0)
+        val titoloView = findViewById<TextView>(R.id.titolo)
+        val codiceView = findViewById<TextView>(R.id.codicepartecipazione)
 
 
         val userDao = UserDatabase.getInstance(application).dao()
+
+        val currentCalendar = userDao.selectCalendarbyId(id)
+
+        titoloView.setText(currentCalendar.titolo)
+        codiceView.setText(currentCalendar.codiceIngresso)
 
 
     }
