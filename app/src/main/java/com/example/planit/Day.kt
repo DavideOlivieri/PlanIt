@@ -29,6 +29,7 @@ class Day: AppCompatActivity() {
         Btn_agg.setOnClickListener {
             val intent = Intent(this, Event::class.java)
             intent.putExtra("Date", selectedDate)
+            intent.putExtra("id_calendario",id)
             startActivity(intent)
         }
 
