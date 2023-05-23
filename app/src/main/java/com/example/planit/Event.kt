@@ -7,13 +7,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.calendario.R
+import roomData.Event
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import roomData.UserDatabase
+
+
 
 class Event: AppCompatActivity()  {
 
@@ -22,6 +24,7 @@ class Event: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
 
+        val userDao = UserDatabase.getInstance(application).dao()
         val selectedDate = intent.getStringExtra("Date")
         val id = intent.getLongExtra("id_calendario", 0)
         val data = findViewById<TextView>(R.id.Data)
@@ -64,18 +67,27 @@ class Event: AppCompatActivity()  {
 
         // Bottone per passare i dati dell'evento alla pagina del giorno scelto
         Btn_crea.setOnClickListener {
-            val titolo = findViewById<EditText>(R.id.editText_titolo)
-            val inizio = findViewById<TextView>(R.id.ora_inizio)
-            val fine = findViewById<TextView>(R.id.ora_fine)
-            val titolo_edit = titolo.text.toString()
-            val inizio_ev = inizio.text
-            val fine_ev = fine.text
+            val titolo_et = findViewById<EditText>(R.id.editText_titolo)
+            val titolo = titolo_et.text.toString()
+            val titolo_edit = titolo_et.toString()
+            val inizio_tv = findViewById<TextView>(R.id.ora_inizio)
+            val inizio = inizio_tv.text.toString()
+            val fine_tv = findViewById<TextView>(R.id.ora_fine)
+            val fine = fine_tv.toString()
+            val descrizione_et = findViewById<EditText>(R.id.descrizione)
+            val descrizione = descrizione_et.toString()
+            val data = selectedDate.toString()
             val intent = Intent(this, Day::class.java)
             if(titolo_edit.isNotEmpty()){
+                val newEvent = Event(titolo,data,inizio,fine,descrizione,id)
+                userDao.insertEvent(newEvent)
+
+                /*
                 intent.putExtra("titolo",titolo_edit)
                 intent.putExtra("inizio",inizio_ev)
                 intent.putExtra("fine",fine_ev)
                 intent.putExtra("id_calendario",id)
+                 */
                 startActivity(intent)
             } else{
                 Toast.makeText(this, "Solo la descrizione può essere vuota!", Toast.LENGTH_SHORT)
