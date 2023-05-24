@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.calendario.R
@@ -58,7 +60,20 @@ class Home : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        var builder: AlertDialog.Builder
+        builder = AlertDialog.Builder(this)
+        val longClick = View.OnLongClickListener { view ->
+            builder.setTitle("Attenzione!")
+                .setMessage("Sei sicuro di voler eliminare questo evento?")
+                .setCancelable(true)
+                .setPositiveButton("Si"){dialogInterface,it -> val titolo = view.getTag() as String
+                    val long = userDao.getIdFromTitoloandUser(titolo,username)
+                    userDao.deleteCalendar(userDao.selectCalendarbyId(long))
+                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()}
+                .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
+                .show()
+            true
+        }
 
         /*val isOk = intent.getBooleanExtra("isOk", false)
 
@@ -84,6 +99,7 @@ class Home : AppCompatActivity() {
             val button = addButton(calendars[i].titolo)
             button.setTag(calendars[i].titolo)
             button.setOnClickListener(viewCal)
+            button.setOnLongClickListener(longClick)
         }
 
 
