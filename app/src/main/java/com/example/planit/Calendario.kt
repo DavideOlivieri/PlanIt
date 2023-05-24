@@ -23,6 +23,7 @@ class Calendario: AppCompatActivity() {
         setContentView(R.layout.layout_calendario)
         calendario()
 
+        val username = intent.getStringExtra("username")
         val id = intent.getLongExtra("id_calendario", 0)
         val data = findViewById<TextView>(R.id.nome_calendario)
         val btnInfo = findViewById<Button>(R.id.info_calendar)
@@ -38,6 +39,7 @@ class Calendario: AppCompatActivity() {
         btnInfo.setOnClickListener {
             val intent = Intent(this, Info_Calendar::class.java)
             intent.putExtra("id_calendario", id)
+            intent.putExtra("username", username)
             startActivity(intent)
         }
     }

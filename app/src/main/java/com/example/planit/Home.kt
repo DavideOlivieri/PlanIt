@@ -52,6 +52,7 @@ class Home : AppCompatActivity() {
             // crea un Intent per l'Activity che vuoi aprire
             val intent = Intent(this, Calendario::class.java)
 
+            intent.putExtra("username", username)
             intent.putExtra("id_calendario", id)
             // avvia l'Activity
             startActivity(intent)

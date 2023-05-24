@@ -19,6 +19,7 @@ class Info_Calendar : AppCompatActivity() {
         setContentView(R.layout.activity_info_calendario)
 
         // inizializzazione variabili
+        val username = intent.getStringExtra("username")
         val id = intent.getLongExtra("id_calendario", 0)
         val titoloView = findViewById<TextView>(R.id.titolo)
         val codiceView = findViewById<TextView>(R.id.codicepartecipazione)
@@ -27,17 +28,25 @@ class Info_Calendar : AppCompatActivity() {
         val userDao = UserDatabase.getInstance(application).dao()
 
         val currentCalendar = userDao.selectCalendarbyId(id)
+        var viewUser = View.OnClickListener {  }
 
         titoloView.setText(currentCalendar.titolo)
         codiceView.setText(currentCalendar.codiceIngresso)
 
 
+        if(userDao.selectLivello(username,id)==1){
+            viewUser = View.OnClickListener {view->
+                val user = view.getTag() as String
+                userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
+            }
+        }
 
         val users = userDao.selectAllUserbyId(id)
 
         for(i in users.indices){
             val button = addButton(users[i])
             button.setTag(users[i])
+            button.setOnClickListener(viewUser)
         }
 
 

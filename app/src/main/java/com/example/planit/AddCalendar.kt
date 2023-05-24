@@ -52,7 +52,7 @@ class AddCalendar : AppCompatActivity() {
                 val newCalendar = Calendar(nome, color, codiceIngresso)
                 userDao.insertCalendar(newCalendar)
                 val idCalendar = userDao.getIdFromCalendar(nome)
-                val newAssoc = User_Calendar_id(username, idCalendar)
+                val newAssoc = User_Calendar_id(username, idCalendar,1)
                 userDao.insertUserCalendarId(newAssoc)
                 intent.putExtra("Username", username)
                 startActivity(intent)
@@ -71,7 +71,7 @@ class AddCalendar : AppCompatActivity() {
             if(codice_calendario.isNotEmpty()) {
 
                 if (userDao.selectIdbyCodice(codice_calendario)!=null) {
-                    val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codice_calendario))
+                    val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codice_calendario),0)
                     userDao.insertUserCalendarId(newAssoc)
                     intent.putExtra("Username", username)
                     startActivity(intent)

@@ -84,4 +84,13 @@ interface UserDao {
 
     @Query("SELECT username FROM User_Calendar_id WHERE User_Calendar_id.calendar_id = :id")
     fun selectAllUserbyId(id: Long?): Array<String>
+
+    @Query("SELECT livello FROM User_Calendar_id WHERE User_Calendar_id.calendar_id = :id AND User_Calendar_id.username = :username")
+    fun selectLivello(username: String?, id: Long?): Int
+
+    @Query("SELECT * FROM User_Calendar_id WHERE User_Calendar_id.calendar_id = :id AND User_Calendar_id.username = :username")
+    fun selectUserCalendar(username: String?, id: Long?): User_Calendar_id
+
+    @Delete
+    fun deleteUserFromCalendar(user_calendar_id: User_Calendar_id)
 }
