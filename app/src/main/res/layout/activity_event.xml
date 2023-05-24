@@ -163,7 +163,7 @@
         android:ems="10"
         android:hint="Descrizione"
         android:lines="2"
-        android:maxLength="100"
+        android:maxLength="90"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

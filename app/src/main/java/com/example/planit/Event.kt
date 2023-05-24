@@ -25,7 +25,7 @@ class Event: AppCompatActivity()  {
         setContentView(R.layout.activity_event)
 
         val userDao = UserDatabase.getInstance(application).dao()
-        val selectedDate = intent.getStringExtra("Date")
+        val selectedDate = intent.getStringExtra("data_selezionata")
         val id = intent.getLongExtra("id_calendario", 0)
         val data = findViewById<TextView>(R.id.Data)
         data.text = selectedDate
@@ -40,6 +40,8 @@ class Event: AppCompatActivity()  {
         // Bottone per tornare alla pagina del giorno
         Btn_indietro.setOnClickListener{
             val intent = Intent (this, Day::class.java)
+            intent.putExtra("data_selezionata",selectedDate)
+            intent.putExtra("id_calendario",id)
             startActivity(intent)
         }
 
@@ -73,21 +75,16 @@ class Event: AppCompatActivity()  {
             val inizio_tv = findViewById<TextView>(R.id.ora_inizio)
             val inizio = inizio_tv.text.toString()
             val fine_tv = findViewById<TextView>(R.id.ora_fine)
-            val fine = fine_tv.toString()
+            val fine = fine_tv.text.toString()
             val descrizione_et = findViewById<EditText>(R.id.descrizione)
-            val descrizione = descrizione_et.toString()
+            val descrizione = descrizione_et.text.toString()
             val data = selectedDate.toString()
             val intent = Intent(this, Day::class.java)
-            if(titolo_edit.isNotEmpty()){
+            if(titolo_edit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty()){
                 val newEvent = Event(titolo,data,inizio,fine,descrizione,id)
                 userDao.insertEvent(newEvent)
-
-                /*
-                intent.putExtra("titolo",titolo_edit)
-                intent.putExtra("inizio",inizio_ev)
-                intent.putExtra("fine",fine_ev)
+                intent.putExtra("data_selezionata",selectedDate)
                 intent.putExtra("id_calendario",id)
-                 */
                 startActivity(intent)
             } else{
                 Toast.makeText(this, "Solo la descrizione può essere vuota!", Toast.LENGTH_SHORT)

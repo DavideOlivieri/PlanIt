@@ -66,8 +66,8 @@ interface UserDao {
     @Query("SELECT id FROM Event WHERE Event.titolo = :titolo")
     fun getIdFromEvent(titolo: String): Int
 
-    @Query("SELECT * FROM event WHERE Event.calendar_id = :calendarId")
-    fun getEventsByCalendarId(calendarId: Long): List<Event>
+    @Query("SELECT * FROM event WHERE Event.calendar_id = :calendarId AND Event.data = :data")
+    fun getEventsByCalendarId(calendarId: Long, data: String?): List<Event>
 
     @Insert
     fun insertUserCalendarId(user_calendar_id: User_Calendar_id)

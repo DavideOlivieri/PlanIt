@@ -18,6 +18,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class Calendario: AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_calendario)
@@ -25,16 +26,17 @@ class Calendario: AppCompatActivity() {
 
         val username = intent.getStringExtra("username")
         val id = intent.getLongExtra("id_calendario", 0)
-        val data = findViewById<TextView>(R.id.nome_calendario)
+        val nome_cal = findViewById<TextView>(R.id.nome_calendario)
         val btnInfo = findViewById<Button>(R.id.info_calendar)
 
-        val userDao = UserDatabase.getInstance(application).dao()
 
+        val userDao = UserDatabase.getInstance(application).dao()
         val current_calendar=userDao.selectCalendarbyId(id)
 
 
-        data.text = current_calendar.titolo
-        data.setText(current_calendar.titolo)
+        nome_cal.text = current_calendar.titolo
+        nome_cal.setText(current_calendar.titolo)
+
 
         btnInfo.setOnClickListener {
             val intent = Intent(this, Info_Calendar::class.java)
@@ -48,6 +50,10 @@ class Calendario: AppCompatActivity() {
 
         val startTimeCalendar = Calendar.getInstance()
         val id = intent.getLongExtra("id_calendario",0)
+        val userDao = UserDatabase.getInstance(application).dao()
+        val current_calendar=userDao.selectCalendarbyId(id)
+        val nome = current_calendar.titolo
+
 
         val materialCalendarView = findViewById<MaterialCalendarView>(R.id.calendarView)
 
@@ -70,9 +76,11 @@ class Calendario: AppCompatActivity() {
             // Crea un'istanza dell'intent per aprire la nuova pagina
             val intent = Intent(this, Day::class.java)
 
+
             // Passa la data selezionata all'intent
             intent.putExtra("data_selezionata", message)
             intent.putExtra("id_calendario", id)
+            intent.putExtra("nome_cal",nome)
 
             // Avvia l'attività con l'intent
             startActivity(intent)
