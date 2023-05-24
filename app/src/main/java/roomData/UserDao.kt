@@ -57,7 +57,7 @@ interface UserDao {
     fun deleteEvent(event: Event)
 
     @Query("SELECT * FROM Event WHERE Event.id = :checkid")
-    fun selectEvent(checkid: String): Event
+    fun selectEvent(checkid: Int): Event
 
 
     @Query("SELECT id FROM Calendar WHERE Calendar.titolo = :nome")

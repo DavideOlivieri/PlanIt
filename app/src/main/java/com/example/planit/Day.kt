@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.calendario.R
 import roomData.UserDatabase
+
 
 class Day: AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -19,10 +23,10 @@ class Day: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day)
 
-
         val selectedDate = intent.getStringExtra("data_selezionata")
         val id = intent.getLongExtra("id_calendario", 0)
         val nome_cal = intent.getStringExtra("nome_cal")
+        val username = intent.getStringExtra("username")
         val Btn_agg = findViewById<Button>(R.id.Aggiungi_Calendario)
         val data = findViewById<TextView>(R.id.Data)
         val calendario = findViewById<TextView>(R.id.Nome_calendario)
@@ -35,6 +39,7 @@ class Day: AppCompatActivity() {
         Btn_indietro.setOnClickListener{
             val intent = Intent (this, Calendario::class.java)
             intent.putExtra("id_calendario", id)
+            intent.putExtra("username",username)
             startActivity(intent)
         }
 
@@ -42,17 +47,37 @@ class Day: AppCompatActivity() {
             val intent = Intent(this, Event::class.java)
             intent.putExtra("data_selezionata", selectedDate)
             intent.putExtra("id_calendario", id)
+            intent.putExtra("username",username)
             startActivity(intent)
         }
+
+
+        var builder: AlertDialog.Builder
+        builder = AlertDialog.Builder(this)
+
+        val cardf = View.OnClickListener{view ->
+            builder.setTitle("Attenzione!")
+                .setMessage("Sei sicuro di voler eliminare questo evento?")
+                .setCancelable(true)
+                .setPositiveButton("Si"){dialogInterface,it -> val titolo = view.getTag() as Int
+                    userDao.deleteEvent(userDao.selectEvent(titolo))
+                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()}
+                .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
+                .show()
+        }
+
+
 
         val events = userDao.getEventsByCalendarId(id,selectedDate)
 
         for (i in events.indices) {
-            addCard(events[i].titolo,events[i].orario_inizio,events[i].orario_fine,events[i].descrizione)
+            val card = addCard(events[i].titolo,events[i].orario_inizio,events[i].orario_fine,events[i].descrizione)
+            card?.setTag(events[i].id)
+            card?.setOnClickListener(cardf)
         }
 
     }
-     private fun addCard(titolo: String,inizio: String,fine: String,descrizione: String) {
+     private fun addCard(titolo: String,inizio: String,fine: String,descrizione: String): CardView? {
          val linear = findViewById<LinearLayout>(R.id.linearlayout)
          val inflater = LayoutInflater.from(this)
          val card_layout = inflater.inflate(R.layout.event_view, null)
@@ -72,5 +97,8 @@ class Day: AppCompatActivity() {
          descrizione_card.setText(descrizione)
 
          linear.addView(card)
+         return card
      }
 }
+
+

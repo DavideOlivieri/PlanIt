@@ -58,6 +58,7 @@ class Calendario: AppCompatActivity() {
 
         val startTimeCalendar = Calendar.getInstance()
         val id = intent.getLongExtra("id_calendario",0)
+        val username = intent.getStringExtra("username")
         val userDao = UserDatabase.getInstance(application).dao()
         val current_calendar=userDao.selectCalendarbyId(id)
         val nome = current_calendar.titolo
@@ -89,6 +90,8 @@ class Calendario: AppCompatActivity() {
             intent.putExtra("data_selezionata", message)
             intent.putExtra("id_calendario", id)
             intent.putExtra("nome_cal",nome)
+            intent.putExtra("username", username)
+
 
             // Avvia l'attività con l'intent
             startActivity(intent)
