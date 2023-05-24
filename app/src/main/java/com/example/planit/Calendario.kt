@@ -38,6 +38,14 @@ class Calendario: AppCompatActivity() {
         nome_cal.setText(current_calendar.titolo)
 
 
+        val Btn_indietro = findViewById<Button>(R.id.Indietro)
+        Btn_indietro.setOnClickListener{
+            val intent = Intent (this, Home::class.java)
+            intent.putExtra("Username",username)
+            startActivity(intent)
+        }
+
+
         btnInfo.setOnClickListener {
             val intent = Intent(this, Info_Calendar::class.java)
             intent.putExtra("id_calendario", id)
