@@ -80,7 +80,7 @@ class Event: AppCompatActivity()  {
             val descrizione = descrizione_et.text.toString()
             val data = selectedDate.toString()
             val intent = Intent(this, Day::class.java)
-            if(titolo_edit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty()){
+            if(titolo_edit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty() && inizio <= fine){
                 val newEvent = Event(titolo,data,inizio,fine,descrizione,id)
                 userDao.insertEvent(newEvent)
                 intent.putExtra("data_selezionata",selectedDate)
@@ -88,6 +88,8 @@ class Event: AppCompatActivity()  {
                 startActivity(intent)
             } else{
                 Toast.makeText(this, "Solo la descrizione può essere vuota!", Toast.LENGTH_SHORT)
+                    .show()
+                Toast.makeText(this, "L'orario di inizio deve essre minore all'orario di fine!", Toast.LENGTH_SHORT)
                     .show()
             }
         }
