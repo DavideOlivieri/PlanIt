@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calendario.R
 import roomData.User
@@ -38,6 +39,7 @@ class Info_Calendar : AppCompatActivity() {
             viewUser = View.OnClickListener {view->
                 val user = view.getTag() as String
                 userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
+                Toast.makeText(this, "Hai eliminato dal calendario: "+user, Toast.LENGTH_SHORT).show()
             }
         }
 
