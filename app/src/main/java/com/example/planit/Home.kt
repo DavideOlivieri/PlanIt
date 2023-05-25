@@ -69,7 +69,8 @@ class Home : AppCompatActivity() {
                 .setPositiveButton("Si"){dialogInterface,it -> val titolo = view.getTag() as String
                     val long = userDao.getIdFromTitoloandUser(titolo,username)
                     userDao.deleteCalendar(userDao.selectCalendarbyId(long))
-                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()}
+                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()
+                    recreate()}
                 .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
                 .show()
             true

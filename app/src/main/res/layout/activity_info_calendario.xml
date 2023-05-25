@@ -37,7 +37,7 @@ tools:context="com.example.planit.MainActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="136dp" />
+            app:layout_constraintGuide_begin="180dp" />
 
 
 
@@ -55,31 +55,31 @@ tools:context="com.example.planit.MainActivity"
 
         <Button
             android:id="@+id/Indietro"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/baseline_arrow_back_24"
-            android:layout_marginTop="10dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/baseline_arrow_back_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintHorizontal_bias="0.045"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.036" />
+            app:layout_constraintVertical_bias="0.049" />
 
         <TextView
             android:id="@+id/codicepartecipazione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="CODICE DI PARTECIPAZIONE"
+            android:layout_marginEnd="80dp"
+            android:text="CODICE"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             android:textSize="40px"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.863" />
+            app:layout_constraintVertical_bias="0.761" />
 
         <TextView
             android:id="@+id/titolo"
@@ -87,50 +87,50 @@ tools:context="com.example.planit.MainActivity"
             android:layout_height="wrap_content"
             android:text="TITOLO"
             android:textColor="@color/black"
+            android:textSize="40px"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.229"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.863"
-            android:textSize="40px"
-            android:textStyle="bold"/>
+            app:layout_constraintVertical_bias="0.761" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="85dp"
             android:text="NOME DEL CALENDARIO:"
-            app:layout_constraintStart_toStartOf="@+id/titolo"
-            app:layout_constraintTop_toTopOf="parent"
             android:textSize="35px"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="56dp"
+            android:layout_marginTop="84dp"
             android:text="CODICE DI INGRESSO:"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/codicepartecipazione"
-            app:layout_constraintTop_toTopOf="parent"
             android:textSize="35px"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.859"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/informazioni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="60dp"
             android:text="Tieni premuto un partecipante per eliminare"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="invisible"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

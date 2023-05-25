@@ -9,11 +9,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.calendario.R
 import roomData.User
 import roomData.UserDatabase
+
 
 class Info_Calendar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +28,22 @@ class Info_Calendar : AppCompatActivity() {
         val titoloView = findViewById<TextView>(R.id.titolo)
         val codiceView = findViewById<TextView>(R.id.codicepartecipazione)
 
+        val Btn_indietro = findViewById<Button>(R.id.Indietro)
+        Btn_indietro.setOnClickListener{
+            val intent = Intent (this, Calendario::class.java)
+            intent.putExtra("id_calendario", id)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
 
         val userDao = UserDatabase.getInstance(application).dao()
 
         val currentCalendar = userDao.selectCalendarbyId(id)
-        var viewUser = View.OnClickListener {  }
 
         titoloView.setText(currentCalendar.titolo)
         codiceView.setText(currentCalendar.codiceIngresso)
 
-
+/*
         if(userDao.selectLivello(username,id)==1){
             val informazioni = findViewById<TextView>(R.id.informazioni)
            informazioni.setVisibility(View.VISIBLE)
@@ -46,18 +54,37 @@ class Info_Calendar : AppCompatActivity() {
             }
         }
 
+ */
+       // controlla il livello dell'utente e se è uguale ad 1 mostra il testo "Tieni premuto un partecipante per eliminare"
+        if(userDao.selectLivello(username,id)==1) {
+            val informazioni = findViewById<TextView>(R.id.informazioni)
+            informazioni.setVisibility(View.VISIBLE)
+        }
+
+        var builder: AlertDialog.Builder
+        builder = AlertDialog.Builder(this)
+
+        val cancella = View.OnLongClickListener{view ->
+            builder.setTitle("Attenzione!")
+                .setMessage("Sei sicuro di voler eliminare questo utente dal calendario?")
+                .setCancelable(true)
+                .setPositiveButton("Si"){dialogInterface,it ->  val user = view.getTag() as String
+                    userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
+                    Toast.makeText(this, "Hai eliminato l'utente: " + user, Toast.LENGTH_SHORT).show()
+                    recreate()}
+                .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
+                .show()
+            true
+        }
+
         val users = userDao.selectAllUserbyId(id)
 
         for(i in users.indices){
             val button = addButton(users[i])
             button.setTag(users[i])
-            button.setOnClickListener(viewUser)
+            button.setOnLongClickListener(cancella)
         }
-
-
     }
-
-
 
     fun addButton(nome: String): Button{
         val linear = findViewById<LinearLayout>(R.id.linearlayout)
