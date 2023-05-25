@@ -1,9 +1,14 @@
 package com.example.planit
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.provider.CalendarContract.Events
+import android.text.style.ForegroundColorSpan
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
@@ -14,7 +19,9 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import roomData.UserDatabase
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
+import java.util.HashSet
 import java.util.Locale
 
 class Calendario: AppCompatActivity() {
@@ -49,6 +56,7 @@ class Calendario: AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 
     fun calendario() {
 
@@ -101,6 +109,7 @@ class Calendario: AppCompatActivity() {
             }
         }
 
+
         val sundayDecorator = SundayDecorator()
         materialCalendarView.addDecorators(sundayDecorator)
 
@@ -108,6 +117,8 @@ class Calendario: AppCompatActivity() {
 
         // Imposta il colore di sfondo del giorno selezionato
         calendarView.setSelectionColor(ContextCompat.getColor(this, R.color.green))
+
+
 
         // Seleziona il giorno corrente
         calendarView.setCurrentDate(CalendarDay.today())
@@ -121,9 +132,26 @@ class Calendario: AppCompatActivity() {
             }
 
             override fun decorate(view: DayViewFacade) {
-                view.setSelectionDrawable(resources.getDrawable(R.drawable.botton_plus))
+                view.setBackgroundDrawable(resources.getDrawable(R.drawable.background_day))
             }
         }
         materialCalendarView.addDecorator(currentDayDecorator)
+
+
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy",Locale.ITALY)
+        val dates = userDao.getDatesWithEvents(id)
+        val datesWithEvents = HashSet<Calendar>()
+        for(dates in dates){
+          val calendar = Calendar.getInstance()
+            val date = dateFormat.parse(dates)
+            calendar.time = date
+
+            datesWithEvents.add(calendar)
+        }
+
+        val decorator = EventDecorator(this, datesWithEvents)
+        materialCalendarView.addDecorator(decorator)
+
     }
 }
+

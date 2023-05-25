@@ -28,6 +28,7 @@ class Event: AppCompatActivity()  {
         val selectedDate = intent.getStringExtra("data_selezionata")
         val id = intent.getLongExtra("id_calendario", 0)
         val username = intent.getStringExtra("username")
+        val nome_cal = intent.getStringExtra("nome_cal")
         val data = findViewById<TextView>(R.id.Data)
         data.text = selectedDate
 
@@ -44,6 +45,7 @@ class Event: AppCompatActivity()  {
             intent.putExtra("data_selezionata",selectedDate)
             intent.putExtra("id_calendario",id)
             intent.putExtra("username",username)
+            intent.putExtra("nome_cal",nome_cal)
             startActivity(intent)
         }
 
@@ -88,6 +90,7 @@ class Event: AppCompatActivity()  {
                 intent.putExtra("data_selezionata",selectedDate)
                 intent.putExtra("id_calendario",id)
                 intent.putExtra("username",username)
+                intent.putExtra("nome_cal",nome_cal)
                 startActivity(intent)
             } else{
                 Toast.makeText(this, "Solo la descrizione può essere vuota!", Toast.LENGTH_SHORT)

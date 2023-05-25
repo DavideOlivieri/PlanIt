@@ -66,12 +66,14 @@ interface UserDao {
     @Query("SELECT id FROM Event WHERE Event.titolo = :titolo")
     fun getIdFromEvent(titolo: String): Int
 
-    @Query("SELECT * FROM event WHERE Event.calendar_id = :calendarId AND Event.data = :data")
+    @Query("SELECT * FROM event WHERE Event.calendar_id = :calendarId AND Event.data = :data  ORDER BY Event.orario_inizio ASC")
     fun getEventsByCalendarId(calendarId: Long, data: String?): List<Event>
 
     @Insert
     fun insertUserCalendarId(user_calendar_id: User_Calendar_id)
 
+    @Query("SELECT data FROM Event WHERE calendar_id = :idCalendario GROUP BY data HAVING COUNT(*) > 0")
+    fun getDatesWithEvents(idCalendario: Long): List<String>
 
     @Query("SELECT * FROM Calendar WHERE Calendar.id = :id")
     fun selectCalendarbyId(id: Long): Calendar

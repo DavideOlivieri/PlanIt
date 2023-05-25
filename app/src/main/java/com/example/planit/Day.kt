@@ -49,6 +49,7 @@ class Day: AppCompatActivity() {
             intent.putExtra("data_selezionata", selectedDate)
             intent.putExtra("id_calendario", id)
             intent.putExtra("username",username)
+            intent.putExtra("nome_cal",nome_cal)
             startActivity(intent)
         }
 
