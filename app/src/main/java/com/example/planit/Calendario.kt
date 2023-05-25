@@ -29,14 +29,11 @@ class Calendario: AppCompatActivity() {
         val nome_cal = findViewById<TextView>(R.id.nome_calendario)
         val btnInfo = findViewById<Button>(R.id.info_calendar)
 
-
         val userDao = UserDatabase.getInstance(application).dao()
         val current_calendar=userDao.selectCalendarbyId(id)
 
-
         nome_cal.text = current_calendar.titolo
         nome_cal.setText(current_calendar.titolo)
-
 
         val Btn_indietro = findViewById<Button>(R.id.Indietro)
         Btn_indietro.setOnClickListener{
@@ -44,7 +41,6 @@ class Calendario: AppCompatActivity() {
             intent.putExtra("Username",username)
             startActivity(intent)
         }
-
 
         btnInfo.setOnClickListener {
             val intent = Intent(this, Info_Calendar::class.java)
@@ -75,24 +71,19 @@ class Calendario: AppCompatActivity() {
             if (month.toInt()<10) {
                 month = "0$month"
             }
-
             if (date.toInt()<10) {
                 date = "0$date"
             }
-
             val message = date +"-"+ month +"-"+ year
 
             // Crea un'istanza dell'intent per aprire la nuova pagina
             val intent = Intent(this, Day::class.java)
-
 
             // Passa la data selezionata all'intent
             intent.putExtra("data_selezionata", message)
             intent.putExtra("id_calendario", id)
             intent.putExtra("nome_cal",nome)
             intent.putExtra("username", username)
-
-
             // Avvia l'attività con l'intent
             startActivity(intent)
 
@@ -108,12 +99,7 @@ class Calendario: AppCompatActivity() {
 
                 })
             }
-
-
-
-
         }
-
 
         val sundayDecorator = SundayDecorator()
         materialCalendarView.addDecorators(sundayDecorator)
@@ -138,8 +124,6 @@ class Calendario: AppCompatActivity() {
                 view.setSelectionDrawable(resources.getDrawable(R.drawable.botton_plus))
             }
         }
-
         materialCalendarView.addDecorator(currentDayDecorator)
-
     }
 }
