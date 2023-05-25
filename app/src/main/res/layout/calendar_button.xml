@@ -2,7 +2,8 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
 
@@ -12,6 +13,9 @@
         android:layout_height="85dp"
         android:text="Button"
         tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="97dp" />
+        tools:layout_editor_absoluteY="97dp"
+        android:backgroundTint="#39C4D6"
+        android:textColor="@color/black"
+        app:cornerRadius="70dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

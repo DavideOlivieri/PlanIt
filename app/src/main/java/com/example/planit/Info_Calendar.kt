@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.calendario.R
 import roomData.User
 import roomData.UserDatabase
@@ -36,6 +37,8 @@ class Info_Calendar : AppCompatActivity() {
 
 
         if(userDao.selectLivello(username,id)==1){
+            val informazioni = findViewById<TextView>("informazioni")
+           informazioni.setVisibility(View.VISIBLE)
             viewUser = View.OnClickListener {view->
                 val user = view.getTag() as String
                 userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
