@@ -55,7 +55,7 @@ class Day: AppCompatActivity() {
         var builder: AlertDialog.Builder
         builder = AlertDialog.Builder(this)
 
-        val cardf = View.OnClickListener{view ->
+        val cancella = View.OnLongClickListener{view ->
             builder.setTitle("Attenzione!")
                 .setMessage("Sei sicuro di voler eliminare questo evento?")
                 .setCancelable(true)
@@ -64,6 +64,7 @@ class Day: AppCompatActivity() {
                     Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()}
                 .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
                 .show()
+            true
         }
 
 
@@ -73,7 +74,7 @@ class Day: AppCompatActivity() {
         for (i in events.indices) {
             val card = addCard(events[i].titolo,events[i].orario_inizio,events[i].orario_fine,events[i].descrizione)
             card?.setTag(events[i].id)
-            card?.setOnClickListener(cardf)
+            card?.setOnLongClickListener(cancella)
         }
 
     }
