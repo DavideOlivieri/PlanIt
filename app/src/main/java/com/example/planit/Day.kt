@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.example.calendario.R
 import roomData.UserDatabase
 
@@ -86,6 +87,8 @@ class Day: AppCompatActivity() {
          val parentOfChild: ViewGroup? = card.parent as? ViewGroup
          parentOfChild?.removeView(card)
 
+         val drawable = ContextCompat.getDrawable(this, R.drawable.background_event)
+         card.background = drawable
 
          //inserisco all'interno selle textview i valori che prendo dal database per ogni evento
          val titolo_card = card.findViewById<TextView>(R.id.titolo)

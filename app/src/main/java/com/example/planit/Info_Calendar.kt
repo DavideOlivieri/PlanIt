@@ -37,7 +37,7 @@ class Info_Calendar : AppCompatActivity() {
 
 
         if(userDao.selectLivello(username,id)==1){
-            val informazioni = findViewById<TextView>("informazioni")
+            val informazioni = findViewById<TextView>(R.id.informazioni)
            informazioni.setVisibility(View.VISIBLE)
             viewUser = View.OnClickListener {view->
                 val user = view.getTag() as String

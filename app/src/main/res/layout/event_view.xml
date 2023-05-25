@@ -18,9 +18,9 @@
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             android:layout_margin="10dp">
-            
+
             <RelativeLayout
-                android:layout_width="380dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
@@ -28,42 +28,49 @@
                     android:id="@+id/titolo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="160dp"
+                    android:layout_marginStart="210dp"
                     android:layout_marginTop="10dp"
                     android:text="Titolo"
-                    android:textSize="20dp">
-                </TextView>
+                    android:textSize="20dp"></TextView>
+
 
                 <TextView
                     android:id="@+id/descrizione"
                     android:layout_width="wrap_content"
-                    android:maxWidth="240dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="120dp"
+                    android:layout_marginStart="140dp"
                     android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal"
+                    android:maxWidth="220dp"
                     android:text="Descrizione"
-                    android:textSize="20dp">
-                </TextView>
+                    android:textSize="20dp"></TextView>
 
                 <TextView
                     android:id="@+id/orario_i"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
                     android:text="Inizio"
-                    android:textSize="20dp">
-                </TextView>
+                    android:textSize="20dp"></TextView>
+
+                <TextView
+                    android:id="@+id/spazio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="30dp"
+                    android:text="-"
+                    android:textSize="20dp"></TextView>
 
                 <TextView
                     android:id="@+id/orario_f"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="30dp"
                     android:text="Fine"
-                    android:textSize="20dp">
-                </TextView>
+                    android:textSize="20dp"></TextView>
 
 
             </RelativeLayout>
