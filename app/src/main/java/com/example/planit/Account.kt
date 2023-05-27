@@ -1,5 +1,6 @@
 package com.example.planit
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,6 +13,7 @@ import roomData.User
 import roomData.UserDatabase
 
 class Account : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_account)
@@ -24,6 +26,12 @@ class Account : AppCompatActivity() {
         val btnLogout = findViewById<Button>(R.id.btn_logout)
         val username = intent.getStringExtra("Username")
 
+        val Btn_indietro = findViewById<Button>(R.id.Indietro)
+        Btn_indietro.setOnClickListener{
+            val intent = Intent (this, Calendario::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
 
         val userDao = UserDatabase.getInstance(application).dao()
         val user: User = userDao.selectUser(username)

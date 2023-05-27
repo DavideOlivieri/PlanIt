@@ -1,5 +1,6 @@
 package com.example.planit
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +12,7 @@ import roomData.UserDatabase
 
 // Activity necessaria per far modificare la password e l'email dell'account
 class ModAccount : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
@@ -21,6 +23,13 @@ class ModAccount : AppCompatActivity() {
         val cnfpass = findViewById<EditText>(R.id.confermapassword)
         val btnConferma = findViewById<Button>(R.id.confermabtn)
         val username = intent.getStringExtra("Username")
+
+        val Btn_indietro = findViewById<Button>(R.id.Indietro)
+        Btn_indietro.setOnClickListener{
+            val intent = Intent (this, Calendario::class.java)
+            intent.putExtra("username",username)
+            startActivity(intent)
+        }
 
         val userDao = UserDatabase.getInstance(application).dao()
 
