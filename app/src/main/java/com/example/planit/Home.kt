@@ -108,7 +108,11 @@ class Home : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.btnOpentodayevent)
         button.setOnClickListener {
-            handleButtonClicked()
+            val fragment = todayeventFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.activity_todayevent, fragment)
+                .commit()
+            //fragmentContainerView.visibility = View.VISIBLE
         }
 
 
@@ -149,12 +153,6 @@ class Home : AppCompatActivity() {
 */
 
 
-    private fun handleButtonClicked() {
-        // Esegui l'azione per il clic del pulsante qui
-        // Apri la sezione contenente i dati aggiuntivi
-        openAdditionalDataSection()
-    }
-
     fun addButton(nome: String): Button{
         val linear = findViewById<LinearLayout>(R.id.linearlayout)
         val inflater = LayoutInflater.from(this)
@@ -182,14 +180,6 @@ class Home : AppCompatActivity() {
         linear.addView(buttonLayout,layoutParams)
         //     linear.addView(editText,layoutParams)
         return button
-    }
-
-    private fun openAdditionalDataSection() {
-        val fragment = todayeventFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.acttivity_todayevent, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 
         /*

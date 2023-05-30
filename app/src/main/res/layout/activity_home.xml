@@ -8,16 +8,18 @@
     tools:context="com.example.planit.MainActivity"
     android:background="@color/actionBar">
 
+
     <FrameLayout
-        android:id="@+id/acttivity_todayevent"
+        android:id="@+id/activity_todayevent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:visibility="invisible">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="com.example.planit.todayeventFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="300dp"
+            android:layout_height="match_parent" />
     </FrameLayout>
 
     <Button
