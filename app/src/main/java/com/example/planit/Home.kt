@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -104,6 +106,13 @@ class Home : AppCompatActivity() {
         }
 
 
+        val button: Button = findViewById(R.id.btnOpentodayevent)
+        button.setOnClickListener {
+            handleButtonClicked()
+        }
+
+
+
     }
 /*
     //Funzione per aggiungere alla schermata di home il bottone del calendario
@@ -140,6 +149,12 @@ class Home : AppCompatActivity() {
 */
 
 
+    private fun handleButtonClicked() {
+        // Esegui l'azione per il clic del pulsante qui
+        // Apri la sezione contenente i dati aggiuntivi
+        openAdditionalDataSection()
+    }
+
     fun addButton(nome: String): Button{
         val linear = findViewById<LinearLayout>(R.id.linearlayout)
         val inflater = LayoutInflater.from(this)
@@ -169,6 +184,13 @@ class Home : AppCompatActivity() {
         return button
     }
 
+    private fun openAdditionalDataSection() {
+        val fragment = todayeventFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.acttivity_todayevent, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
         /*
     @SuppressLint("ResourceAsColor")

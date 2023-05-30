@@ -8,6 +8,18 @@
     tools:context="com.example.planit.MainActivity"
     android:background="@color/actionBar">
 
+    <FrameLayout
+        android:id="@+id/acttivity_todayevent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.example.planit.todayeventFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
     <Button
         android:id="@+id/Aggiungi_Calendario"
         android:layout_width="75dp"
@@ -65,6 +77,16 @@
         android:orientation="vertical" >
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOpentodayevent"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:text="Attività del giorno"
+                app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 
