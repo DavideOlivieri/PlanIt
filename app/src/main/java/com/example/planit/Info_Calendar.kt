@@ -1,6 +1,7 @@
 package com.example.planit
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,11 @@ class Info_Calendar : AppCompatActivity() {
             intent.putExtra("id_calendario", id)
             intent.putExtra("username",username)
             startActivity(intent)
+        }
+
+        val shareButton: Button = findViewById(R.id.condivisione)
+        shareButton.setOnClickListener {
+            shareButtonClicked()
         }
 
         val userDao = UserDatabase.getInstance(application).dao()
@@ -83,6 +89,27 @@ class Info_Calendar : AppCompatActivity() {
             val button = addButton(users[i])
             button.setTag(users[i])
             button.setOnLongClickListener(cancella)
+        }
+    }
+// Condivisione del codice di partecipazione
+    private fun shareButtonClicked() {
+        val id = intent.getLongExtra("id_calendario", 0)
+
+        val userDao = UserDatabase.getInstance(application).dao()
+
+        val currentCalendar = userDao.selectCalendarbyId(id)
+
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_STREAM, currentCalendar.codiceIngresso)
+
+        val chooser = Intent.createChooser(intent, "Condividi con")
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(chooser)
+        } else {
+            // Nessuna app disponibile per la condivisione
+            // Gestisci di conseguenza
         }
     }
 

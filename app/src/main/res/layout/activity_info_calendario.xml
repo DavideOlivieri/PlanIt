@@ -131,6 +131,14 @@ tools:context="com.example.planit.MainActivity"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/condivisione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Condivisione"
+            tools:layout_editor_absoluteX="302dp"
+            tools:layout_editor_absoluteY="18dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 
