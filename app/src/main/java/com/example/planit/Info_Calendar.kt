@@ -14,6 +14,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.calendario.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import roomData.User
 import roomData.UserDatabase
 
@@ -22,6 +24,9 @@ class Info_Calendar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_calendario)
+
+        val database = Firebase.database
+        val myRef = database.getReference("calendars")
 
         // inizializzazione variabili
         val username = intent.getStringExtra("username")
@@ -71,15 +76,18 @@ class Info_Calendar : AppCompatActivity() {
         builder = AlertDialog.Builder(this)
 
         val cancella = View.OnLongClickListener{view ->
-            builder.setTitle("Attenzione!")
-                .setMessage("Sei sicuro di voler eliminare questo utente dal calendario?")
-                .setCancelable(true)
-                .setPositiveButton("Si"){dialogInterface,it ->  val user = view.getTag() as String
-                    userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
-                    Toast.makeText(this, "Hai eliminato l'utente: " + user, Toast.LENGTH_SHORT).show()
-                    recreate()}
-                .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
-                .show()
+            if(userDao.selectUserCalendar(username, id).livello==1){
+                    builder.setTitle("Attenzione!")
+                        .setMessage("Sei sicuro di voler eliminare questo utente dal calendario?")
+                        .setCancelable(true)
+                        .setPositiveButton("Si"){dialogInterface,it ->  val user = view.getTag() as String
+                            userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
+                            myRef.child(id.toString()).child("Partecipanti").child(user).removeValue()
+                            Toast.makeText(this, "Hai eliminato l'utente: " + user, Toast.LENGTH_SHORT).show()
+                            recreate()}
+                        .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
+                        .show()
+                }
             true
         }
 

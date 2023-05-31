@@ -61,9 +61,9 @@ class AddCalendar : AppCompatActivity() {
                 val newAssoc = User_Calendar_id(username, idCalendar,1)
                 userDao.insertUserCalendarId(newAssoc)
                 intent.putExtra("Username", username)
-                myRef.child(newCalendar.id.toString()).child("Titolo").setValue(newCalendar.titolo)
-                myRef.child(newCalendar.id.toString()).child("Codice Ingresso").setValue(newCalendar.codiceIngresso)
-                myRef.child(newCalendar.id.toString()).child("Creatore").setValue(username)
+                myRef.child(idCalendar.toString()).child("Titolo").setValue(newCalendar.titolo)
+                myRef.child(idCalendar.toString()).child("Codice Ingresso").setValue(newCalendar.codiceIngresso)
+                myRef.child(idCalendar.toString()).child("Creatore").setValue(username)
                 startActivity(intent)
             }else{
                 Toast.makeText(this, "Inserisci un nome per il calendario!", Toast.LENGTH_SHORT)
@@ -83,7 +83,9 @@ class AddCalendar : AppCompatActivity() {
                     val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codice_calendario),0)
                     userDao.insertUserCalendarId(newAssoc)
                     intent.putExtra("Username", username)
-                    myRef.child(userDao.selectIdbyCodice(codice_calendario).toString()).child("Partecipanti").child("Username").setValue(username)
+                    if (username != null) {
+                        myRef.child(userDao.selectIdbyCodice(codice_calendario).toString()).child("Partecipanti").child(username).setValue(username)
+                    }
                     startActivity(intent)
                 }
                 else{

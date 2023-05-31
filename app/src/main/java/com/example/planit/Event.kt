@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calendario.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import roomData.Event
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -23,6 +25,10 @@ class Event: AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
+
+        // Write a message to the database
+        val database = Firebase.database
+        val myRef = database.getReference("events")
 
         val userDao = UserDatabase.getInstance(application).dao()
         val selectedDate = intent.getStringExtra("data_selezionata")
@@ -87,6 +93,12 @@ class Event: AppCompatActivity()  {
             if(titolo_edit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty() && inizio <= fine){
                 val newEvent = Event(titolo,data,inizio,fine,descrizione,id)
                 userDao.insertEvent(newEvent)
+                myRef.child(newEvent.id.toString()).child("Titolo").setValue(titolo)
+                myRef.child(newEvent.id.toString()).child("Data").setValue(data)
+                myRef.child(newEvent.id.toString()).child("Inizio").setValue(inizio)
+                myRef.child(newEvent.id.toString()).child("Fine").setValue(fine)
+                myRef.child(newEvent.id.toString()).child("Descrizione").setValue(descrizione)
+                myRef.child(newEvent.id.toString()).child("Calendario").setValue(id)
                 intent.putExtra("data_selezionata",selectedDate)
                 intent.putExtra("id_calendario",id)
                 intent.putExtra("username",username)

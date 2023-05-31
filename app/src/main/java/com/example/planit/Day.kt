@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import roomData.UserDatabase
 
 
@@ -23,6 +25,9 @@ class Day: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day)
+
+        val database = Firebase.database
+        val myRef = database.getReference("events")
 
         val selectedDate = intent.getStringExtra("data_selezionata")
         val id = intent.getLongExtra("id_calendario", 0)
@@ -63,6 +68,7 @@ class Day: AppCompatActivity() {
                 .setCancelable(true)
                 .setPositiveButton("Si"){dialogInterface,it -> val titolo = view.getTag() as Int
                     userDao.deleteEvent(userDao.selectEvent(titolo))
+                    myRef.child(userDao.selectEvent(titolo).id.toString()).removeValue()
                     Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()
                 recreate()}
                 .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}

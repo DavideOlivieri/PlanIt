@@ -8,6 +8,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.calendario.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import roomData.UserDatabase
 
 // Activity necessaria per far modificare la password e l'email dell'account
@@ -16,6 +18,10 @@ class ModAccount : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
+
+        // Write a message to the database
+        val database = Firebase.database
+        val myRef = database.getReference("users")
 
         // inizializzazione variabili
         val email = findViewById<EditText>(R.id.email)
@@ -46,6 +52,8 @@ class ModAccount : AppCompatActivity() {
                                 if (stremail.contains('@') && (stremail.contains(".com") || stremail.contains(".it"))) {
                                     if (username != null) {
                                         userDao.modUser(username, strPass, stremail)
+                                        myRef.child(username).child("Email").setValue(stremail)
+                                        myRef.child(username).child("Password").setValue(strPass)
                                         Toast.makeText(this, "Modifica effettuata!", Toast.LENGTH_SHORT)
                                             .show()
                                     }

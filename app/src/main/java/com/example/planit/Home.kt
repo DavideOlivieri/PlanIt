@@ -20,6 +20,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import com.example.calendario.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 // import com.example.calendario.databinding.ActivityHomeBinding
 import roomData.UserDatabase
 import java.text.SimpleDateFormat
@@ -33,6 +35,9 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val database = Firebase.database
+        val myRef = database.getReference("calendars")
 
         //inizializzazione variabili
         val account = findViewById<ImageView>(R.id.Account)
@@ -73,12 +78,21 @@ class Home : AppCompatActivity() {
         builder = AlertDialog.Builder(this)
         val longClick = View.OnLongClickListener { view ->
             builder.setTitle("Attenzione!")
-                .setMessage("Sei sicuro di voler eliminare questo evento?")
+                .setMessage("Sei sicuro di voler eliminare questo calendario?")
                 .setCancelable(true)
                 .setPositiveButton("Si"){dialogInterface,it -> val titolo = view.getTag() as String
                     val long = userDao.getIdFromTitoloandUser(titolo,username)
-                    userDao.deleteCalendar(userDao.selectCalendarbyId(long))
-                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()
+                    if(userDao.selectUserCalendar(username,long).livello==1) {
+                        userDao.deleteCalendar(userDao.selectCalendarbyId(long))
+                        myRef.child(userDao.getIdFromTitoloandUser(titolo,username).toString()).removeValue()
+                    }
+                    else{
+                        userDao.deleteUserFromCalendar(userDao.selectUserCalendar(username,long))
+                        if (username != null) {
+                            myRef.child(userDao.getIdFromTitoloandUser(titolo,username).toString()).child("Partecipanti").child(username).removeValue()
+                        }
+                    }
+                    Toast.makeText(this, "Hai eliminato il calendario: " + titolo, Toast.LENGTH_SHORT).show()
                     recreate()}
                 .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
                 .show()
