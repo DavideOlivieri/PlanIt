@@ -8,12 +8,17 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.calendario.R
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import roomData.UserDatabase
+
+val db: FirebaseFirestore= FirebaseFirestore.getInstance()
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_in)
+
 
         //inizializzazione variabili
         val noAccount = findViewById<TextView>(R.id.sign_up_view)

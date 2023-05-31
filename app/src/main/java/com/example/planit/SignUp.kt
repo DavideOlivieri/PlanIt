@@ -8,6 +8,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.calendario.R
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import roomData.User
 import roomData.UserDatabase
 
@@ -23,6 +25,12 @@ class SignUp : AppCompatActivity() {
             val intent =  Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
+
+        // Write a message to the database
+        val database = Firebase.database
+        val myRef = database.getReference("users")
+
+
 
         // inizializzazione variabili
         val email = findViewById<EditText>(R.id.email)
@@ -58,6 +66,9 @@ class SignUp : AppCompatActivity() {
                                                 newUser = User(strPass, stremail, strUser)
                                                 userDao.insertUser(newUser)
                                                 val intentDone = Intent(this, SignUpDone::class.java)
+                                                myRef.child(newUser.user).child("Username").setValue(newUser.user)
+                                                myRef.child(newUser.user).child("Email").setValue(newUser.email)
+                                                myRef.child(newUser.user).child("Password").setValue(newUser.password)
                                                 startActivity(intentDone)
                                             }
                                         } else {
