@@ -57,7 +57,7 @@ class AddCalendar : AppCompatActivity() {
             if(nome.isNotEmpty()) {
                 val newCalendar = Calendar(nome, color, codiceIngresso)
                 userDao.insertCalendar(newCalendar)
-                val idCalendar = userDao.getIdFromCalendar(nome)
+                val idCalendar = userDao.getIdFromCalendar(nome,codiceIngresso)
                 val newAssoc = User_Calendar_id(username, idCalendar,1)
                 userDao.insertUserCalendarId(newAssoc)
                 intent.putExtra("Username", username)
