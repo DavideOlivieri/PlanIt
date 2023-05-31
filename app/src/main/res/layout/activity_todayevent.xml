@@ -48,14 +48,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="70dp" />
+                app:layout_constraintGuide_begin="20dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="70dp" />
+                app:layout_constraintGuide_end="20dp" />
 
 
             <androidx.constraintlayout.widget.Guideline
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="60dp" />
+                app:layout_constraintGuide_begin="140dp" />
 
 
             <LinearLayout

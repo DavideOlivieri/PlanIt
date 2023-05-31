@@ -154,7 +154,6 @@ class Home : AppCompatActivity() {
         fragmentTransaction.replace(R.id.framefragment,fragment)
         val bundle = Bundle()
         bundle.putString("Data", formattedDate)
-        bundle.putString("username", username)
         fragment.arguments = bundle
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
