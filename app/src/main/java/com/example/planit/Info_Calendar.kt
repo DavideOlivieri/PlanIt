@@ -99,9 +99,11 @@ class Info_Calendar : AppCompatActivity() {
 
         val currentCalendar = userDao.selectCalendarbyId(id)
 
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_STREAM, currentCalendar.codiceIngresso)
+    val intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, currentCalendar.codiceIngresso)
+        type = "text/plain"
+    }
 
         val chooser = Intent.createChooser(intent, "Condividi con")
 

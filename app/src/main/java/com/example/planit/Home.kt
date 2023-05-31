@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,12 +17,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import com.example.calendario.R
+// import com.example.calendario.databinding.ActivityHomeBinding
 import roomData.UserDatabase
-
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Home : AppCompatActivity() {
 
+    //lateinit var binding: ActivityHomeBinding
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,103 +112,127 @@ class Home : AppCompatActivity() {
             button.setOnLongClickListener(longClick)
         }
 
-
-        val button: Button = findViewById(R.id.btnOpentodayevent)
-        button.setOnClickListener {
-            val fragment = todayeventFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.activity_todayevent, fragment)
-                .commit()
-            //fragmentContainerView.visibility = View.VISIBLE
-        }
-
-
-
-    }
-/*
-    //Funzione per aggiungere alla schermata di home il bottone del calendario
-        fun addButton(): Int {
-            val linear = findViewById<LinearLayout>(R.id.linearlayout)
-            val inflater = LayoutInflater.from(this)
-            val nome = intent.getStringExtra("Nome calendario")
-            val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
-            val button = buttonLayout.findViewById<Button>(R.id.button)
-            button.setText(nome)
-
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-
-          // Imposta i margini tra i bottoni
-            layoutParams.setMargins(0, 30, 0, 0)
-
-          // Imposta i parametri del layout
-            buttonLayout.layoutParams = layoutParams
-
-            button.id = View.generateViewId()
-            var button_id = button.id
-        //     var editText: EditText
-        //     editText = EditText(this)
-        //     editText.setText(button_id.toString())
-
-            linear.addView(buttonLayout,layoutParams)
-        //     linear.addView(editText,layoutParams)
-            return button_id
-        }
-
-*/
-
-
-    fun addButton(nome: String): Button{
-        val linear = findViewById<LinearLayout>(R.id.linearlayout)
-        val inflater = LayoutInflater.from(this)
-        val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
-        val button = buttonLayout.findViewById<Button>(R.id.button)
-        button.setText(nome)
-
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        // Imposta i margini tra i bottoni
-        layoutParams.setMargins(0, 30, 0, 0)
-
-        // Imposta i parametri del layout
-        buttonLayout.layoutParams = layoutParams
-
-        button.id = View.generateViewId()
-        var button_id = button.id
-        //     var editText: EditText
-        //     editText = EditText(this)
-        //     editText.setText(button_id.toString())
-
-        linear.addView(buttonLayout,layoutParams)
-        //     linear.addView(editText,layoutParams)
-        return button
-    }
-
         /*
-    @SuppressLint("ResourceAsColor")
-    fun addButton(){
-        var button: Button
-        val nome = intent.getStringExtra("Nome calendario")
-        val relative = findViewById<RelativeLayout>(R.id.linearlayout)
-        button = Button(this)
-        button.setTextColor(R.color.black)
-        button.setText(nome)
-        button.setBackgroundColor(R.color.white)  // non funziona colore
+            binding = ActivityHomeBinding.inflate(layoutInflater)
+                setContentView(binding.root)
 
-        val params = RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.WRAP_CONTENT,
-        )
-        params.addRule(RelativeLayout.BELOW)
-        relative.addView(button,params)
+                binding.btnOpentodayevent.setOnClickListener {
+                    replaceFragment(todayeventFragment())
+                }
+
+         */
+
+        val btnOpentodayevent = findViewById<Button>(R.id.btnOpentodayevent)
+        btnOpentodayevent.setOnClickListener {
+            if (username != null) {
+                replaceFragment(todayeventFragment(), username)
+            }
+        }
+}
+
+    val currentDate = Date() // Ottieni la data corrente
+    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ITALY) // Crea un oggetto SimpleDateFormat con il formato desiderato
+    val formattedDate = dateFormat.format(currentDate) // Formatta la data nel formato specificato
+
+    private fun replaceFragment(fragment: Fragment,username: String){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.framefragment,fragment)
+        val bundle = Bundle()
+        bundle.putString("Data", formattedDate)
+        bundle.putString("username", username)
+        fragment.arguments = bundle
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+        val frag = findViewById<FrameLayout>(R.id.framefragment)
+        frag.visibility = View.VISIBLE
     }
+
+
+/*
+//Funzione per aggiungere alla schermata di home il bottone del calendario
+fun addButton(): Int {
+    val linear = findViewById<LinearLayout>(R.id.linearlayout)
+    val inflater = LayoutInflater.from(this)
+    val nome = intent.getStringExtra("Nome calendario")
+    val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
+    val button = buttonLayout.findViewById<Button>(R.id.button)
+    button.setText(nome)
+
+    val layoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    )
+
+  // Imposta i margini tra i bottoni
+    layoutParams.setMargins(0, 30, 0, 0)
+
+  // Imposta i parametri del layout
+    buttonLayout.layoutParams = layoutParams
+
+    button.id = View.generateViewId()
+    var button_id = button.id
+//     var editText: EditText
+//     editText = EditText(this)
+//     editText.setText(button_id.toString())
+
+    linear.addView(buttonLayout,layoutParams)
+//     linear.addView(editText,layoutParams)
+    return button_id
+}
+
 */
-    }
+
+
+fun addButton(nome: String): Button{
+val linear = findViewById<LinearLayout>(R.id.linearlayout)
+val inflater = LayoutInflater.from(this)
+val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
+val button = buttonLayout.findViewById<Button>(R.id.button)
+button.setText(nome)
+
+val layoutParams = LinearLayout.LayoutParams(
+    LinearLayout.LayoutParams.WRAP_CONTENT,
+    LinearLayout.LayoutParams.WRAP_CONTENT
+)
+
+// Imposta i margini tra i bottoni
+layoutParams.setMargins(0, 30, 0, 0)
+
+// Imposta i parametri del layout
+buttonLayout.layoutParams = layoutParams
+
+button.id = View.generateViewId()
+var button_id = button.id
+//     var editText: EditText
+//     editText = EditText(this)
+//     editText.setText(button_id.toString())
+
+linear.addView(buttonLayout,layoutParams)
+//     linear.addView(editText,layoutParams)
+return button
+}
+
+/*
+@SuppressLint("ResourceAsColor")
+fun addButton(){
+var button: Button
+val nome = intent.getStringExtra("Nome calendario")
+val relative = findViewById<RelativeLayout>(R.id.linearlayout)
+button = Button(this)
+button.setTextColor(R.color.black)
+button.setText(nome)
+button.setBackgroundColor(R.color.white)  // non funziona colore
+
+val params = RelativeLayout.LayoutParams(
+    RelativeLayout.LayoutParams.MATCH_PARENT,
+    RelativeLayout.LayoutParams.WRAP_CONTENT,
+)
+params.addRule(RelativeLayout.BELOW)
+relative.addView(button,params)
+}
+*/
+}
 
 
 
