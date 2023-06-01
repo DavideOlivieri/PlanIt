@@ -13,8 +13,8 @@ data class Event(
     val descrizione: String,
     val calendar_id: Long,
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @PrimaryKey
+    var id: Int = System.currentTimeMillis().toInt()
 ){
     // Costruttore senza argomenti richiesto da Firebase
     constructor() : this("", "", "","","",0)

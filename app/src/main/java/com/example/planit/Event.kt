@@ -93,12 +93,16 @@ class Event: AppCompatActivity()  {
             if(titolo_edit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty() && inizio <= fine){
                 val newEvent = Event(titolo,data,inizio,fine,descrizione,id)
                 userDao.insertEvent(newEvent)
-                myRef.child(newEvent.id.toString()).child("titolo_evento").setValue(titolo)
+                /*myRef.child(newEvent.id.toString()).child("titolo_evento").setValue(titolo)
                 myRef.child(newEvent.id.toString()).child("data").setValue(data)
                 myRef.child(newEvent.id.toString()).child("orario_inizio").setValue(inizio)
                 myRef.child(newEvent.id.toString()).child("orario_fine").setValue(fine)
                 myRef.child(newEvent.id.toString()).child("descrizione").setValue(descrizione)
                 myRef.child(newEvent.id.toString()).child("calendar_id").setValue(id)
+*/
+                val ref = database.getReference("events")
+                val newEventRef = ref.push()
+                newEventRef.setValue(newEvent)
                 intent.putExtra("data_selezionata",selectedDate)
                 intent.putExtra("id_calendario",id)
                 intent.putExtra("username",username)

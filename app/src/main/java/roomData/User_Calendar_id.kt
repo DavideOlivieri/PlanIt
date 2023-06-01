@@ -11,8 +11,8 @@ data class User_Calendar_id(
     var calendar_id: Long,
     val livello: String,
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    @PrimaryKey
+    var id: Long =System.currentTimeMillis()
 ){
     // Costruttore senza argomenti richiesto da Firebase
     constructor() : this("", 0, "")

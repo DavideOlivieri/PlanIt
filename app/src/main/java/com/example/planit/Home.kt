@@ -73,8 +73,8 @@ class Home : AppCompatActivity() {
         }*/
 
         getAllCalendarsDataFromFirebase()
-        //getAllEventsDataFromFirebase()
-        //getAllAssocsDataFromFirebase()
+        getAllEventsDataFromFirebase()
+        getAllAssocsDataFromFirebase()
 
 
 
@@ -431,11 +431,13 @@ relative.addView(button,params)
                 val userDao = UserDatabase.getInstance(application).dao()
 
                 for (calendar in calendarList) {
-                    if (userDao.selectCalendarbyCodice(calendar.codiceIngresso) == null) {
+                    if (userDao.selectCalendarbyId(calendar.id) == null) {
                         var titolo_calendario = calendar.titolo
                         var codice_ingresso = calendar.codiceIngresso
+                        var id = calendar.id
 
                         var newCalendar = Calendar(titolo_calendario, null ,codice_ingresso)
+                        newCalendar.id= id
                         userDao.insertCalendar(newCalendar)
                     }
 
@@ -448,7 +450,7 @@ relative.addView(button,params)
             }
         })
     }
-/*
+
     private fun getAllEventsDataFromFirebase() {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.reference.child("events")
@@ -540,7 +542,7 @@ relative.addView(button,params)
                 println("Errore nel recupero dei dati: ${error.message}")
             }
         })
-    }*/
+    }
 }
 
 

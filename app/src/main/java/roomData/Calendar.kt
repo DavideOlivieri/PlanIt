@@ -12,8 +12,8 @@ data class Calendar(
 
     val codiceIngresso: String,
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    @PrimaryKey
+    var id: Long = System.currentTimeMillis()
 
 ){
     // Costruttore senza argomenti richiesto da Firebase
