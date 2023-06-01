@@ -15,10 +15,17 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import roomData.User
 import roomData.UserDatabase
 
 val db: FirebaseFirestore= FirebaseFirestore.getInstance()
+var email: String? = null
+var username: String? = null
+var password: String? = null
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +61,8 @@ class MainActivity : AppCompatActivity() {
                 if (strUser.isNotEmpty()) {
                     if (strUser.length < 15) {
                         // Condizione essenziale per evitare un java.lang.NullPointerException generato dal fatto che non sono presenti Utenti nel Database con lo stesso username
-                        if(userDao.checkPass(strUser) != null){
-                            if(strUser == userDao.checkPass(strUser).user && strPass == userDao.checkPass(strUser).password){
+                        if(userDao.checkPass(strUser) != null || username !=null){
+                            if((strUser == userDao.checkPass(strUser).user || strUser ==username) && (strPass == userDao.checkPass(strUser).password || strPass == password)){
                                 val intentLogin = Intent(this, Home::class.java)
                                 intentLogin.putExtra("Username", strUser)
                                 startActivity(intentLogin)
@@ -81,6 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun getUserDataFromFirebase(key: String) {
         // Write a message to the database
         val database = FirebaseDatabase.getInstance()
@@ -91,14 +99,24 @@ class MainActivity : AppCompatActivity() {
                 if (snapshot.exists()) {
                     val userData = snapshot.getValue(User::class.java)
                     userData?.let {
-                        val email = userData.email
-                        val username = userData.user
-                        val password = userData.password
+                        email = userData.email
+                        username = userData.user
+                        password = userData.password
 
 
-                        val userDao = UserDatabase.getInstance(application).dao()
-                        val newUser = User(password, email, username)
-                        userDao.insertUser(newUser)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            // Salvataggio dei dati nel database
+                            val userDao = UserDatabase.getInstance(application).dao()
+                            val newUser = User(password!!, email!!, username!!)
+                            userDao.insertUser(newUser)
+
+                            // Attendere il completamento dell'operazione
+                            delay(3000) // Attendi per 3 secondi
+
+                            // Operazione completata dopo il ritardo di 3 secondi
+                            // Puoi eseguire altre azioni qui
+                        }
+
 
                         // Fai qualcosa con i valori salvati
                         println("Email: $email, Username: $username, Password: $password")
