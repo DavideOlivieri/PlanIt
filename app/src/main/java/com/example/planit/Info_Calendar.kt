@@ -76,13 +76,14 @@ class Info_Calendar : AppCompatActivity() {
         builder = AlertDialog.Builder(this)
 
         val cancella = View.OnLongClickListener{view ->
-            if(userDao.selectUserCalendar(username, id).livello==1){
+            if(userDao.selectUserCalendar(username, id).livello=="1"){
                     builder.setTitle("Attenzione!")
                         .setMessage("Sei sicuro di voler eliminare questo utente dal calendario?")
                         .setCancelable(true)
                         .setPositiveButton("Si"){dialogInterface,it ->  val user = view.getTag() as String
                             userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
-                            myRef.child(id.toString()).child("Partecipanti").child(user).removeValue()
+                            val ref = database.getReference("assocs")
+                            ref.child(userDao.selectUserCalendar(username, id).id.toString()).removeValue()
                             Toast.makeText(this, "Hai eliminato l'utente: " + user, Toast.LENGTH_SHORT).show()
                             recreate()}
                         .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}

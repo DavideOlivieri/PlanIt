@@ -58,12 +58,16 @@ class AddCalendar : AppCompatActivity() {
                 val newCalendar = Calendar(nome, color, codiceIngresso)
                 userDao.insertCalendar(newCalendar)
                 val idCalendar = userDao.getIdFromCalendar(nome,codiceIngresso)
-                val newAssoc = User_Calendar_id(username, idCalendar,1)
+                val newAssoc = User_Calendar_id(username, idCalendar,"1")
+                val idAssoc = userDao.selectUserCalendar(username,idCalendar)
                 userDao.insertUserCalendarId(newAssoc)
                 intent.putExtra("Username", username)
-                myRef.child(idCalendar.toString()).child("Titolo").setValue(newCalendar.titolo)
-                myRef.child(idCalendar.toString()).child("Codice Ingresso").setValue(newCalendar.codiceIngresso)
-                myRef.child(idCalendar.toString()).child("Creatore").setValue(username)
+                val newCalendarRef = myRef.push()
+                newCalendarRef.setValue(newCalendar)
+
+                val ref = database.getReference("assocs")
+                val newAssocRef = ref.push()
+                newAssocRef.setValue(newAssoc)
                 startActivity(intent)
             }else{
                 Toast.makeText(this, "Inserisci un nome per il calendario!", Toast.LENGTH_SHORT)
@@ -80,12 +84,14 @@ class AddCalendar : AppCompatActivity() {
             if(codice_calendario.isNotEmpty()) {
 
                 if (userDao.selectIdbyCodice(codice_calendario)!=null) {
-                    val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codice_calendario),0)
+                    val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codice_calendario),"0")
                     userDao.insertUserCalendarId(newAssoc)
                     intent.putExtra("Username", username)
-                    if (username != null) {
-                        myRef.child(userDao.selectIdbyCodice(codice_calendario).toString()).child("Partecipanti").child(username).setValue(username)
-                    }
+
+                    val ref = database.getReference("assocs")
+                    val newAssocRef = ref.push()
+                    newAssocRef.setValue(newAssoc)
+
                     startActivity(intent)
                 }
                 else{

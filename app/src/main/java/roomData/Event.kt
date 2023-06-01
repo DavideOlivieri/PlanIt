@@ -14,5 +14,8 @@ data class Event(
     val calendar_id: Long,
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
-)
+    var id: Int = 0
+){
+    // Costruttore senza argomenti richiesto da Firebase
+    constructor() : this("", "", "","","",0)
+}

@@ -8,11 +8,14 @@ data class Calendar(
 
     val titolo: String,
 
-    val colore: String,
+    val colore: String?,
 
     val codiceIngresso: String,
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0
+    var id: Long = 0
 
-)
+){
+    // Costruttore senza argomenti richiesto da Firebase
+    constructor() : this("", "", "")
+}

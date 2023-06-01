@@ -52,8 +52,8 @@ class ModAccount : AppCompatActivity() {
                                 if (stremail.contains('@') && (stremail.contains(".com") || stremail.contains(".it"))) {
                                     if (username != null) {
                                         userDao.modUser(username, strPass, stremail)
-                                        myRef.child(username).child("Email").setValue(stremail)
-                                        myRef.child(username).child("Password").setValue(strPass)
+                                        myRef.child(username).child("email").setValue(stremail)
+                                        myRef.child(username).child("password").setValue(strPass)
                                         Toast.makeText(this, "Modifica effettuata!", Toast.LENGTH_SHORT)
                                             .show()
                                     }

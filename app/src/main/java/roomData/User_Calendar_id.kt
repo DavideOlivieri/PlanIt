@@ -9,8 +9,11 @@ data class User_Calendar_id(
 
     var username: String?,
     var calendar_id: Long,
-    val livello: Int,
+    val livello: String,
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0
-)
+    var id: Long = 0
+){
+    // Costruttore senza argomenti richiesto da Firebase
+    constructor() : this("", 0, "")
+}

@@ -27,6 +27,9 @@ var email: String? = null
 var username: String? = null
 var password: String? = null
 
+
+
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         val userDao = UserDatabase.getInstance(application).dao()
 
+        getAllUsersDataFromFirebase()
+
+
 
 
         // passaggio alla schermata di signUp
@@ -52,10 +58,10 @@ class MainActivity : AppCompatActivity() {
         // controllo valori inseriti
         btnLogin.setOnClickListener {
             val strUser: String = user.text.toString()
-            // Chiamata alla funzione per ottenere i dati da Firebase
+            /*// Chiamata alla funzione per ottenere i dati da Firebase
             if(strUser!=userDao.checkPass(strUser)?.user){
-                getUserDataFromFirebase(strUser)
-            }
+                //getUserDataFromFirebase(strUser)
+            }*/
             val strPass: String = pass.text.toString()
             if (strPass.isNotEmpty()) {
                 if (strUser.isNotEmpty()) {
@@ -88,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+/*
     private fun getUserDataFromFirebase(key: String) {
         // Write a message to the database
         val database = FirebaseDatabase.getInstance()
@@ -124,6 +130,43 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     // La chiave specificata non esiste nel database
                     println("La chiave $key non è presente nel database.")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestisci eventuali errori
+                println("Errore nel recupero dei dati: ${error.message}")
+            }
+        })
+    }*/
+
+    private fun getAllUsersDataFromFirebase() {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("users")
+
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userList = mutableListOf<User>()
+
+                for (userSnapshot in snapshot.children) {
+                    val userData = userSnapshot.getValue(User::class.java)
+                    userData?.let {
+                        userList.add(userData)
+                    }
+                }
+
+                val userDao = UserDatabase.getInstance(application).dao()
+
+                for (user in userList) {
+                    if(userDao.checkPass(user.user) == null) {
+                        email = user.email
+                        username = user.user
+                        password = user.password
+
+                        val newUser = User(password!!, email!!, username!!)
+                        userDao.insertUser(newUser)
+                    }
+
                 }
             }
 
