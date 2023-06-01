@@ -66,9 +66,9 @@ class SignUp : AppCompatActivity() {
                                                 newUser = User(strPass, stremail, strUser)
                                                 userDao.insertUser(newUser)
                                                 val intentDone = Intent(this, SignUpDone::class.java)
-                                                myRef.child(newUser.user).child("Username").setValue(newUser.user)
-                                                myRef.child(newUser.user).child("Email").setValue(newUser.email)
-                                                myRef.child(newUser.user).child("Password").setValue(newUser.password)
+                                                myRef.child(newUser.user).child("user").setValue(newUser.user)
+                                                myRef.child(newUser.user).child("email").setValue(newUser.email)
+                                                myRef.child(newUser.user).child("password").setValue(newUser.password)
                                                 startActivity(intentDone)
                                             }
                                         } else {

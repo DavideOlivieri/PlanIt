@@ -6,10 +6,13 @@ import androidx.room.PrimaryKey
 @Entity
 data class User(
 
-    val password: String,
-    val email: String,
+    val password: String ,
+    val email: String ,
 
     @PrimaryKey
     val user: String
 
-)
+){
+    // Costruttore senza argomenti richiesto da Firebase
+    constructor() : this("", "", "")
+}
