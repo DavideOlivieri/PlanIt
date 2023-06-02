@@ -17,6 +17,7 @@ import com.example.calendario.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -116,15 +117,25 @@ class Home : AppCompatActivity() {
                     val titolo = view.getTag() as String
                     val long = userDao.getIdFromTitoloandUser(titolo, username)
                     if (userDao.selectUserCalendar(username, long).livello == "1") {
+                        val database = FirebaseDatabase.getInstance()
+                        val myRef = database.reference.child("calendars")
+                        val query = myRef.orderByChild("id").equalTo(long.toDouble())
+                        deleteCalendarById(query)
                         userDao.deleteCalendar(userDao.selectCalendarbyId(long))
-                        myRef.child(userDao.getIdFromTitoloandUser(titolo, username).toString())
-                            .removeValue()
+
+
+
+
+
+                        deleteAssocById(long.toDouble(), username)
+
+                        userDao.deleteUserFromCalendar(userDao.selectUserCalendar(username,long))
+
+
                     } else {
-                        userDao.deleteUserFromCalendar(userDao.selectUserCalendar(username, long))
-                        if (username != null) {
-                            myRef.child(userDao.getIdFromTitoloandUser(titolo, username).toString())
-                                .child("Partecipanti").child(username).removeValue()
-                        }
+                        deleteAssocById(long.toDouble(), username)
+
+                        userDao.deleteUserFromCalendar(userDao.selectUserCalendar(username,long))
                     }
                     Toast.makeText(
                         this,
@@ -540,6 +551,66 @@ relative.addView(button,params)
             override fun onCancelled(error: DatabaseError) {
                 // Gestisci eventuali errori
                 println("Errore nel recupero dei dati: ${error.message}")
+            }
+        })
+    }
+
+
+    private fun deleteCalendarById(query: Query) {
+
+
+        // Eseguire la query per trovare il calendario con il titolo specificato
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (calendarSnapshot in snapshot.children) {
+                    calendarSnapshot.ref.removeValue()
+
+
+                        .addOnSuccessListener {
+                            println("Evento eliminato con successo.")
+                        }
+                        .addOnFailureListener { exception ->
+                            println("Errore nell'eliminazione dell'evento: ${exception.message}")
+                        }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestire eventuali errori
+                println("Errore nella query: ${error.message}")
+            }
+        })
+    }
+
+
+    private fun deleteAssocById(long: Double, username: String?) {
+
+
+        val database1 = FirebaseDatabase.getInstance()
+        val myRef1 = database1.reference.child("assocs")
+        // Eseguire la query per trovare il calendario con il titolo specificato
+        val query = myRef1.orderByChild("calendar_id").equalTo(long)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (assocSnapshot in snapshot.children) {
+                    val user = assocSnapshot.child("username").getValue(String::class.java)
+                    if (user == username) {
+                        assocSnapshot.ref.removeValue()
+                            .addOnSuccessListener {
+                                println("Evento eliminato con successo.")
+                            }
+                            .addOnFailureListener { exception ->
+                                println("Errore nell'eliminazione dell'evento: ${exception.message}")
+                            }
+                    }
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestire eventuali errori
+                println("Errore nella query: ${error.message}")
             }
         })
     }
