@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import roomData.UserDatabase
@@ -42,10 +47,10 @@ class Day: AppCompatActivity() {
 
 
         val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        Btn_indietro.setOnClickListener{
-            val intent = Intent (this, Calendario::class.java)
+        Btn_indietro.setOnClickListener {
+            val intent = Intent(this, Calendario::class.java)
             intent.putExtra("id_calendario", id)
-            intent.putExtra("username",username)
+            intent.putExtra("username", username)
             startActivity(intent)
         }
 
@@ -53,8 +58,8 @@ class Day: AppCompatActivity() {
             val intent = Intent(this, Event::class.java)
             intent.putExtra("data_selezionata", selectedDate)
             intent.putExtra("id_calendario", id)
-            intent.putExtra("username",username)
-            intent.putExtra("nome_cal",nome_cal)
+            intent.putExtra("username", username)
+            intent.putExtra("nome_cal", nome_cal)
             startActivity(intent)
         }
 
@@ -62,55 +67,102 @@ class Day: AppCompatActivity() {
         var builder: AlertDialog.Builder
         builder = AlertDialog.Builder(this)
 
-        val cancella = View.OnLongClickListener{view ->
+        val cancella = View.OnLongClickListener { view ->
             builder.setTitle("Attenzione!")
                 .setMessage("Sei sicuro di voler eliminare questo evento?")
                 .setCancelable(true)
-                .setPositiveButton("Si"){dialogInterface,it -> val titolo = view.getTag() as Int
+                .setPositiveButton("Si") { dialogInterface, it ->
+                    val titolo = view.getTag() as Int
+
+                    val database = FirebaseDatabase.getInstance()
+                    val myRef = database.reference.child("events")
+                    val query = myRef.orderByChild("id").equalTo(userDao.selectEvent(titolo).id.toDouble())
                     userDao.deleteEvent(userDao.selectEvent(titolo))
-                    myRef.child(userDao.selectEvent(titolo).id.toString()).removeValue()
-                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT).show()
-                recreate()}
-                .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
+                    deleteEventById(query)
+                    Toast.makeText(this, "Hai eliminato l'evento: " + titolo, Toast.LENGTH_SHORT)
+                        .show()
+                    recreate()
+                }
+                .setNegativeButton("No") { dialogInterface, it -> dialogInterface.cancel() }
                 .show()
             true
         }
 
 
-
-        val events = userDao.getEventsByCalendarId(id,selectedDate)
+        val events = userDao.getEventsByCalendarId(id, selectedDate)
 
         for (i in events.indices) {
-            val card = addCard(events[i].titolo,events[i].orario_inizio,events[i].orario_fine,events[i].descrizione)
+            val card = addCard(
+                events[i].titolo,
+                events[i].orario_inizio,
+                events[i].orario_fine,
+                events[i].descrizione
+            )
             card?.setTag(events[i].id)
             card?.setOnLongClickListener(cancella)
         }
 
     }
-     private fun addCard(titolo: String,inizio: String,fine: String,descrizione: String): CardView? {
-         val linear = findViewById<LinearLayout>(R.id.linearlayout)
-         val inflater = LayoutInflater.from(this)
-         val card_layout = inflater.inflate(R.layout.event_view, null)
-         val card = card_layout.findViewById<CardView>(R.id.card)
-         val parentOfChild: ViewGroup? = card.parent as? ViewGroup
-         parentOfChild?.removeView(card)
 
-         val drawable = ContextCompat.getDrawable(this, R.drawable.background_event)
-         card.background = drawable
+    private fun addCard(
+        titolo: String,
+        inizio: String,
+        fine: String,
+        descrizione: String
+    ): CardView? {
+        val linear = findViewById<LinearLayout>(R.id.linearlayout)
+        val inflater = LayoutInflater.from(this)
+        val card_layout = inflater.inflate(R.layout.event_view, null)
+        val card = card_layout.findViewById<CardView>(R.id.card)
+        val parentOfChild: ViewGroup? = card.parent as? ViewGroup
+        parentOfChild?.removeView(card)
 
-         //inserisco all'interno selle textview i valori che prendo dal database per ogni evento
-         val titolo_card = card.findViewById<TextView>(R.id.titolo)
-         titolo_card.setText(titolo)
-         val inizio_card = card.findViewById<TextView>(R.id.orario_i)
-         inizio_card.setText(inizio)
-         val fine_card = card.findViewById<TextView>(R.id.orario_f)
-         fine_card.setText(fine)
-         val descrizione_card = card.findViewById<TextView>(R.id.descrizione)
-         descrizione_card.setText(descrizione)
+        val drawable = ContextCompat.getDrawable(this, R.drawable.background_event)
+        card.background = drawable
 
-         linear.addView(card)
-         return card
-     }
-}
+        //inserisco all'interno selle textview i valori che prendo dal database per ogni evento
+        val titolo_card = card.findViewById<TextView>(R.id.titolo)
+        titolo_card.setText(titolo)
+        val inizio_card = card.findViewById<TextView>(R.id.orario_i)
+        inizio_card.setText(inizio)
+        val fine_card = card.findViewById<TextView>(R.id.orario_f)
+        fine_card.setText(fine)
+        val descrizione_card = card.findViewById<TextView>(R.id.descrizione)
+        descrizione_card.setText(descrizione)
+
+        linear.addView(card)
+        return card
+    }
+
+
+    private fun deleteEventById(query: Query) {
+
+
+        // Eseguire la query per trovare il calendario con il titolo specificato
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (eventSnapshot in snapshot.children) {
+                    eventSnapshot.ref.removeValue()
+
+
+                            .addOnSuccessListener {
+                                println("Evento eliminato con successo.")
+                            }
+                            .addOnFailureListener { exception ->
+                                println("Errore nell'eliminazione dell'evento: ${exception.message}")
+                            }
+                    }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestire eventuali errori
+                println("Errore nella query: ${error.message}")
+            }
+        })
+    }
+    }
+
+
 
 
