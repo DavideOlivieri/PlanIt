@@ -1,12 +1,14 @@
 package com.example.planit
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.calendario.R
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import roomData.Calendar
@@ -16,6 +18,7 @@ import roomData.User_Calendar_id
 
 //Activity necessaria per aggiungere un nuovo calendario (nome del calendario)
 class AddCalendar : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.calendario.R.layout.activity_addcalendar)
@@ -31,6 +34,13 @@ class AddCalendar : AppCompatActivity() {
         // Write a message to the database
         val database = Firebase.database
         val myRef = database.getReference("calendars")
+
+        val Btn_indietro = findViewById<Button>(R.id.Indietro)
+        Btn_indietro.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            intent.putExtra("Username", username)
+            startActivity(intent)
+        }
 
         sicalendario.setOnClickListener{
             val edit = findViewById<EditText>(com.example.calendario.R.id.editText)

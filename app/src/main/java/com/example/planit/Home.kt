@@ -262,20 +262,15 @@ fun addButton(): Int {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
 
-// Imposta i margini tra i bottoni
+       // Imposta i margini tra i bottoni
         layoutParams.setMargins(0, 30, 0, 0)
 
-// Imposta i parametri del layout
+       // Imposta i parametri del layout
         buttonLayout.layoutParams = layoutParams
 
         button.id = View.generateViewId()
         var button_id = button.id
-//     var editText: EditText
-//     editText = EditText(this)
-//     editText.setText(button_id.toString())
-
         linear.addView(buttonLayout, layoutParams)
-//     linear.addView(editText,layoutParams)
         return button
     }
 

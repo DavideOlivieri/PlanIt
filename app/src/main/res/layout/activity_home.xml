@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.planit.MainActivity"
-    android:background="@color/actionBar">
+    android:background="@color/purple_700">
 
     <Button
         android:id="@+id/Aggiungi_Calendario"
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="60dp" />
+                app:layout_constraintGuide_begin="100dp" />
 
 
             <LinearLayout

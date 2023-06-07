@@ -14,7 +14,7 @@
         android:text="Button"
         tools:layout_editor_absoluteX="168dp"
         tools:layout_editor_absoluteY="97dp"
-        android:backgroundTint="#39C4D6"
+        android:backgroundTint="@color/white"
         android:textColor="@color/black"
         app:cornerRadius="70dp"/>
 

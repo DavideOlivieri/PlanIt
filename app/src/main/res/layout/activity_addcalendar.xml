@@ -5,12 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/Indietro"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/baseline_arrow_back_24"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"/>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:text="Nome calendario:" />
@@ -43,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="160dp"
         android:layout_below="@+id/btn_crea"
         android:textColor="@color/black"
         android:textSize="18sp"
