@@ -3,15 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <Button
         android:id="@+id/Indietro"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/baseline_arrow_back_24"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.036" />
 
     <TextView
         android:id="@+id/textView"
@@ -19,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:text="Nome calendario:" />
 
@@ -27,13 +32,16 @@
         android:id="@+id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textSize="15sp"
         android:layout_below="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="text"
-        android:text="" />
+        android:hint="..."
+        android:background="@drawable/row_background"
+        android:padding="15dp"
+        android:textColorHint="@color/white"
+        android:textSize="15dp" />
 
 
     <Button
@@ -53,21 +61,24 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="160dp"
         android:layout_below="@+id/btn_crea"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:text="Inserisci il codice del calendario:" />
 
     <EditText
         android:id="@+id/editText_esistente"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:textSize="15sp"
-        android:layout_below="@+id/textView_esistente"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_below="@+id/textView_esistente"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="text"
-        android:text="" />
+        android:hint="..."
+        android:background="@drawable/row_background"
+        android:padding="15dp"
+        android:textColorHint="@color/white"
+        android:textSize="15dp"/>
 
     <Button
         android:id="@+id/btn_partecipa"

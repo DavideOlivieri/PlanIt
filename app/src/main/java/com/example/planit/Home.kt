@@ -31,22 +31,6 @@ import java.util.Date
 import java.util.Locale
 
 
-var titolo_calendario: String? = null
-var codice_ingresso: String? = null
-var id_calendario: Long? = null
-
-var usernameAssoc: String? = null
-var id_calendarAssoc: Long? = null
-var livello: Int? = null
-var idAssoc: Long? = null
-
-var titolo_evento: String? = null
-var data: String? = null
-var orario_inizio: String? = null
-var orario_fine: String? = null
-var descrizione: String? = null
-var calendar_id: Long? = null
-
 class Home : AppCompatActivity() {
 
     //lateinit var binding: ActivityHomeBinding
