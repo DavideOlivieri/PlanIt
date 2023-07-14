@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.planit.MainActivity"
-    android:background="@color/purple_700">
+    android:background="@color/purple_200">
 
     <Button
         android:id="@+id/Aggiungi_Calendario"
@@ -20,6 +20,16 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnOpentodayevent"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="50dp"
+        android:text="Attività del giorno"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
     <ScrollView
@@ -67,15 +77,7 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnOpentodayevent"
-                android:layout_width="wrap_content"
-                android:layout_height="54dp"
-                android:text="Attività del giorno"
-                app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -91,21 +93,19 @@
 
     <FrameLayout
         android:id="@+id/framefragment"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="115dp"
         android:visibility="invisible">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="com.example.planit.todayeventFragment"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="115dp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

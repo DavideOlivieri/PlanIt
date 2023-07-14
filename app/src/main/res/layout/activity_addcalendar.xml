@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/purple_200">
 
     <Button
         android:id="@+id/Indietro"
@@ -89,5 +89,16 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="Partecipa a un Calendario" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/btn_crea"
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"
+        android:text="oppure" />
 </RelativeLayout>
 

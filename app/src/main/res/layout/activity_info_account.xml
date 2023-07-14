@@ -26,26 +26,28 @@
         android:text="EMAIL"
         android:textSize="50px"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.815"
+        app:layout_constraintHorizontal_bias="0.924"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.394" />
 
     <TextView
         android:id="@+id/e_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="e-mail : "
+        android:text="E-mail : "
         android:textSize="50px"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.394" />
 
     <TextView
         android:id="@+id/username"
@@ -54,12 +56,13 @@
         android:text="USERNAME"
         android:textSize="50px"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.747"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
+        app:layout_constraintVertical_bias="0.256" />
 
     <TextView
         android:id="@+id/user"
@@ -68,24 +71,13 @@
         android:text="Username : "
         android:textSize="50px"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.271"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
-
-    <ImageView
-        android:id="@+id/imaccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.182"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.256" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/modbtn"
@@ -93,10 +85,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Modifica"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="19dp"
         android:textStyle="bold"
-        app:backgroundTint="@color/purple_200"
+        app:backgroundTint="@color/purple_500"
         app:cornerRadius="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,10 +104,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="Logout"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="19dp"
         android:textStyle="bold"
-        app:backgroundTint="@color/purple_200"
+        app:backgroundTint="@color/purple_500"
         app:cornerRadius="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
