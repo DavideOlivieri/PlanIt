@@ -20,7 +20,6 @@ class Account : AppCompatActivity() {
 
         // inizializzazione variabili
         val email = findViewById<TextView>(R.id.email)
-        val imm = findViewById<ImageView>(R.id.imaccount)
         val us = findViewById<TextView>(R.id.username)
         val btnModifica = findViewById<Button>(R.id.modbtn)
         val btnLogout = findViewById<Button>(R.id.btn_logout)

@@ -71,30 +71,30 @@ tools:context="com.example.planit.MainActivity"
             android:id="@+id/codicepartecipazione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="132dp"
+            android:layout_marginEnd="100dp"
             android:text="CODICE"
+            android:textColor="@color/white"
             android:textSize="40px"
             android:textStyle="bold"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.761" />
+            app:layout_constraintVertical_bias="0.754" />
 
         <TextView
             android:id="@+id/titolo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TITOLO"
+            android:textColor="@color/white"
             android:textSize="40px"
             android:textStyle="bold"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.628"
+            app:layout_constraintHorizontal_bias="0.72"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.515" />
+            app:layout_constraintVertical_bias="0.503" />
 
         <TextView
             android:id="@+id/textView2"
@@ -140,7 +140,7 @@ tools:context="com.example.planit.MainActivity"
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:layout_marginTop="120dp"
-            android:layout_marginEnd="212dp"
+            android:layout_marginEnd="208dp"
             android:background="@drawable/baseline_share_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
