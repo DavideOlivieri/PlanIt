@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         val userDao = UserDatabase.getInstance(application).dao()
 
-        getAllUsersDataFromFirebase()
+        //getAllUsersDataFromFirebase()
 
 
 
@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             if (strPass.isNotEmpty()) {
                 if (strUser.isNotEmpty()) {
                     if (strUser.length < 15) {
+                        getUserDataFromFirebase(strUser)
                         // Condizione essenziale per evitare un java.lang.NullPointerException generato dal fatto che non sono presenti Utenti nel Database con lo stesso username
                         if(userDao.checkPass(strUser) != null || username !=null){
                             if((strUser == userDao.checkPass(strUser).user || strUser ==username) && (strPass == userDao.checkPass(strUser).password || strPass == password)){
@@ -139,7 +140,32 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }*/
+private fun getUserDataFromFirebase(userId: String) {
+    val database = FirebaseDatabase.getInstance()
+    val myRef = database.reference.child("users").child(userId)
 
+    myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            val userData = snapshot.getValue(User::class.java)
+
+            userData?.let { user ->
+                val userDao = UserDatabase.getInstance(application).dao()
+
+                if (userDao.checkPass(user.user) == null) {
+                    val newUser = User(user.password, user.email, user.user)
+                    userDao.insertUser(newUser)
+                }
+            }
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            // Gestisci eventuali errori
+            println("Errore nel recupero dei dati: ${error.message}")
+        }
+    })
+}
+
+/*
     private fun getAllUsersDataFromFirebase() {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.reference.child("users")
@@ -175,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                 println("Errore nel recupero dei dati: ${error.message}")
             }
         })
-    }
+    }*/
 }
 
 
