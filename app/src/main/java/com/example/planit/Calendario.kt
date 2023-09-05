@@ -1,14 +1,9 @@
 package com.example.planit
 
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.provider.CalendarContract.Events
-import android.text.style.ForegroundColorSpan
 import android.widget.Button
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
@@ -19,7 +14,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import roomData.UserDatabase
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.Calendar
 import java.util.HashSet
 import java.util.Locale
@@ -31,24 +25,27 @@ class Calendario: AppCompatActivity() {
         setContentView(R.layout.layout_calendario)
         calendario()
 
+        // inizializzazione variabili
         val username = intent.getStringExtra("username")
         val id = intent.getLongExtra("id_calendario", 0)
-        val nome_cal = findViewById<TextView>(R.id.nome_calendario)
+        val nomeCal = findViewById<TextView>(R.id.nome_calendario)
         val btnInfo = findViewById<Button>(R.id.info_calendar)
 
         val userDao = UserDatabase.getInstance(application).dao()
-        val current_calendar=userDao.selectCalendarbyId(id)
+        val currentCalendar=userDao.selectCalendarbyId(id)
 
-        nome_cal.text = current_calendar.titolo
-        nome_cal.setText(current_calendar.titolo)
+        nomeCal.text = currentCalendar.titolo
+        nomeCal.setText(currentCalendar.titolo)
 
-        val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        Btn_indietro.setOnClickListener{
+        // bottone indietro
+        val btnIndietro = findViewById<Button>(R.id.Indietro)
+        btnIndietro.setOnClickListener{
             val intent = Intent (this, Home::class.java)
             intent.putExtra("Username",username)
             startActivity(intent)
         }
 
+        // bottone per informazioni
         btnInfo.setOnClickListener {
             val intent = Intent(this, Info_Calendar::class.java)
             intent.putExtra("id_calendario", id)
@@ -58,14 +55,15 @@ class Calendario: AppCompatActivity() {
     }
 
 
+    //funzione necessaria per visualizzare il calendario
     fun calendario() {
 
         val startTimeCalendar = Calendar.getInstance()
         val id = intent.getLongExtra("id_calendario",0)
         val username = intent.getStringExtra("username")
         val userDao = UserDatabase.getInstance(application).dao()
-        val current_calendar=userDao.selectCalendarbyId(id)
-        val nome = current_calendar.titolo
+        val currentCalendar=userDao.selectCalendarbyId(id)
+        val nome = currentCalendar.titolo
 
 
         val materialCalendarView = findViewById<MaterialCalendarView>(R.id.calendarView)

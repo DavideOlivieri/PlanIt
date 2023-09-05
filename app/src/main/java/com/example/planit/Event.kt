@@ -34,79 +34,72 @@ class Event: AppCompatActivity()  {
         val selectedDate = intent.getStringExtra("data_selezionata")
         val id = intent.getLongExtra("id_calendario",0)
         val username = intent.getStringExtra("username")
-        val nome_cal = intent.getStringExtra("nome_cal")
+        val nomeCal = intent.getStringExtra("nome_cal")
         val data = findViewById<TextView>(R.id.Data)
         data.text = selectedDate
 
-        val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        val Btn_inizio = findViewById<Button>(R.id.Btn_inizio)
-        val Btn_fine = findViewById<Button>(R.id.Btn_fine)
-        val Btn_crea = findViewById<Button>(R.id.Btn_crea)
-        val ora_inizio = findViewById<TextView>(R.id.ora_inizio)
-        val ora_fine = findViewById<TextView>(R.id.ora_fine)
+        val btnIndietro = findViewById<Button>(R.id.Indietro)
+        val btnInizio = findViewById<Button>(R.id.Btn_inizio)
+        val btnFine = findViewById<Button>(R.id.Btn_fine)
+        val btnCrea = findViewById<Button>(R.id.Btn_crea)
+        val oraInizio = findViewById<TextView>(R.id.ora_inizio)
+        val oraFine = findViewById<TextView>(R.id.ora_fine)
 
         // Bottone per tornare alla pagina del giorno
-        Btn_indietro.setOnClickListener{
+        btnIndietro.setOnClickListener{
             val intent = Intent (this, Day::class.java)
             intent.putExtra("data_selezionata",selectedDate)
             intent.putExtra("id_calendario",id)
             intent.putExtra("username",username)
-            intent.putExtra("nome_cal",nome_cal)
+            intent.putExtra("nome_cal",nomeCal)
             startActivity(intent)
         }
 
         // Apro la finestra per scegliere l'orario(inizio) e inserisco l'orario scelto nella textview sotto
-        Btn_inizio.setOnClickListener {
+        btnInizio.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute ->
                 cal.set(Calendar.HOUR_OF_DAY, hour)
                 cal.set(Calendar.MINUTE, minute)
-                ora_inizio.text = SimpleDateFormat("HH:mm").format(cal.time)
+                oraInizio.text = SimpleDateFormat("HH:mm").format(cal.time)
             }
             TimePickerDialog(this,timeSetListener,cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true).show()
         }
 
         // Apro la finestra per scegliere l'orario(fine) e inserisco l'orario scelto nella textview sotto
-        Btn_fine.setOnClickListener {
+        btnFine.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute ->
                 cal.set(Calendar.HOUR_OF_DAY, hour)
                 cal.set(Calendar.MINUTE, minute)
-                ora_fine.text = SimpleDateFormat("HH:mm").format(cal.time)
+                oraFine.text = SimpleDateFormat("HH:mm").format(cal.time)
             }
             TimePickerDialog(this,timeSetListener,cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),true).show()
         }
 
         // Bottone per passare i dati dell'evento alla pagina del giorno scelto
-        Btn_crea.setOnClickListener {
-            val titolo_et = findViewById<EditText>(R.id.editText_titolo)
-            val titolo = titolo_et.text.toString()
-            val titolo_edit = titolo_et.toString()
-            val inizio_tv = findViewById<TextView>(R.id.ora_inizio)
-            val inizio = inizio_tv.text.toString()
-            val fine_tv = findViewById<TextView>(R.id.ora_fine)
-            val fine = fine_tv.text.toString()
-            val descrizione_et = findViewById<EditText>(R.id.descrizione)
-            val descrizione = descrizione_et.text.toString()
+        btnCrea.setOnClickListener {
+            val titoloEt = findViewById<EditText>(R.id.editText_titolo)
+            val titolo = titoloEt.text.toString()
+            val titoloEdit = titoloEt.toString()
+            val inizioTv = findViewById<TextView>(R.id.ora_inizio)
+            val inizio = inizioTv.text.toString()
+            val fineTv = findViewById<TextView>(R.id.ora_fine)
+            val fine = fineTv.text.toString()
+            val descrizioneEt = findViewById<EditText>(R.id.descrizione)
+            val descrizione = descrizioneEt.text.toString()
             val data = selectedDate.toString()
             val intent = Intent(this, Day::class.java)
-            if(titolo_edit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty() && inizio <= fine){
+            if(titoloEdit.isNotEmpty() && inizio.isNotEmpty() && fine.isNotEmpty() && inizio <= fine){
                 val newEvent = Event(titolo,data,inizio,fine,descrizione,id)
                 userDao.insertEvent(newEvent)
-                /*myRef.child(newEvent.id.toString()).child("titolo_evento").setValue(titolo)
-                myRef.child(newEvent.id.toString()).child("data").setValue(data)
-                myRef.child(newEvent.id.toString()).child("orario_inizio").setValue(inizio)
-                myRef.child(newEvent.id.toString()).child("orario_fine").setValue(fine)
-                myRef.child(newEvent.id.toString()).child("descrizione").setValue(descrizione)
-                myRef.child(newEvent.id.toString()).child("calendar_id").setValue(id)
-*/
                 val ref = database.getReference("events")
                 val newEventRef = ref.push()
                 newEventRef.setValue(newEvent)
                 intent.putExtra("data_selezionata",selectedDate)
                 intent.putExtra("id_calendario",id)
                 intent.putExtra("username",username)
-                intent.putExtra("nome_cal",nome_cal)
+                intent.putExtra("nome_cal",nomeCal)
                 startActivity(intent)
             } else{
                 Toast.makeText(this, "Solo la descrizione può essere vuota!", Toast.LENGTH_SHORT)

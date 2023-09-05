@@ -12,17 +12,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import roomData.User
 import roomData.UserDatabase
 
-val db: FirebaseFirestore= FirebaseFirestore.getInstance()
+//val db: FirebaseFirestore= FirebaseFirestore.getInstance()
 var email: String? = null
 var username: String? = null
 var password: String? = null
@@ -95,51 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-/*
-    private fun getUserDataFromFirebase(key: String) {
-        // Write a message to the database
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("users")
 
-        myRef.child(key).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val userData = snapshot.getValue(User::class.java)
-                    userData?.let {
-                        email = userData.email
-                        username = userData.user
-                        password = userData.password
-
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            // Salvataggio dei dati nel database
-                            val userDao = UserDatabase.getInstance(application).dao()
-                            val newUser = User(password!!, email!!, username!!)
-                            userDao.insertUser(newUser)
-
-                            // Attendere il completamento dell'operazione
-                            delay(3000) // Attendi per 3 secondi
-
-                            // Operazione completata dopo il ritardo di 3 secondi
-                            // Puoi eseguire altre azioni qui
-                        }
-
-
-                        // Fai qualcosa con i valori salvati
-                        println("Email: $email, Username: $username, Password: $password")
-                    }
-                } else {
-                    // La chiave specificata non esiste nel database
-                    println("La chiave $key non è presente nel database.")
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
 private fun getUserDataFromFirebase(userId: String) {
     val database = FirebaseDatabase.getInstance()
     val myRef = database.reference.child("users").child(userId)
@@ -165,43 +114,7 @@ private fun getUserDataFromFirebase(userId: String) {
     })
 }
 
-/*
-    private fun getAllUsersDataFromFirebase() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("users")
 
-        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userList = mutableListOf<User>()
-
-                for (userSnapshot in snapshot.children) {
-                    val userData = userSnapshot.getValue(User::class.java)
-                    userData?.let {
-                        userList.add(userData)
-                    }
-                }
-
-                val userDao = UserDatabase.getInstance(application).dao()
-
-                for (user in userList) {
-                    if(userDao.checkPass(user.user) == null) {
-                        email = user.email
-                        username = user.user
-                        password = user.password
-
-                        val newUser = User(password!!, email!!, username!!)
-                        userDao.insertUser(newUser)
-                    }
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
 }
 
 

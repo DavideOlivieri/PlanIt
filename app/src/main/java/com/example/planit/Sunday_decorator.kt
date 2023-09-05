@@ -10,6 +10,7 @@ import java.util.Calendar
 
 class SundayDecorator : DayViewDecorator {
 
+    // classe necessaria per colorare le domeniche di colore diverso
     private val calendar = Calendar.getInstance()
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {

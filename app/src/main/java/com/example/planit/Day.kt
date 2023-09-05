@@ -31,35 +31,38 @@ class Day: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day)
 
+        // collegamento a firebase e inizializzazione variabili
         val database = Firebase.database
         val myRef = database.getReference("events")
 
         val selectedDate = intent.getStringExtra("data_selezionata")
         val id = intent.getLongExtra("id_calendario", 0)
-        val nome_cal = intent.getStringExtra("nome_cal")
+        val nomeCal = intent.getStringExtra("nome_cal")
         val username = intent.getStringExtra("username")
-        val Btn_agg = findViewById<Button>(R.id.Aggiungi_Calendario)
+        val btnAgg = findViewById<Button>(R.id.Aggiungi_Calendario)
         val data = findViewById<TextView>(R.id.Data)
         val calendario = findViewById<TextView>(R.id.Nome_calendario)
-        calendario.setText(nome_cal)
+        calendario.setText(nomeCal)
         data.setText(selectedDate)
         val userDao = UserDatabase.getInstance(application).dao()
 
 
-        val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        Btn_indietro.setOnClickListener {
+        // bottone indietro
+        val btnIndietro = findViewById<Button>(R.id.Indietro)
+        btnIndietro.setOnClickListener {
             val intent = Intent(this, Calendario::class.java)
             intent.putExtra("id_calendario", id)
             intent.putExtra("username", username)
             startActivity(intent)
         }
 
-        Btn_agg.setOnClickListener {
+        // bottone aggiungi calendario
+        btnAgg.setOnClickListener {
             val intent = Intent(this, Event::class.java)
             intent.putExtra("data_selezionata", selectedDate)
             intent.putExtra("id_calendario", id)
             intent.putExtra("username", username)
-            intent.putExtra("nome_cal", nome_cal)
+            intent.putExtra("nome_cal", nomeCal)
             startActivity(intent)
         }
 
@@ -67,6 +70,7 @@ class Day: AppCompatActivity() {
         var builder: AlertDialog.Builder
         builder = AlertDialog.Builder(this)
 
+        // funzione per eliminare un evento
         val cancella = View.OnLongClickListener { view ->
             builder.setTitle("Attenzione!")
                 .setMessage("Sei sicuro di voler eliminare questo evento?")
@@ -91,6 +95,7 @@ class Day: AppCompatActivity() {
 
         val events = userDao.getEventsByCalendarId(id, selectedDate)
 
+        // ciclo per visualizzare a schermo tutti gli eventi del giorno
         for (i in events.indices) {
             val card = addCard(
                 events[i].titolo,
@@ -112,8 +117,8 @@ class Day: AppCompatActivity() {
     ): CardView? {
         val linear = findViewById<LinearLayout>(R.id.linearlayout)
         val inflater = LayoutInflater.from(this)
-        val card_layout = inflater.inflate(R.layout.event_view, null)
-        val card = card_layout.findViewById<CardView>(R.id.card)
+        val cardLayout = inflater.inflate(R.layout.event_view, null)
+        val card = cardLayout.findViewById<CardView>(R.id.card)
         val parentOfChild: ViewGroup? = card.parent as? ViewGroup
         parentOfChild?.removeView(card)
 
@@ -121,14 +126,14 @@ class Day: AppCompatActivity() {
         card.background = drawable
 
         //inserisco all'interno selle textview i valori che prendo dal database per ogni evento
-        val titolo_card = card.findViewById<TextView>(R.id.titolo)
-        titolo_card.setText(titolo)
-        val inizio_card = card.findViewById<TextView>(R.id.orario_i)
-        inizio_card.setText(inizio)
-        val fine_card = card.findViewById<TextView>(R.id.orario_f)
-        fine_card.setText(fine)
-        val descrizione_card = card.findViewById<TextView>(R.id.descrizione)
-        descrizione_card.setText(descrizione)
+        val titoloCard = card.findViewById<TextView>(R.id.titolo)
+        titoloCard.setText(titolo)
+        val inizioCard = card.findViewById<TextView>(R.id.orario_i)
+        inizioCard.setText(inizio)
+        val fineCard = card.findViewById<TextView>(R.id.orario_f)
+        fineCard.setText(fine)
+        val descrizioneCard = card.findViewById<TextView>(R.id.descrizione)
+        descrizioneCard.setText(descrizione)
 
         linear.addView(card)
         return card

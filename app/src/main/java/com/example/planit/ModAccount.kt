@@ -30,8 +30,8 @@ class ModAccount : AppCompatActivity() {
         val btnConferma = findViewById<Button>(R.id.confermabtn)
         val username = intent.getStringExtra("Username")
 
-        val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        Btn_indietro.setOnClickListener{
+        val btnIndietro = findViewById<Button>(R.id.Indietro)
+        btnIndietro.setOnClickListener{
             val intent = Intent (this, Calendario::class.java)
             intent.putExtra("username",username)
             startActivity(intent)

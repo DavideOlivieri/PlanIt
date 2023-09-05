@@ -22,8 +22,8 @@ class todayeventFragment : Fragment(R.layout.activity_todayevent) {
         val view = inflater.inflate(R.layout.activity_todayevent, container, false)
         val bundle = arguments
         val data = bundle?.getString("Data")
-        val ins_data = view.findViewById<TextView>(R.id.Data)
-        ins_data.setText(data)
+        val insData = view.findViewById<TextView>(R.id.Data)
+        insData.setText(data)
 
 
         val userDao = UserDatabase.getInstance(requireContext()).dao()
@@ -47,8 +47,8 @@ class todayeventFragment : Fragment(R.layout.activity_todayevent) {
     private fun addCard(titolo: String,inizio: String,fine: String,descrizione: String,view: View): CardView? {
         val linear = view.findViewById<LinearLayout>(R.id.linearlayout)
         val inflater = LayoutInflater.from(requireContext())
-        val card_layout = inflater.inflate(R.layout.event_view, null)
-        val card = card_layout.findViewById<CardView>(R.id.card)
+        val cardLayout = inflater.inflate(R.layout.event_view, null)
+        val card = cardLayout.findViewById<CardView>(R.id.card)
         val parentOfChild: ViewGroup? = card.parent as? ViewGroup
         parentOfChild?.removeView(card)
 
@@ -56,14 +56,14 @@ class todayeventFragment : Fragment(R.layout.activity_todayevent) {
         card.background = drawable
 
         //inserisco all'interno selle textview i valori che prendo dal database per ogni evento
-        val titolo_card = card.findViewById<TextView>(R.id.titolo)
-        titolo_card.setText(titolo)
-        val inizio_card = card.findViewById<TextView>(R.id.orario_i)
-        inizio_card.setText(inizio)
-        val fine_card = card.findViewById<TextView>(R.id.orario_f)
-        fine_card.setText(fine)
-        val descrizione_card = card.findViewById<TextView>(R.id.descrizione)
-        descrizione_card.setText(descrizione)
+        val titoloCard = card.findViewById<TextView>(R.id.titolo)
+        titoloCard.setText(titolo)
+        val inizioCard = card.findViewById<TextView>(R.id.orario_i)
+        inizioCard.setText(inizio)
+        val fineCard = card.findViewById<TextView>(R.id.orario_f)
+        fineCard.setText(fine)
+        val descrizioneCard = card.findViewById<TextView>(R.id.descrizione)
+        descrizioneCard.setText(descrizione)
 
         if (linear != null) {
             linear.addView(card)
@@ -71,14 +71,4 @@ class todayeventFragment : Fragment(R.layout.activity_todayevent) {
         return card
     }
 
-    /*
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflaziona il layout del Fragment
-        val view = inflater.inflate(R.layout.activity_todayevent, container, false)
-
-        // Restituisci la vista del Fragment
-        return view
-    }
-
-     */
 }

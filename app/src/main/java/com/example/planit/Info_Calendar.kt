@@ -1,22 +1,18 @@
 package com.example.planit
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import com.example.calendario.R
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import roomData.User
 import roomData.UserDatabase
 
 
@@ -34,14 +30,16 @@ class Info_Calendar : AppCompatActivity() {
         val titoloView = findViewById<TextView>(R.id.titolo)
         val codiceView = findViewById<TextView>(R.id.codicepartecipazione)
 
-        val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        Btn_indietro.setOnClickListener{
+        // bottone indietro
+        val btnIndietro = findViewById<Button>(R.id.Indietro)
+        btnIndietro.setOnClickListener{
             val intent = Intent (this, Calendario::class.java)
             intent.putExtra("id_calendario", id)
             intent.putExtra("username",username)
             startActivity(intent)
         }
 
+        // bottone per la condivisione del codice
         val shareButton: Button = findViewById(R.id.condivisione)
         shareButton.setOnClickListener {
             shareButtonClicked()
@@ -54,18 +52,7 @@ class Info_Calendar : AppCompatActivity() {
         titoloView.setText(currentCalendar.titolo)
         codiceView.setText(currentCalendar.codiceIngresso)
 
-/*
-        if(userDao.selectLivello(username,id)==1){
-            val informazioni = findViewById<TextView>(R.id.informazioni)
-           informazioni.setVisibility(View.VISIBLE)
-            viewUser = View.OnClickListener {view->
-                val user = view.getTag() as String
-                userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
-                Toast.makeText(this, "Hai eliminato dal calendario: "+user, Toast.LENGTH_SHORT).show()
-            }
-        }
 
- */
        // controlla il livello dell'utente e se è uguale ad 1 mostra il testo "Tieni premuto un partecipante per eliminare"
         if(userDao.selectLivello(username,id)==1) {
             val informazioni = findViewById<TextView>(R.id.informazioni)
@@ -75,17 +62,33 @@ class Info_Calendar : AppCompatActivity() {
         var builder: AlertDialog.Builder
         builder = AlertDialog.Builder(this)
 
+        // eliminazione del partecipante
         val cancella = View.OnLongClickListener{view ->
             if(userDao.selectUserCalendar(username, id).livello=="1"){
                     builder.setTitle("Attenzione!")
                         .setMessage("Sei sicuro di voler eliminare questo utente dal calendario?")
                         .setCancelable(true)
-                        .setPositiveButton("Si"){dialogInterface,it ->  val user = view.getTag() as String
-                            userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user,id))
-                            val ref = database.getReference("assocs")
-                            ref.child(userDao.selectUserCalendar(username, id).id.toString()).removeValue()
-                            Toast.makeText(this, "Hai eliminato l'utente: " + user, Toast.LENGTH_SHORT).show()
-                            recreate()}
+                        .setPositiveButton("Si") { dialogInterface, it ->
+                            val user = view.getTag() as String
+                            if (user == username) {
+                                Toast.makeText(
+                                    this,
+                                    "Non puoi eliminarti da solo :(",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user, id))
+                                val ref = database.getReference("assocs")
+                                ref.child(userDao.selectUserCalendar(username, id).id.toString())
+                                    .removeValue()
+                                Toast.makeText(
+                                    this,
+                                    "Hai eliminato l'utente: " + user,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                recreate()
+                            }
+                        }
                         .setNegativeButton("No"){dialogInterface,it ->dialogInterface.cancel()}
                         .show()
                 }

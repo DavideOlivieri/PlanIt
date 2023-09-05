@@ -21,55 +21,43 @@ class AddCalendar : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.calendario.R.layout.activity_addcalendar)
+        setContentView(R.layout.activity_addcalendar)
 
 
         //passaggio alla schermata dei calendari
-        val sicalendario = findViewById<Button>(com.example.calendario.R.id.btn_crea)
-        val calendario_esistente = findViewById<Button>(com.example.calendario.R.id.btn_partecipa)
+        val sicalendario = findViewById<Button>(R.id.btn_crea)
+        val calendarioEsistente = findViewById<Button>(R.id.btn_partecipa)
 
+        // inizializzazione variabili
         val userDao = UserDatabase.getInstance(application).dao()
         val username = intent.getStringExtra("Username")
 
-        // Write a message to the database
+        // collegamento con firebase
         val database = Firebase.database
         val myRef = database.getReference("calendars")
 
-        val Btn_indietro = findViewById<Button>(R.id.Indietro)
-        Btn_indietro.setOnClickListener {
+        // bottone indietro
+        val btnIndietro = findViewById<Button>(R.id.Indietro)
+        btnIndietro.setOnClickListener {
             val intent = Intent(this, Home::class.java)
             intent.putExtra("Username", username)
             startActivity(intent)
         }
 
+        // funzione che si attiva se se vuole creare un calendario
         sicalendario.setOnClickListener{
-            val edit = findViewById<EditText>(com.example.calendario.R.id.editText)
+            val edit = findViewById<EditText>(R.id.editText)
             val nome = edit.text.toString()
-            var color = "Nessun colore"
-            var codiceIngresso = username + nome
+            val color = "Nessun colore"
+            val codiceIngresso = username + nome
             val intent = Intent(this,Home::class.java)
-            /*
-            fun isOk():Boolean {
-                if (nome.isNotEmpty()) {
-                    intent.putExtra("Nome calendario", nome)
-                    val newCalendar = Calendar(nome, color)
-                    userDao.insertCalendar(newCalendar)
-                    return true
-                }
-                else return false
-            }
-            intent.putExtra("isOk",isOk())
-            startActivity(intent)
 
-            if (nome.isNotEmpty()) {
-                intent.putExtra("Nome calendario", nome)
-            }*/
+
             if(nome.isNotEmpty()) {
                 val newCalendar = Calendar(nome, color, codiceIngresso)
                 userDao.insertCalendar(newCalendar)
                 val idCalendar = userDao.getIdFromCalendar(nome,codiceIngresso)
                 val newAssoc = User_Calendar_id(username, idCalendar,"1")
-                val idAssoc = userDao.selectUserCalendar(username,idCalendar)
                 userDao.insertUserCalendarId(newAssoc)
                 intent.putExtra("Username", username)
                 val newCalendarRef = myRef.push()
@@ -85,16 +73,18 @@ class AddCalendar : AppCompatActivity() {
             }
         }
 
-        calendario_esistente.setOnClickListener{
-            val edit = findViewById<EditText>(com.example.calendario.R.id.editText_esistente)
-            val codice_calendario = edit.text.toString()
+        // funzione che si attiva se si vuole partecipare a un calendario
+        calendarioEsistente.setOnClickListener{
+            val edit = findViewById<EditText>(R.id.editText_esistente)
+            val codiceCalendario = edit.text.toString()
             val intent = Intent(this,Home::class.java)
 
 
-            if(codice_calendario.isNotEmpty()) {
+            if(codiceCalendario.isNotEmpty()) {
 
-                if (userDao.selectIdbyCodice(codice_calendario)!=null) {
-                    val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codice_calendario),"0")
+                // controllo necessario per evitare errori
+                if (userDao.selectIdbyCodice(codiceCalendario)!=null) {
+                    val newAssoc = User_Calendar_id(username, userDao.selectIdbyCodice(codiceCalendario),"0")
                     userDao.insertUserCalendarId(newAssoc)
                     intent.putExtra("Username", username)
 
