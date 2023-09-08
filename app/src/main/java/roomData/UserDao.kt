@@ -37,7 +37,7 @@ interface UserDao {
     @Delete
     fun deleteCalendar(calendar: Calendar)
 
-    @Query("SELECT * FROM Event WHERE Event.data = :data")
+    @Query("SELECT * FROM Event WHERE Event.data = :data ORDER BY Event.orario_inizio ASC")
     fun getEventsByDate(data: String?): List<Event>
 
     @Query("SELECT * " +

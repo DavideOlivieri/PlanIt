@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200">
+    android:background="@color/back_white">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -39,6 +39,8 @@
         app:mcv_arrowColor="@color/purple_700"
         app:mcv_showOtherDates="defaults"
         app:mcv_tileHeight="70dp"
+        app:mcv_headerTextAppearance="@style/HeaderTextAppearance"
+        app:mcv_weekDayTextAppearance="@style/HeaderTextAppearance"
         />
 
 
@@ -65,10 +67,11 @@
         android:id="@+id/info_calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="320dp"
+        android:layout_marginStart="310dp"
         android:layout_marginTop="20dp"
         android:text="info"
-        android:textSize="10dp"
+        android:textSize="12dp"
+        android:textColor="@color/white"
         app:cornerRadius="70dp" />
 
 
