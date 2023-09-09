@@ -40,7 +40,7 @@ class RoomTest {
         // Inserisci l'utente nel database
         userDao.insertUser(user)
 
-        // Recupera l'utente dal database utilizzando il suo ID (o un altro campo unico)
+        // Recupera l'utente dal database utilizzando il suo username
         val retrievedUser = userDao.selectUser(user.user)
 
         // Verifica che l'utente inserito corrisponda all'utente recuperato
