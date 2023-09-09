@@ -112,4 +112,40 @@ interface UserDao {
 
     @Delete
     fun deleteUserFromCalendar(user_calendar_id: User_Calendar_id)
+
+    @Query("SELECT id FROM User_Calendar_id WHERE User_Calendar_id.username = :username")
+    fun selectUserCalendarIdsByUsername(username: String?): List<Long>
+
+    @Delete
+    fun deleteUserCalendarIds(idsToDelete: List<User_Calendar_id>)
+
+    @Query("SELECT * FROM User_Calendar_id WHERE username = :username AND id NOT IN (:existingIds)")
+    fun selectUserCalendarIdsToDelete(username: String, existingIds: List<Long>): List<User_Calendar_id>
+
+    @Query("SELECT id FROM Event WHERE Event.calendar_id = :calendarId")
+    fun selectEventIdsByCalendarId(calendarId :String?): List<Int>
+
+    @Query("SELECT * FROM Event WHERE calendar_id = :calendarId AND id NOT IN (:existingEventIds)")
+    fun selectEventsToDelete(calendarId: String, existingEventIds: List<Int>): List<Event>
+
+    @Delete
+    fun deleteEvents(eventsToDelete: List<Event>)
+
+    @Query("SELECT id FROM Calendar")
+    fun selectCalendarIds(): List<Long>
+
+    @Query("SELECT * FROM Calendar WHERE id NOT IN (:existingCalendarIds)")
+    fun selectCalendarsToDelete(existingCalendarIds: List<Long>): List<Calendar>
+
+    @Delete
+    fun deleteCalendars(calendarsToDelete: List<Calendar>)
+
+    @Query("SELECT * FROM User_Calendar_id WHERE username = :username AND id NOT IN (:existingIds)")
+    fun selectAssociationsNotInList(username: String, existingIds: List<Long>): List<User_Calendar_id>
+
+    @Query("SELECT * FROM Event WHERE calendar_id = :calendarId AND id NOT IN (:existingEventIds)")
+    fun selectEventsNotInList(calendarId: String, existingEventIds: List<Int>): List<Event>
+
+    @Query("SELECT * FROM Calendar WHERE id NOT IN (:existingCalendarIds)")
+    fun selectCalendarsNotInList(existingCalendarIds: List<Long>): List<Calendar>
 }
