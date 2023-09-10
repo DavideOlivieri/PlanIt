@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [User::class, Calendar ::class, Event ::class, User_Calendar_id ::class],
-    version = 50
+    version = 51
 )
 abstract class UserDatabase: RoomDatabase() {
     abstract fun dao(): UserDao

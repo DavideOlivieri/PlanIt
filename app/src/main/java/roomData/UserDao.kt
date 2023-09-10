@@ -146,6 +146,6 @@ interface UserDao {
     @Query("SELECT * FROM Event WHERE calendar_id = :calendarId AND id NOT IN (:existingEventIds)")
     fun selectEventsNotInList(calendarId: String, existingEventIds: List<Int>): List<Event>
 
-    @Query("SELECT * FROM Calendar WHERE id NOT IN (:existingCalendarIds)")
-    fun selectCalendarsNotInList(existingCalendarIds: List<Long>): List<Calendar>
+    @Query("SELECT * FROM Calendar WHERE id = :calendarId AND id NOT IN (:existingCalendarIds)")
+    fun selectCalendarsNotInList(calendarId: String, existingCalendarIds: List<Long>): List<Calendar>
 }

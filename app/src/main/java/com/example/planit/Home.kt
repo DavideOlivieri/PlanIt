@@ -474,7 +474,7 @@ relative.addView(button,params)
 
                 val userDao = UserDatabase.getInstance(application).dao()
 
-                val calendarsToDelete = userDao.selectCalendarsNotInList(calendarList.map { it.id })
+                val calendarsToDelete = userDao.selectCalendarsNotInList(calendarId, calendarList.map { it.id })
                 userDao.deleteCalendars(calendarsToDelete)
 
                 for (calendar in calendarList) {

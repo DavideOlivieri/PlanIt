@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import roomData.Calendar
 import roomData.UserDatabase
 import roomData.User_Calendar_id
 
@@ -35,6 +36,8 @@ class Info_Calendar : AppCompatActivity() {
         val id = intent.getLongExtra("id_calendario", 0)
         val titoloView = findViewById<TextView>(R.id.titolo)
         val codiceView = findViewById<TextView>(R.id.codicepartecipazione)
+
+
 
         // bottone indietro
         val btnIndietro = findViewById<Button>(R.id.Indietro)
@@ -101,23 +104,30 @@ class Info_Calendar : AppCompatActivity() {
             true
         }
 
-        val calendarId = id
+
+
+        /*
+        val calendarId = "il_tuo_calendar_id"
         getUsernamesByCalendarId(calendarId) { usernames ->
-            // Ora ho accesso alla lista di nomi utente associati al calendario specificato
+            // Ora hai accesso alla lista di nomi utente associati al calendario specificato
             for (username in usernames) {
+                // Fai qualcosa con ciascun nome utente
                 val button = addButton(username)
                 button.setTag(username)
                 button.setOnLongClickListener(cancella)
             }
-        }
-        /*
+        }*/
+
+
+
+
         val users = userDao.selectAllUserbyId(id)
 
         for (i in users.indices) {
             val button = addButton(users[i])
             button.setTag(users[i])
             button.setOnLongClickListener(cancella)
-        }*/
+        }
     }
 
     // Condivisione del codice di partecipazione
@@ -173,14 +183,50 @@ class Info_Calendar : AppCompatActivity() {
         return button
     }
 
+
+/*
+    private fun getUsernamesByCalendarId(calendarId: String) {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("assocs")
+
+        myRef.orderByChild("calendar_id").equalTo(calendarId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val assocList = mutableListOf<User_Calendar_id>()
+
+                for (assocSnapshot in snapshot.children) {
+                    val assocData = assocSnapshot.getValue(User_Calendar_id::class.java)
+                    assocData?.let {
+                        assocList.add(assocData)
+                    }
+                }
+
+                val userDao = UserDatabase.getInstance(application).dao()
+
+                for (assoc in assocList) {
+                    if (userDao.selectUserCalendarbyID(assoc.id) == null) {
+                        val newAssoc = User_Calendar_id(assoc.username, assoc.calendar_id, assoc.livello)
+                        newAssoc.id = assoc.id
+                        userDao.insertUserCalendarId(newAssoc)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestisci eventuali errori
+                println("Errore nel recupero dei dati: ${error.message}")
+            }
+        })
+    }*/
+
     //test
-    private fun getUsernamesByCalendarId(calendarId: Long, onComplete: (List<String>) -> Unit) {
+    /*
+    private fun getUsernamesByCalendarId(calendarId: String, onComplete: (List<String>) -> Unit) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.reference.child("assocs")
 
         val usernames = mutableListOf<String>()
 
-        myRef.orderByChild("calendar_id").equalTo(calendarId.toString())
+        myRef.orderByChild("calendar_id").equalTo(calendarId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (assocSnapshot in snapshot.children) {
@@ -188,7 +234,6 @@ class Info_Calendar : AppCompatActivity() {
                         assocData?.let {
                             assocData.username?.let { username ->
                                 usernames.add(username)
-                                Log.d("FirebaseData", "Username recuperato: $username")
                             }
                         }
                     }
@@ -201,6 +246,6 @@ class Info_Calendar : AppCompatActivity() {
                     println("Errore nel recupero dei dati: ${error.message}")
                 }
             })
-    }
+    }*/
 }
 

@@ -7,12 +7,17 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.calendario.R
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import roomData.UserDatabase
+import roomData.User_Calendar_id
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.HashSet
@@ -33,6 +38,9 @@ class Calendario: AppCompatActivity() {
 
         val userDao = UserDatabase.getInstance(application).dao()
         val currentCalendar=userDao.selectCalendarbyId(id)
+
+
+        getUsernamesByCalendarId(id.toString())
 
         nomeCal.text = currentCalendar.titolo
         nomeCal.setText(currentCalendar.titolo)
@@ -150,6 +158,45 @@ class Calendario: AppCompatActivity() {
         val decorator = EventDecorator(this, datesWithEvents)
         materialCalendarView.addDecorator(decorator)
 
+    }
+
+
+
+    private fun getUsernamesByCalendarId(calendarId: String) {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("assocs")
+
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val assocList = mutableListOf<User_Calendar_id>()
+
+                for (calendarSnapshot in snapshot.children) {
+                    val calendarData = calendarSnapshot.getValue(User_Calendar_id::class.java)
+
+                    calendarData?.let { assoc ->
+                        if (assoc.calendar_id.toString() == calendarId) {
+                            assocList.add(assoc)
+                        }
+                    }
+                }
+
+                val userDao = UserDatabase.getInstance(application).dao()
+
+
+                for (assoc in assocList) {
+                    if (userDao.selectUserCalendarbyID(assoc.id) == null) {
+                        val newAssoc = User_Calendar_id(assoc.username, assoc.calendar_id, assoc.livello)
+                        newAssoc.id = assoc.id
+                        userDao.insertUserCalendarId(newAssoc)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestisci eventuali errori
+                println("Errore nel recupero dei dati: ${error.message}")
+            }
+        })
     }
 }
 
