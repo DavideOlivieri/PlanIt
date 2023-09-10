@@ -49,18 +49,7 @@ class Home : AppCompatActivity() {
 
         val userDao = UserDatabase.getInstance(application).dao()
 
-        /*
-        if (username != null) {
-            getAllCalendarsDataFromFirebase(username)
-        }
-        if (username != null) {
-            getAllEventsDataFromFirebase(username)
-        }*/
 
-
-        //getAllCalendarsDataFromFirebase()
-        //getAllEventsDataFromFirebase()
-        //getAllAssocsDataFromFirebase()
         if (username != null) {
             getAssocDataFromFirebase(username)
         }
@@ -141,23 +130,7 @@ class Home : AppCompatActivity() {
             true
         }
 
-        /*val isOk = intent.getBooleanExtra("isOk", false)
 
-        // Aggiungi nuovi calendari
-        //se le informazioni riguardo al calendario soddisfano i requisiti allora aggiungo il bottone
-        if (isOk) {
-            val button = addButton()
-
-            val button1 = findViewById<Button>(button)
-            button1.setOnClickListener {
-                val intent = Intent(this, Calendario::class.java)
-                intent.putExtra("Username", username)
-                startActivity(intent)
-
-            }
-
-        }
-        */
 
         val calendars = userDao.selectAllIdCalendarofUser(username)
 
@@ -168,15 +141,7 @@ class Home : AppCompatActivity() {
             button.setOnLongClickListener(longClick)
         }
 
-        /*
-            binding = ActivityHomeBinding.inflate(layoutInflater)
-                setContentView(binding.root)
 
-                binding.btnOpentodayevent.setOnClickListener {
-                    replaceFragment(todayeventFragment())
-                }
-
-         */
 
         val btnOpentodayevent = findViewById<Button>(R.id.btnOpentodayevent)
         btnOpentodayevent.setOnClickListener {
@@ -207,39 +172,7 @@ class Home : AppCompatActivity() {
     }
 
 
-    /*
-//Funzione per aggiungere alla schermata di home il bottone del calendario
-fun addButton(): Int {
-    val linear = findViewById<LinearLayout>(R.id.linearlayout)
-    val inflater = LayoutInflater.from(this)
-    val nome = intent.getStringExtra("Nome calendario")
-    val buttonLayout = inflater.inflate(R.layout.calendar_button, null)
-    val button = buttonLayout.findViewById<Button>(R.id.button)
-    button.setText(nome)
 
-    val layoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.WRAP_CONTENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
-    )
-
-  // Imposta i margini tra i bottoni
-    layoutParams.setMargins(0, 30, 0, 0)
-
-  // Imposta i parametri del layout
-    buttonLayout.layoutParams = layoutParams
-
-    button.id = View.generateViewId()
-    var button_id = button.id
-//     var editText: EditText
-//     editText = EditText(this)
-//     editText.setText(button_id.toString())
-
-    linear.addView(buttonLayout,layoutParams)
-//     linear.addView(editText,layoutParams)
-    return button_id
-}
-
-*/
 
 
     fun addButton(nome: String): Button {
@@ -266,190 +199,7 @@ fun addButton(): Int {
         return button
     }
 
-    /*
-@SuppressLint("ResourceAsColor")
-fun addButton(){
-var button: Button
-val nome = intent.getStringExtra("Nome calendario")
-val relative = findViewById<RelativeLayout>(R.id.linearlayout)
-button = Button(this)
-button.setTextColor(R.color.black)
-button.setText(nome)
-button.setBackgroundColor(R.color.white)  // non funziona colore
 
-val params = RelativeLayout.LayoutParams(
-    RelativeLayout.LayoutParams.MATCH_PARENT,
-    RelativeLayout.LayoutParams.WRAP_CONTENT,
-)
-params.addRule(RelativeLayout.BELOW)
-relative.addView(button,params)
-}
-*/
-
-    /*
-    private fun getAllCalendarsDataFromFirebase(username: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("calendars")
-
-        myRef.orderByChild(username).equalTo(username)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val calendarList = mutableListOf<Calendar>()
-
-                for (calendarSnapshot in snapshot.children) {
-                    val calendarData = calendarSnapshot.getValue(Calendar::class.java)
-                    calendarData?.let {
-                        calendarList.add(calendarData)
-                    }
-                }
-
-                val userDao = UserDatabase.getInstance(application).dao()
-
-                for (calendar in calendarList) {
-                    if (userDao.selectCalendarbyId(calendar.id) == null) {
-
-                        var titolo_calendario = calendar.titolo
-                        var codice_ingresso = calendar.codiceIngresso
-                        var id_calendario = calendar.id
-
-                        var newCalendar = Calendar(titolo_calendario, null ,codice_ingresso)
-                        newCalendar.id=id_calendario
-                        userDao.insertCalendar(newCalendar)
-                    }
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }
-
-
-    private fun getAllAssocsDataFromFirebase(username: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("assocs")
-
-        myRef.orderByChild(username).equalTo(username)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val assocList = mutableListOf<User_Calendar_id>()
-
-                    for (assocSnapshot in snapshot.children) {
-                        val assocData = assocSnapshot.getValue(User_Calendar_id::class.java)
-                        assocData?.let {
-                            assocList.add(assocData)
-                        }
-                    }
-
-                    val userDao = UserDatabase.getInstance(application).dao()
-
-                    for (assoc in assocList) {
-                        if (userDao.selectCalendarbyId(assoc.id) == null) {
-
-                            var titolo_calendario = calendar.titolo
-                            var codice_ingresso = calendar.codiceIngresso
-                            var id_calendario = calendar.id
-
-                            var newCalendar = Calendar(titolo_calendario, null ,codice_ingresso)
-                            newCalendar.id=id_calendario
-                            userDao.insertCalendar(newCalendar)
-                        }
-
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Gestisci eventuali errori
-                    println("Errore nel recupero dei dati: ${error.message}")
-                }
-            })
-    }
-
-
-    private fun getAllEventsDataFromFirebase(username: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("events")
-
-        myRef.orderByChild(username).equalTo(username)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val eventList = mutableListOf<Event>()
-
-                    for (eventSnapshot in snapshot.children) {
-                        val eventData = eventSnapshot.getValue(Event::class.java)
-                        eventData?.let {
-                            eventList.add(eventData)
-                        }
-                    }
-
-                    val userDao = UserDatabase.getInstance(application).dao()
-
-                    for (event in eventList) {
-                        if (userDao.selectEvent(event.id) == null) {
-
-                            var titolo_evento = event.titolo
-                            var data = event.data
-                            var orario_inizio = event.orario_inizio
-                            var orario_fine =  event.orario_fine
-                            var descrizione = event.descrizione
-                            var calendar_id = event.calendar_id
-
-                            var newEvent = Event(titolo_evento, data,orario_inizio, orario_fine, descrizione, calendar_id)
-                            newEvent.id=event.id
-                            userDao.insertEvent(newEvent)
-                        }
-
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Gestisci eventuali errori
-                    println("Errore nel recupero dei dati: ${error.message}")
-                }
-            })
-    }*/
-
-    /*bene
-    private fun getAllCalendarsDataFromFirebase() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("calendars")
-
-        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val calendarList = mutableListOf<Calendar>()
-
-                for (calendarSnapshot in snapshot.children) {
-                    val calendarData = calendarSnapshot.getValue(Calendar::class.java)
-                    calendarData?.let {
-                        calendarList.add(calendarData)
-                    }
-                }
-
-                val userDao = UserDatabase.getInstance(application).dao()
-
-                for (calendar in calendarList) {
-                    if (userDao.selectCalendarbyId(calendar.id) == null) {
-                        var titolo_calendario = calendar.titolo
-                        var codice_ingresso = calendar.codiceIngresso
-                        var id = calendar.id
-
-                        var newCalendar = Calendar(titolo_calendario, null ,codice_ingresso)
-                        newCalendar.id= id
-                        userDao.insertCalendar(newCalendar)
-                    }
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
 
     //nuova
 /////////////
@@ -494,102 +244,7 @@ relative.addView(button,params)
                 println("Errore nel recupero dei dati: ${error.message}")
             }
         })
-    }/*
-
-    private fun getCalendarsByCalendarIdFromFirebase(calendarId: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("calendars")
-
-        val userDao = UserDatabase.getInstance(application).dao()
-
-        // Passo 1: Ottieni gli ID dei calendari esistenti nel Room Database
-        val existingCalendarIds = userDao.selectCalendarIds()
-
-        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val calendarList = mutableListOf<Calendar>()
-
-                for (calendarSnapshot in snapshot.children) {
-                    val calendarData = calendarSnapshot.getValue(Calendar::class.java)
-
-                    calendarData?.let { calendar ->
-                        if (calendar.id.toString() == calendarId) {
-                            calendarList.add(calendar)
-                        }
-                    }
-                }
-
-                // Passo 2: Elimina i calendari non presenti su Firebase dal Room Database
-                val calendarsToDelete = userDao.selectCalendarsNotInList(calendarList.map { it.id })
-                userDao.deleteCalendars(calendarsToDelete)
-
-                // Passo 3: Aggiorna o inserisci i calendari nel Room Database
-                for (calendar in calendarList) {
-                    if (userDao.selectCalendarbyId(calendar.id) == null) {
-                        val newCalendar = Calendar(calendar.titolo, null, calendar.codiceIngresso)
-                        newCalendar.id = calendar.id
-                        userDao.insertCalendar(newCalendar)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
-    /*old
-    private fun getAllEventsDataFromFirebase() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("events")
-
-        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val eventList = mutableListOf<Event>()
-
-                for (eventSnapshot in snapshot.children) {
-                    val eventData = eventSnapshot.getValue(Event::class.java)
-                    eventData?.let {
-                        eventList.add(eventData)
-                    }
-                }
-
-                val userDao = UserDatabase.getInstance(application).dao()
-
-                for (event in eventList) {
-                    if (userDao.selectEvent(event.id) == null) {
-
-                        var titolo_evento = event.titolo
-                        var data = event.data
-                        var orario_inizio = event.orario_inizio
-                        var orario_fine = event.orario_fine
-                        var descrizione = event.descrizione
-                        var calendar_id = event.calendar_id
-                        var id_evento = event.id
-
-                        var newEvent = Event(
-                            titolo_evento,
-                            data,
-                            orario_inizio,
-                            orario_fine,
-                            descrizione,
-                            calendar_id
-                        )
-                        newEvent.id = id_evento
-                        userDao.insertEvent(newEvent)
-
-                    }
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
+    }
 
     //new
     ////////////////
@@ -642,103 +297,7 @@ relative.addView(button,params)
             }
         })
     }
-/*
 
-    private fun getEventsByCalendarIdFromFirebase(calendarId: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("events")
-
-        val userDao = UserDatabase.getInstance(application).dao()
-
-        // Passo 1: Ottieni gli ID degli eventi esistenti nel Room Database per il calendario specifico
-        val existingEventIds = userDao.selectEventIdsByCalendarId(calendarId)
-
-        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val eventList = mutableListOf<Event>()
-
-                for (eventSnapshot in snapshot.children) {
-                    val eventData = eventSnapshot.getValue(Event::class.java)
-
-                    eventData?.let { event ->
-                        if (event.calendar_id.toString() == calendarId) {
-                            eventList.add(event)
-                        }
-                    }
-                }
-
-                // Passo 2: Elimina gli eventi non presenti su Firebase dal Room Database
-                val eventsToDelete = userDao.selectEventsNotInList(calendarId, eventList.map { it.id })
-                userDao.deleteEvents(eventsToDelete)
-
-                // Passo 3: Aggiorna o inserisci gli eventi nel Room Database
-                for (event in eventList) {
-                    if (userDao.selectEvent(event.id) == null) {
-                        val newEvent = Event(
-                            event.titolo,
-                            event.data,
-                            event.orario_inizio,
-                            event.orario_fine,
-                            event.descrizione,
-                            event.calendar_id
-                        )
-                        newEvent.id = event.id
-                        userDao.insertEvent(newEvent)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }
-*/
-
-    /*vabene
-    private fun getAllAssocsDataFromFirebase() {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("assocs")
-
-        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val assocList = mutableListOf<User_Calendar_id>()
-
-                for (assocSnapshot in snapshot.children) {
-                    val assocData = assocSnapshot.getValue(User_Calendar_id::class.java)
-                    assocData?.let {
-                        assocList.add(assocData)
-                    }
-                }
-
-                val userDao = UserDatabase.getInstance(application).dao()
-
-                for (assoc in assocList) {
-                    if (userDao.selectUserCalendarbyID(assoc.id) == null) {
-
-                        var usernameAssoc = assoc.username
-                        var id_calendarAssoc = assoc.calendar_id
-                        var livello = assoc.livello
-                        var id_assoc = assoc.id
-
-                        var newAssoc = User_Calendar_id(usernameAssoc, id_calendarAssoc, livello)
-
-                        newAssoc.id = id_assoc
-                        userDao.insertUserCalendarId(newAssoc)
-
-                    }
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }
-*/
     //new
     ////////////
 
@@ -780,48 +339,7 @@ relative.addView(button,params)
             }
         })
     }
-    /*
 
-    private fun getAssocDataFromFirebase(username: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("assocs")
-
-        val userDao = UserDatabase.getInstance(application).dao()
-
-        myRef.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val assocList = mutableListOf<User_Calendar_id>()
-
-                for (assocSnapshot in snapshot.children) {
-                    val assocData = assocSnapshot.getValue(User_Calendar_id::class.java)
-                    assocData?.let {
-                        assocList.add(assocData)
-                    }
-                }
-
-                // Passo 1: Ottieni gli ID delle associazioni esistenti nel Room Database
-                val existingIds = userDao.selectUserCalendarIdsByUsername(username)
-
-                // Passo 2: Elimina le associazioni non presenti su Firebase dal Room Database
-                val associationsToDelete = userDao.selectAssociationsNotInList(username, assocList.map { it.id })
-                userDao.deleteUserCalendarIds(associationsToDelete)
-
-                // Passo 3: Aggiorna o inserisci le associazioni nel Room Database
-                for (assoc in assocList) {
-                    if (userDao.selectUserCalendarbyID(assoc.id) == null) {
-                        val newAssoc = User_Calendar_id(assoc.username, assoc.calendar_id, assoc.livello)
-                        newAssoc.id = assoc.id
-                        userDao.insertUserCalendarId(newAssoc)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
 
     private fun deleteCalendarById(query: Query) {
 

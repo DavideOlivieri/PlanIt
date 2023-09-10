@@ -88,9 +88,7 @@ class Info_Calendar : AppCompatActivity() {
                         } else {
                             userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user, id))
                             deleteAssocById(id.toDouble(), user)
-                            /*val ref = database.getReference("assocs")
-                            ref.child(userDao.selectUserCalendar(username, id).id.toString())
-                                .removeValue()*/
+
                             Toast.makeText(
                                 this,
                                 "Hai eliminato l'utente: " + user,
@@ -105,19 +103,6 @@ class Info_Calendar : AppCompatActivity() {
             true
         }
 
-
-
-        /*
-        val calendarId = "il_tuo_calendar_id"
-        getUsernamesByCalendarId(calendarId) { usernames ->
-            // Ora hai accesso alla lista di nomi utente associati al calendario specificato
-            for (username in usernames) {
-                // Fai qualcosa con ciascun nome utente
-                val button = addButton(username)
-                button.setTag(username)
-                button.setOnLongClickListener(cancella)
-            }
-        }*/
 
 
 
@@ -185,69 +170,7 @@ class Info_Calendar : AppCompatActivity() {
     }
 
 
-/*
-    private fun getUsernamesByCalendarId(calendarId: String) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("assocs")
 
-        myRef.orderByChild("calendar_id").equalTo(calendarId).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val assocList = mutableListOf<User_Calendar_id>()
-
-                for (assocSnapshot in snapshot.children) {
-                    val assocData = assocSnapshot.getValue(User_Calendar_id::class.java)
-                    assocData?.let {
-                        assocList.add(assocData)
-                    }
-                }
-
-                val userDao = UserDatabase.getInstance(application).dao()
-
-                for (assoc in assocList) {
-                    if (userDao.selectUserCalendarbyID(assoc.id) == null) {
-                        val newAssoc = User_Calendar_id(assoc.username, assoc.calendar_id, assoc.livello)
-                        newAssoc.id = assoc.id
-                        userDao.insertUserCalendarId(newAssoc)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Gestisci eventuali errori
-                println("Errore nel recupero dei dati: ${error.message}")
-            }
-        })
-    }*/
-
-    //test
-    /*
-    private fun getUsernamesByCalendarId(calendarId: String, onComplete: (List<String>) -> Unit) {
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.reference.child("assocs")
-
-        val usernames = mutableListOf<String>()
-
-        myRef.orderByChild("calendar_id").equalTo(calendarId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (assocSnapshot in snapshot.children) {
-                        val assocData = assocSnapshot.getValue(User_Calendar_id::class.java)
-                        assocData?.let {
-                            assocData.username?.let { username ->
-                                usernames.add(username)
-                            }
-                        }
-                    }
-
-                    onComplete(usernames)
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Gestisci eventuali errori
-                    println("Errore nel recupero dei dati: ${error.message}")
-                }
-            })
-    }*/
 
     private fun deleteAssocById(long: Double, username: String?) {
 
