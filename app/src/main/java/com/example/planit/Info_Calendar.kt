@@ -87,9 +87,10 @@ class Info_Calendar : AppCompatActivity() {
                             ).show()
                         } else {
                             userDao.deleteUserFromCalendar(userDao.selectUserCalendar(user, id))
-                            val ref = database.getReference("assocs")
+                            deleteAssocById(id.toDouble(), user)
+                            /*val ref = database.getReference("assocs")
                             ref.child(userDao.selectUserCalendar(username, id).id.toString())
-                                .removeValue()
+                                .removeValue()*/
                             Toast.makeText(
                                 this,
                                 "Hai eliminato l'utente: " + user,
@@ -247,5 +248,36 @@ class Info_Calendar : AppCompatActivity() {
                 }
             })
     }*/
+
+    private fun deleteAssocById(long: Double, username: String?) {
+
+
+        val database1 = FirebaseDatabase.getInstance()
+        val myRef1 = database1.reference.child("assocs")
+        // Eseguire la query per trovare il calendario con il titolo specificato
+        val query = myRef1.orderByChild("calendar_id").equalTo(long)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (assocSnapshot in snapshot.children) {
+                    val user = assocSnapshot.child("username").getValue(String::class.java)
+                    if (user == username) {
+                        assocSnapshot.ref.removeValue()
+                            .addOnSuccessListener {
+                                println("Evento eliminato con successo.")
+                            }
+                            .addOnFailureListener { exception ->
+                                println("Errore nell'eliminazione dell'evento: ${exception.message}")
+                            }
+                    }
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Gestire eventuali errori
+                println("Errore nella query: ${error.message}")
+            }
+        })
+    }
 }
 
