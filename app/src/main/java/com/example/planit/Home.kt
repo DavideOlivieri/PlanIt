@@ -475,7 +475,10 @@ relative.addView(button,params)
                 val userDao = UserDatabase.getInstance(application).dao()
 
                 val calendarsToDelete = userDao.selectCalendarsNotInList(calendarId, calendarList.map { it.id })
-                userDao.deleteCalendars(calendarsToDelete)
+                for(calendar in calendarsToDelete){
+                    userDao.deleteCalendar(calendar)
+                }
+                //userDao.deleteCalendars(calendarsToDelete)
 
                 for (calendar in calendarList) {
                     if (userDao.selectCalendarbyId(calendar.id) == null) {
@@ -612,7 +615,10 @@ relative.addView(button,params)
                 val userDao = UserDatabase.getInstance(application).dao()
 
                 val eventsToDelete = userDao.selectEventsNotInList(calendarId, eventList.map { it.id })
-                userDao.deleteEvents(eventsToDelete)
+                for(event in eventsToDelete){
+                    userDao.deleteEvent(event)
+                }
+                //userDao.deleteEvents(eventsToDelete)
 
                 for (event in eventList) {
                     if (userDao.selectEvent(event.id) == null) {
@@ -754,7 +760,10 @@ relative.addView(button,params)
                 val userDao = UserDatabase.getInstance(application).dao()
 
                 val associationsToDelete = userDao.selectAssociationsNotInList(username, assocList.map { it.id })
-                userDao.deleteUserCalendarIds(associationsToDelete)
+                for(assoc in associationsToDelete){
+                    userDao.deleteUserFromCalendar(assoc)
+                }
+                //userDao.deleteUserCalendarIds(associationsToDelete)
 
                 for (assoc in assocList) {
                     if (userDao.selectUserCalendarbyID(assoc.id) == null) {

@@ -124,7 +124,7 @@ class AddCalendar : AppCompatActivity() {
         calendario_esistente.setOnClickListener {
             val edit = findViewById<EditText>(com.example.calendario.R.id.editText_esistente)
             val codice_calendario = edit.text.toString()
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, CalendarAdded::class.java)
 
             if (codice_calendario.isNotEmpty()) {
                 if (userDao.selectIdbyCodice(codice_calendario) != null) {

@@ -51,6 +51,10 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:name="com.example.planit.CalendarAdded"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name="com.example.planit.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
